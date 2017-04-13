@@ -10,6 +10,7 @@ import {
 
 import {
   ProfileCard,
+  TopPosts,
 } from './components';
 
 // css
@@ -43,10 +44,12 @@ const Home = () =>
         </section>
       </Col>
       <Col xs={4} md={3}>
-        <section className="module top-post-section" />
+        <section className="module top-post-section">
+          <TopPosts />
+        </section>
       </Col>
       <Col xs={4} md={3} mdPush={3}>
-        <section className="module top-authors-section" />
+        <section className="module about-section" />
       </Col>
     </Row>
   </Grid>;
