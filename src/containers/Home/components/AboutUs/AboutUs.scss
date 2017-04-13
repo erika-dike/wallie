@@ -1,0 +1,15 @@
+@import '../../../../shared.scss';
+
+.AboutUs {
+    background-color: #fff;
+}
+
+.AboutUs-title {
+    @include section-title();
+}
+
+.flex-module {
+    border-radius: 5px;
+    color: #657786;
+    font-size: 12px;
+}

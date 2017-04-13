@@ -1,14 +1,79 @@
+@import '../../../../shared.scss';
+
 .TopPosts {
     background-color: #fff;
     background-clip: inherit;
     border: 1px solid #e6ecf0;
     border-radius: 5px;
     line-height: inherit;
-    padding: 15px;
+    padding: 0;
+
+    ul {
+        margin: 0;
+        list-style: none;
+        padding: 0;
+        text-align: left;
+    }
+
+    ol {
+        @extends ul;
+    }
 
     .list-group-item {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    .TopPosts-item {
+        font-size: 13px;
+        line-height: 13px;
+        margin-bottom: 7px;
+        word-wrap: break-word;
+
+        .TopPosts-content {
+            font-weight: bold;
+        }
+    }
+
+    .context-TopPosts-item {
+        line-height: 17px;
+        margin-bottom: 10px;
+
+        .TopPosts-item-context {
+            color: #14171a;
+            max-height: 34px;
+            overflow: hidden;
+            font-weight: normal;
+        }
+
+        .TopPosts-item-stats {
+            color: #657786;
+            max-height: 34px;
+            overflow: hidden;
+            font-weight: normal;
+        }
+
+        .TopPosts-name {
+            font-weight: bold;
+        }
+    }
+}
+
+.flex-module-header {
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.TopPosts-title {
+    @include section-title();
+}
+
+.flex-module-inner {
+    color: #657786;
+    font-size: 12px;
+}
+
+.TopPosts-list {
+    margin-top: -4px;
 }

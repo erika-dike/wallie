@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 
 import {
+  AboutUs,
   ProfileCard,
   TopPosts,
 } from './components';
@@ -48,8 +49,10 @@ const Home = () =>
           <TopPosts />
         </section>
       </Col>
-      <Col xs={4} md={3} mdPush={3}>
-        <section className="module about-section" />
+      <Col xs={4} md={3}>
+        <section className="module about-section">
+          <AboutUs />
+        </section>
       </Col>
     </Row>
   </Grid>;

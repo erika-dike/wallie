@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-  ListGroup,
-  ListGroupItem,
-  Panel,
-} from 'react-bootstrap';
 
 import './TopPosts.css';
 
@@ -11,19 +6,26 @@ import './TopPosts.css';
 const TopPosts = () =>
   <div className="TopPosts">
     <div className="TopPosts-inner">
-      <Panel collapsible defaultExpanded header="Top Posts" bsStyle="primary">
-        <ListGroup fill>
-          <ListGroupItem>
-            Wow, I love this site. It reminds me of my time in the gulf of guinea. Good times I tell ya.
-          </ListGroupItem>
-          <ListGroupItem>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis dolor, adipisci beatae cum obcaecati atque cumque, officiis, iste at, labore libero. Ex id quam delectus sunt nihil, laborum facere tenetur?
-          </ListGroupItem>
-          <ListGroupItem>
-            &hellip;
-          </ListGroupItem>
-        </ListGroup>
-      </Panel>
+      <div className="flex-module TopPosts-container context-TopPosts-container">
+        <div className="flex-module-header">
+          <h3><span className="TopPosts-title">Top Posts</span></h3>
+        </div>
+        <div className="flex-module-inner">
+          <ul className="TopPosts-items">
+            <li className="TopPosts-item context-TopPosts-item">
+              <a className="u-link-complex" href="#">
+                <span className="u-link-complex-target TopPosts-name" dir="ltr">
+                  Welcome to the game man. You are here. A toast
+                </span>
+                <div className="TopPosts-item-context" />
+                <div className="TopPosts-item-stats">
+                  45 loves
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>;
 

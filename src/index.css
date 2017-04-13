@@ -1,6 +1,10 @@
 body {
   margin: 0;
-  font-family: sans-serif; }
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-color: #f5f8fa;
+  font-size: 14px;
+  line-height: 18px;
+  overflow-y: scroll; }
 
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus {

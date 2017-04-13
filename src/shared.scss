@@ -1,2 +1,9 @@
 $primary-color: #1b95e0;
 $lighter-primary-color: #1DA1F2;
+
+
+@mixin section-title() {
+    color: #66757f;
+    font-size: 18px;
+    font-weight: 300;
+}

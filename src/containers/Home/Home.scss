@@ -4,15 +4,20 @@
 }
 
 .module {
-    max-height: 300px;
     background-clip: padding-box;
     border: 0;
     border-radius: 6px;
     line-height: 16px;
     position: relative;
     margin-bottom: 10px;
-    height: 100px;
-    border: 1px solid red;
+    min-height: 100px;
+
+    .flex-module {
+        background-color: #fff;
+        border: 1px solid #e6ecf0;
+        padding: 15px;
+        line-height: 16px;
+    }
 }
 
 .account-group {
