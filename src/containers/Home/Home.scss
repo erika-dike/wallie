@@ -1,0 +1,27 @@
+.message-section {
+    min-height: 800px;
+    border: 1px solid blue;
+}
+
+.module {
+    max-height: 300px;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 6px;
+    line-height: 16px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.account-group {
+    .user-badges {
+        font-size: .9em;
+        position: relative;
+        top: 1px;
+    }
+
+    .username {
+        font-size: 14px;
+        color: #657786;
+    }
+}
