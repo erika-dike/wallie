@@ -1,0 +1,98 @@
+@import '../../shared.scss';
+
+body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+
+.Avatar {
+    display: block;
+    border-radius: 3px;
+}
+
+.Avatar--circle {
+    border-radius: 50%;
+}
+
+.Avatar--size32 {
+    height: 32px;
+    width: 32px;
+}
+
+img {
+    border: 0;
+}
+
+.account-summary {
+    min-height: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+
+    .content {
+        padding-right: 15px;
+        margin-top: 1px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+.account-group,
+.account-summary {
+    display: block;
+    line-height: 16px;
+}
+
+.fullname {
+    color: #14171a;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.metadata {
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.right-actions {
+    margin-right: 15px;
+
+    .caret {
+        display: none;
+    }
+
+    .dropdown-toggle {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        padding: 0;
+        margin-top: 8px;
+    }
+}
+
+@mixin nav-item-highlight() {
+    color: $primary-color;
+    border-bottom: 3px solid $primary-color;
+    transition: border-bottom 0.1s;
+}
+
+.navbar-default {
+    .navbar-brand {
+        &:hover {
+            @include nav-item-highlight();
+        }
+    }
+
+    .navbar-nav {
+        li {
+            a {
+                &:hover {
+                    @include nav-item-highlight();
+                }
+            }
+        }
+    }
+}
