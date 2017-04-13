@@ -3,17 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "node-sass": "^4.5.2",
+    "npm-run-all": "^4.0.2",
     "react-scripts": "0.9.5"
   },
   "dependencies": {
+    "prop-types": "^15.5.7",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.30.8",
     "react-dom": "^15.5.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint src --cache",
+    "lint:watch": "watch 'npm run lint'"
   },
   "eslintConfig": {
     "extends": "react-app"
