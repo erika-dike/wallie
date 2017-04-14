@@ -2,14 +2,12 @@ import React from 'react';
 import {
   Col,
   Grid,
-  ListGroup,
-  ListGroupItem,
   Row,
-  Well,
 } from 'react-bootstrap';
 
 import {
   AboutUs,
+  Posts,
   ProfileCard,
   TopPosts,
 } from './components';
@@ -22,22 +20,7 @@ const Home = () =>
   <Grid>
     <Row className="show-grid">
       <Col xs={8} md={6} mdPush={3}>
-        <section className="message-section">
-          <ListGroup>
-            <ListGroupItem>
-              <Well>I am in a Well man</Well>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Well>I am in a Well man</Well>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Well>I am in a Well man</Well>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Well>I am in a Well man</Well>
-            </ListGroupItem>
-          </ListGroup>
-        </section>
+        <Posts />
       </Col>
       <Col xs={4} md={3} mdPull={6}>
         <section className="module profile-section">

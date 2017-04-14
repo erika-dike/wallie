@@ -15,7 +15,9 @@ const stuff = (
     <div
       className="ProfileCard-avatar-image u-border-user-color-light-hover u-bg-user-color"
     >
-      <i className="fa fa-camera Icon Icon--extra-large" aria-hidden="true" />
+      <span className="Icon Icon--extra-large">
+        <i className="fa fa-camera" aria-hidden="true" />
+      </span>
     </div>
     <img
       className="ProfileCard-avatar-image js-action-profile-avatar"

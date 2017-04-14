@@ -15,8 +15,7 @@ body {
 }
 
 .Avatar--size32 {
-    height: 32px;
-    width: 32px;
+    @include square(32px);
 }
 
 img {
