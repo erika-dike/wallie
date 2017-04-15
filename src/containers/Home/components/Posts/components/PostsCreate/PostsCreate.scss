@@ -71,6 +71,10 @@
     input[type='text'] {
         color: #1b95e0;
     }
+
+    .form-control[readonly] {
+        background-color: #fff;
+    }
 }
 
 .rich-editor-container {

@@ -58,7 +58,7 @@ class PostsCreate extends React.Component {
 
     const inActiveFormInput = (
       <FormGroup controlId="formBasicText" onFocus={this.handleFocusOnInactiveFormInput}>
-        <FormControl type="text" value={this.defaultMessage} />
+        <FormControl type="text" value={this.defaultMessage} readOnly />
       </FormGroup>
     );
 
