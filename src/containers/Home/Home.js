@@ -17,7 +17,7 @@ import './Home.css';
 
 
 const Home = () =>
-  <Grid>
+  <Grid fluid>
     <Row className="show-grid">
       <Col xs={8} md={6} mdPush={3}>
         <Posts />

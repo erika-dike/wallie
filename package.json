@@ -16,7 +16,8 @@
     "prop-types": "^15.5.7",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.8",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1"
   },
   "scripts": {
     "build-css": "node-sass src/ -o src/",

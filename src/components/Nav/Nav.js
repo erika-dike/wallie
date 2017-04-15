@@ -6,6 +6,7 @@ import {
   Navbar,
   NavItem,
 } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 // css
 import './Nav.css';
@@ -38,18 +39,20 @@ const profileAndSettingsDropdown = (
 
 const signUpAndLoginMenus = (
   <Nav pullRight>
-    <NavItem eventKey={1} href="#">Sign up</NavItem>
+    <NavItem eventKey={1} href="#">
+      <NavLink to="/signup" activeClassName="selected">Sign up</NavLink>
+    </NavItem>
     <NavItem eventKey={2} href="#">Log in</NavItem>
   </Nav>
 );
 
-const isAuthenticated = true;
+const isAuthenticated = false;
 
 const CustomNav = () =>
   <Navbar collapseOnSelect fixedTop fluid>
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#">Wallie</a>
+        <NavLink to="/">Wallie</NavLink>
       </Navbar.Brand>
     </Navbar.Header>
     <Navbar.Collapse>
