@@ -4,10 +4,10 @@ import {
   Button,
   Col,
   Grid,
-  FormControl,
-  FormGroup,
   Row,
 } from 'react-bootstrap';
+
+import { FieldGroup } from '../../components';
 
 import './SignUp.css';
 
@@ -19,13 +19,6 @@ const alertInstance = (
   </Alert>
 );
 
-function FieldGroup({ placeholder }) {
-  return (
-    <FormGroup bsSize="large">
-      <FormControl type="text" placeholder={placeholder} />
-    </FormGroup>
-  );
-}
 
 const SignUp = () =>
   <Grid>
@@ -38,12 +31,14 @@ const SignUp = () =>
 
         <div className="signup-wrapper">
           <h1>Start Walling today</h1>
-          <form>
-            <FieldGroup placeholder="Full name" />
-            <FieldGroup placeholder="Email" />
-            <FieldGroup placeholder="Password" />
-            <FieldGroup placeholder="Re-enter Password" />
-            <Button bsStyle="info" bsSize="large" block>
+          <form className="signup-form">
+            <FieldGroup size="large" type="text" placeholder="First Name" autoFocus />
+            <FieldGroup size="large" type="text" placeholder="Last Name" />
+            <FieldGroup size="large" type="text" placeholder="Username" />
+            <FieldGroup size="large" type="email" placeholder="Email" />
+            <FieldGroup size="large" type="password" placeholder="Password" />
+            <FieldGroup size="large" type="password" placeholder="Re-enter Password" />
+            <Button bsStyle="info" bsSize="large" type="submit" block>
               Sign up
             </Button>
           </form>
