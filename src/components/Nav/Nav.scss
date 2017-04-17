@@ -66,16 +66,10 @@ img {
     }
 }
 
-@mixin nav-item-highlight() {
-    color: $primary-color;
-    border-bottom: 3px solid $primary-color;
-    transition: border-bottom 0.1s;
-}
-
 .navbar-default {
     .navbar-brand {
         &:hover {
-            @include nav-item-highlight();
+            @extend .selected;
         }
     }
 
@@ -83,7 +77,7 @@ img {
         li {
             a {
                 &:hover {
-                    @include nav-item-highlight();
+                    @extend .selected;
                 }
             }
         }

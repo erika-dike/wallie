@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // local components
 import { Nav } from './../../components/';
-import { Home, SignUp } from '../';
+import { Home, SignUp, Profile } from '../';
 
 // static files
 import './App.css';
@@ -14,7 +14,8 @@ const App = () =>
     <div className="App">
       <Nav />
       <Route exact path="/" component={Home} />
-      <Route path="/signup" component={SignUp} />
+      <Route exact path="/signup" component={SignUp} />
+      <Route path="/:username" component={Profile} />
     </div>
   </Router>;
 

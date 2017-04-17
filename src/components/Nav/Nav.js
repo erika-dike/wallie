@@ -13,6 +13,7 @@ import { LinkWithNavItem, LoginNavItem } from './components';
 // css
 import './Nav.css';
 
+const username = 'rikkydyke';
 
 const img = (
   <img
@@ -22,7 +23,15 @@ const img = (
   />
 );
 
-const profileAndSettingsDropdown = (
+const profileNavItem = (
+  <Nav>
+    <LinkWithNavItem to="">
+      <NavItem eventKey={1} href={`/${username}`}>Profile</NavItem>
+    </LinkWithNavItem>
+  </Nav>
+);
+
+const authenticatedViewMenu = (
   <Nav bsStyle="pills" pullRight>
     <NavDropdown eventKey={1} title={img} href="#" className="right-actions" id="profile-and-settings-dropdown">
       <MenuItem eventKey={1.1} className="account-summary">
@@ -42,23 +51,24 @@ const profileAndSettingsDropdown = (
 const signUpAndLoginMenus = (
   <Nav pullRight>
     <LinkWithNavItem to="signup">
-      <NavItem eventKey={1}>Sign up</NavItem>
+      <NavItem eventKey={1} href="/signup">Sign up</NavItem>
     </LinkWithNavItem>
     <LoginNavItem eventKey={2} href="/login" />
   </Nav>
 );
 
-const isAuthenticated = false;
+const isAuthenticated = true;
 
 const CustomNav = () =>
   <Navbar collapseOnSelect fixedTop>
     <Navbar.Header>
       <Navbar.Brand>
-        <NavLink to="/">Wallie</NavLink>
+        <NavLink exact to="/" activeClassName="selected">Wallie</NavLink>
       </Navbar.Brand>
+      <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      {isAuthenticated ? profileAndSettingsDropdown : signUpAndLoginMenus}
+      {isAuthenticated ? authenticatedViewMenu : signUpAndLoginMenus}
     </Navbar.Collapse>
   </Navbar>;
 

@@ -10,7 +10,7 @@ import {
   Posts,
   ProfileCard,
   TopPosts,
-} from './components';
+} from '../../components';
 
 // css
 import './Home.css';

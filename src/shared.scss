@@ -14,3 +14,13 @@ $primary-border-radius: 6px;
     height: $size;
     width: $size;
 }
+
+.selected {
+    color: #1b95e0;
+    border-bottom: 3px solid #1b95e0;
+    transition: border-bottom 0.1s;
+}
+
+.u-box-shadow {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+}
