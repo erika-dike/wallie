@@ -12,6 +12,7 @@ import './App.css';
 const App = () =>
   <Router>
     <div className="App">
+      <div id="body-overlay" />
       <Nav />
       <Route exact path="/" component={Home} />
       <Route exact path="/signup" component={SignUp} />

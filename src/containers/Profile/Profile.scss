@@ -34,12 +34,12 @@
 }
 
 .Profile-second-banner-container {
-    .btn-default {
+    .btn {
         background-image: none;
     }
 }
 
-.Profile-edit-profile-btn-container {
+.Profile-edit-profile-menu {
     position: relative;
     height: 60px;
 }
@@ -73,6 +73,10 @@
 
     .ProfileCard-user-fields {
         position: inherit;
+    }
+
+    .edit-profile-form {
+        margin-bottom: 5px;
     }
 }
 

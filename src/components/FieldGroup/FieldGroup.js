@@ -11,7 +11,7 @@ const FieldGroup = ({ size, type, placeholder, ...props }) =>
   </FormGroup>;
 
 FieldGroup.defaultProps = {
-  size: 'normal',
+  size: null,
 };
 
 FieldGroup.propTypes = {

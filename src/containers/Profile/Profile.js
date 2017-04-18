@@ -12,15 +12,44 @@ import {
 import {
   AboutUs,
   AvatarContainer,
+  EditMenu,
+  EditProfile,
   Posts,
   TopPosts,
-  UserFields,
+  ProfileUserFields,
 } from '../../components/';
 
 import './Profile.css';
 
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showEditView: false,
+    };
+    this.toggleEditView = this.toggleEditView.bind(this);
+  }
+
+  componentDidUpdate() {
+    const overlayElem = document.getElementById('body-overlay');
+    const editProfileMenu = document.getElementById('edit-profile-menu');
+    const profileUserField = document.getElementById('profile-user-field');
+    if (this.state.showEditView) {
+      overlayElem.classList.add('overlay');
+      editProfileMenu.classList.add('spotlight');
+      profileUserField.classList.add('spotlight');
+    } else {
+      overlayElem.classList.remove('overlay');
+      editProfileMenu.classList.remove('spotlight');
+      profileUserField.classList.remove('spotlight');
+    }
+  }
+
+  toggleEditView() {
+    this.setState({ showEditView: !this.state.showEditView });
+  }
+
   render() {
     return (
       <div className="Profile">
@@ -41,10 +70,11 @@ class Profile extends React.Component {
           <Grid>
             <Row className="Profile-second-banner-container">
               <Col xs={2} md={3}>
-                <div className="Profile-edit-profile-btn-container">
-                  <ButtonToolbar className="Profile-edit-profile-btn">
-                    <Button>Edit Profile</Button>
-                  </ButtonToolbar>
+                <div id="edit-profile-menu" className="Profile-edit-profile-menu">
+                  <EditMenu
+                    callBackParent={this.toggleEditView}
+                    showEditView={this.state.showEditView}
+                  />
                 </div>
               </Col>
               <Col xs={8} md={6}>
@@ -64,16 +94,8 @@ class Profile extends React.Component {
               <Posts />
             </Col>
             <Col xs={4} md={3} mdPush={3}>
-              <div className="Profile-user-fields">
-                <UserFields />
-                <div className="Profile-join-date">
-                  <span className="Icon">
-                    <i className="fa fa-calendar" aria-hidden="true" />
-                  </span>
-                  <span className="Profile-join-date-text u-dir">
-                    Joined 6th September 2017
-                  </span>
-                </div>
+              <div id="profile-user-field" className="Profile-user-fields">
+                {this.state.showEditView ? <EditProfile /> : <ProfileUserFields />}
               </div>
             </Col>
             <Col xs={4} md={3} mdPull={9}>
@@ -81,13 +103,13 @@ class Profile extends React.Component {
                 <TopPosts />
               </section>
             </Col>
-            <Col xs={4} md={3} mdPush={3}>
+            <Col xs={4} md={3} mdPull={6}>
               <section className="module about-section">
                 <AboutUs />
               </section>
             </Col>
           </Row>
-        </Grid>;
+        </Grid>
       </div>
     );
   }
