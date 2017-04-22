@@ -4,6 +4,11 @@
     text-align: center;
 }
 
+.overlay-container {
+  position: relative;
+  min-height: 100%;
+}
+
 .overlay {
   position: absolute;
   left: 0;
@@ -27,4 +32,8 @@ form {
     .btn {
         background-image: none;
     }
+}
+
+.u-captalize {
+  text-transform: capitalize;
 }

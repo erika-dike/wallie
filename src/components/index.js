@@ -3,6 +3,7 @@ export { default as AvatarContainer } from './AvatarContainer/AvatarContainer';
 export { default as EditMenu } from './EditMenu/EditMenu';
 export { default as EditProfile } from './EditProfile/EditProfile';
 export { default as FieldGroup } from './FieldGroup/FieldGroup';
+export { default as MessageAlert } from './MessageAlert/MessageAlert';
 export { default as Nav } from './Nav/Nav';
 export { default as Posts } from './Posts/Posts';
 export { default as ProfileCard } from './ProfileCard/ProfileCard';

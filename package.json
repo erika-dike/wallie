@@ -8,16 +8,25 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "jest-enzyme": "2.x",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "redux-devtools": "^3.3.2",
+    "redux-mock-store": "^1.2.3"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "enzyme": "^2.8.2",
     "prop-types": "^15.5.7",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.1"
+    "react-redux": "^5.0.4",
+    "react-router-dom": "^4.1.1",
+    "react-test-renderer": "^15.5.4",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "build-css": "node-sass src/ -o src/",

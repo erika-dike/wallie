@@ -1,7 +1,7 @@
 .signup-wrapper {
     margin: 0 auto;
     min-height: 0;
-    padding-top: 86px;
+    padding-top: 40px;
 
     h1 {
         font-size: 27px;
@@ -14,4 +14,23 @@
     .form-control {
         background-color: transparent;
     }
+
+    .signup-loader {
+        margin-top: 8px;
+        margin-left: -11px;
+        color: #fff;
+    }
+}
+
+@keyframes shake {
+    0% {left: 0;}
+    25% {left: -15px;}
+    50% {left: 0;}
+    75% {left: 15px;}
+    100% {left: 0;}
+}
+
+.element-shake {
+    position: relative;
+    animation: shake 290ms 4 linear;
 }

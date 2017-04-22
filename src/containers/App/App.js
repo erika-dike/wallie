@@ -16,7 +16,7 @@ const App = () =>
       <Nav />
       <Route exact path="/" component={Home} />
       <Route exact path="/signup" component={SignUp} />
-      <Route path="/:username" component={Profile} />
+      <Route path="/profile/:username" component={Profile} />
     </div>
   </Router>;
 

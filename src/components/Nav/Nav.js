@@ -23,14 +23,6 @@ const img = (
   />
 );
 
-const profileNavItem = (
-  <Nav>
-    <LinkWithNavItem to="">
-      <NavItem eventKey={1} href={`/${username}`}>Profile</NavItem>
-    </LinkWithNavItem>
-  </Nav>
-);
-
 const authenticatedViewMenu = (
   <Nav bsStyle="pills" pullRight>
     <NavDropdown eventKey={1} title={img} href="#" className="right-actions" id="profile-and-settings-dropdown">
