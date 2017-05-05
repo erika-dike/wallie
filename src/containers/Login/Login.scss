@@ -1,4 +1,4 @@
-.signup-wrapper {
+.login-wrapper {
     margin: 0 auto;
     min-height: 0;
     padding-top: 40px;
@@ -14,17 +14,4 @@
     .form-control {
         background-color: transparent;
     }
-}
-
-@keyframes shake {
-    0% {left: 0;}
-    25% {left: -15px;}
-    50% {left: 0;}
-    75% {left: 15px;}
-    100% {left: 0;}
-}
-
-.element-shake {
-    position: relative;
-    animation: shake 290ms 4 linear;
 }

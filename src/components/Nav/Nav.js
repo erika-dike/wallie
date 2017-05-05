@@ -13,43 +13,58 @@ import { LinkWithNavItem, LoginNavItem } from './components';
 // css
 import './Nav.css';
 
-const username = 'rikkydyke';
+// There are different pull right menus for authenticated and unauthenticated
+// views.
+// Here I use the presence of a token in localStorage to detect
+// if the user is authenticated
+function renderUnauthenticatedMenu() {
+  return (
+    <Nav pullRight>
+      <LinkWithNavItem to="signup">
+        <NavItem eventKey={1} href="/signup">Sign up</NavItem>
+      </LinkWithNavItem>
+      <LoginNavItem eventKey={2} href="/login" />
+    </Nav>
+  );
+}
 
-const img = (
-  <img
-    className="Avatar Avatar--size32 Avatar--circle"
-    src="http://res.cloudinary.com/andela-troupon/image/upload/v1491232845/default_profile_normal_n8yvkf.png"
-    alt="Profile and settings"
-  />
-);
+function renderAuthenticatedMenu(profile) {
+  const img = (
+    <img
+      className="Avatar Avatar--size32 Avatar--circle"
+      src={profile.profile_pic}
+      alt="Profile and settings"
+    />
+  );
 
-const authenticatedViewMenu = (
-  <Nav bsStyle="pills" pullRight>
-    <NavDropdown eventKey={1} title={img} href="#" className="right-actions" id="profile-and-settings-dropdown">
-      <MenuItem eventKey={1.1} className="account-summary">
-        <div className="content">
-          <div className="account-group">
-            <b className="fullname">Erika Dike</b>
-            <small className="metadata">View Profile</small>
+  return (
+    <Nav bsStyle="pills" pullRight>
+      <NavDropdown eventKey={1} title={img} href="#" className="right-actions" id="profile-and-settings-dropdown">
+        <MenuItem eventKey={1.1} className="account-summary">
+          <div className="content">
+            <div className="account-group">
+              <b className="fullname">
+                {`${profile.user.first_name} ${profile.user.last_name}`}
+              </b>
+              <small className="metadata">View Profile</small>
+            </div>
           </div>
-        </div>
-      </MenuItem>
-      <MenuItem divider />
-      <MenuItem eventKey={1.1}>Log out</MenuItem>
-    </NavDropdown>
-  </Nav>
-);
+        </MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey={1.1}>Log out</MenuItem>
+      </NavDropdown>
+    </Nav>
+  );
+}
 
-const signUpAndLoginMenus = (
-  <Nav pullRight>
-    <LinkWithNavItem to="signup">
-      <NavItem eventKey={1} href="/signup">Sign up</NavItem>
-    </LinkWithNavItem>
-    <LoginNavItem eventKey={2} href="/login" />
-  </Nav>
-);
+function getPullRightMenu() {
+  if (localStorage.token) {
+    const profile = JSON.parse(localStorage.profile);
+    return renderAuthenticatedMenu(profile);
+  }
+  return renderUnauthenticatedMenu();
+}
 
-const isAuthenticated = true;
 
 const CustomNav = () =>
   <Navbar collapseOnSelect fixedTop>
@@ -60,7 +75,7 @@ const CustomNav = () =>
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      {isAuthenticated ? authenticatedViewMenu : signUpAndLoginMenus}
+      {getPullRightMenu()}
     </Navbar.Collapse>
   </Navbar>;
 

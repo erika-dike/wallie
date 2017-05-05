@@ -19,10 +19,10 @@ import {
 
 import './Profile.css';
 
-
 class Profile extends React.Component {
   constructor(props) {
     super(props);
+    debugger;
     this.state = {
       showEditView: false,
     };

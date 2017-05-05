@@ -6,24 +6,29 @@ import MessageAlert from './MessageAlert';
 
 describe('MessageAlert', () => {
   it('renders without crashing', () => {
+    const email = '';
     const props = {
-      email: '',
       errors: [],
-      registered: false,
+      successful: false,
+      successMessage: `You have successfully registered ${email}`,
+      title: 'Sign up',
     };
     const wrapper = shallow(<MessageAlert {...props} />);
     expect(wrapper).toBeDefined();
   });
 
   describe('renders successful alert with right props', () => {
+    let email;
     let props;
     let wrapper;
 
     beforeEach(() => {
+      email = 'test_user@wallie.com';
       props = {
-        email: 'message@alert.com',
         errors: [],
-        registered: true,
+        successful: true,
+        successMessage: `You have successfully registered ${email}`,
+        title: 'Sign up',
       };
       wrapper = shallow(<MessageAlert {...props} />);
     });
@@ -41,24 +46,26 @@ describe('MessageAlert', () => {
 
     test('alert body contains supplied email address', () => {
       const elem = wrapper.find(Alert);
-      expect(elem.html().toLowerCase()).toContain(props.email);
+      expect(elem.html().toLowerCase()).toContain(email);
     });
   });
 
   describe('renders error alerts with right props', () => {
+    let email;
     let props;
     let wrapper;
 
     beforeEach(() => {
       props = {
-        email: 'message@alert.com',
         errors: ['username already exists', 'password required'],
-        registered: false,
+        successful: false,
+        successMessage: `You have successfully registered ${email}`,
+        title: 'Sign up',
       };
       wrapper = shallow(<MessageAlert {...props} />);
     });
 
-    it('renders proper error tilte', () => {
+    it('renders proper error title', () => {
       const elem = wrapper.find('strong');
       expect(elem.text().toLowerCase()).toContain('sign up error');
     });

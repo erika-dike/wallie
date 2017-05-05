@@ -12,10 +12,12 @@ import {
 } from 'react-bootstrap';
 
 
-function renderAlert(errors, registered, email) {
+function renderAlert(props) {
   let messageType;
   let messageStyle;
   let message;
+  const { errors, successful, successMessage, title } = props;
+
   if (errors.length) {
     messageType = 'error';
     messageStyle = 'danger';
@@ -23,18 +25,16 @@ function renderAlert(errors, registered, email) {
       <ListGroupItem key={index} bsStyle="danger">{error}</ListGroupItem>,
     );
     message = <ListGroup>{mappedErrors}</ListGroup>;
-  } else if (registered) {
+  } else if (successful) {
     messageType = 'success';
     messageStyle = messageType;
-    message = `
-      Check your email: ${email} to activate your account.
-      Happy walling.`;
+    message = successMessage;
   }
 
   if (message) {
     return (
       <Alert bsStyle={messageStyle}>
-        <strong className="u-captalize">Sign up {messageType}!</strong>&nbsp;
+        <strong className="u-captalize">{title} {messageType}!</strong>&nbsp;
         {message}
       </Alert>
     );
@@ -42,18 +42,18 @@ function renderAlert(errors, registered, email) {
   return null;
 }
 
-const MessageAlert = ({ errors, registered, email }) =>
-  renderAlert(errors, registered, email);
+const MessageAlert = props =>
+  renderAlert(props);
 
-MessageAlert.defaultProps = {
-  email: null,
+renderAlert.defaultProps = {
   errors: null,
 };
 
-MessageAlert.propTypes = {
-  email: PropTypes.string,
+renderAlert.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string),
-  registered: PropTypes.bool.isRequired,
+  successful: PropTypes.bool.isRequired,
+  successMessage: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default MessageAlert;

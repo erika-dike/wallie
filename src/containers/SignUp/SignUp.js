@@ -34,7 +34,6 @@ class SignUp extends React.Component {
         password1: '',
         password2: '',
         about: '',
-        profile_pic: '',
       },
     };
     this.fieldValidationErrorStates = {
@@ -174,9 +173,13 @@ class SignUp extends React.Component {
 
             <div className="alert-wrapper">
               <MessageAlert
-                email={this.state.user.email}
                 errors={this.props.errors}
-                registered={this.props.registered}
+                successful={this.props.registered}
+                title="Sign up"
+                successMessage={
+                  `Check your mail: ${this.state.user.email} to activate your
+                   account. Happy walling.`
+                }
               />
             </div>
 

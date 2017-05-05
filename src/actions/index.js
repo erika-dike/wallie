@@ -1,3 +1,5 @@
-// export const API_URL = 'https://wallie-api.herokuapp.com/api';
-export const API_URL = 'http://localhost:8000/api';
+export {
+  loginUser,
+  refreshAuthState,
+} from './authActions/authActions';
 export { registerUser } from './userActions/userActions';

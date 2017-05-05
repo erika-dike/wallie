@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { HelpBlock } from 'react-bootstrap';
 
 import SignUpForm from './SignUpForm';
@@ -192,12 +192,12 @@ describe('SignUpForm', () => {
     "doesn't render loading animation when no registration request has been made",
     () => {
       const form = shallow(<SignUpForm {...props} />);
-      expect(form.find('.signup-loader')).toHaveLength(0);
+      expect(form.find('.spinner')).toHaveLength(0);
     });
     it('renders spinner animation when registration request is pending', () => {
       props.registering = true;
-      const form = shallow(<SignUpForm {...props} />);
-      expect(form.find('.signup-loader')).toHaveLength(1);
+      const form = mount(<SignUpForm {...props} />);
+      expect(form.find('.spinner')).toHaveLength(1);
     });
   });
 

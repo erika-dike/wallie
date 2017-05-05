@@ -20,7 +20,9 @@ const LinkWithNavItem = (props) => {
 LinkWithNavItem.propTypes = {
   to: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(LinkWithNavItem);

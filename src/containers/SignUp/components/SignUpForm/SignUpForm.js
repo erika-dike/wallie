@@ -3,21 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, FormControl, HelpBlock } from 'react-bootstrap';
 
 // components
-import { FieldGroup } from '../../../../components';
-
-
-/*
-Tiny component for rendering a spinner animation
-*/
-const loadingView = (
-  <div>
-    <div className="overlay" />
-    <span className="spotlight signup-loader">
-      <i className="fa fa-spinner fa-pulse fa-2x fa-fw" />
-      <span className="sr-only">Loading...</span>
-    </span>
-  </div>
-);
+import { FieldGroup, Spinner } from '../../../../components';
 
 
 const SignUpForm = ({
@@ -161,7 +147,7 @@ const SignUpForm = ({
       }
     </FieldGroup>
     <div className="overlay-container">
-      {registering ? loadingView : null}
+      {registering ? <Spinner /> : null}
       <Button
         bsStyle="info"
         bsSize="large"

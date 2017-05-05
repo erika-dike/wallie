@@ -19,25 +19,32 @@ export default function user(state = INITIAL_STATE, action) {
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
+        errors: [],
         registering: false,
         registered: true,
         user: action.payload,
       };
-    case REGISTER_USER_FAILED:
+    case REGISTER_USER_FAILED: {
       const response = action.payload;
       let errors;
       if (response.message === 'Network Error') {
         errors = [
           'Something seems to be wrong with the network. Please try again',
         ];
-      } else {
+      } else if (Array.isArray(response.response.data)) {
         errors = response.response.data;
+      } else if (response.response.data instanceof Object) {
+        errors = Object.keys(response.response.data).map((field) => {
+          const displayFieldName = field.replace(/_/g, ' ');
+          return ` ${displayFieldName}: ${response.response.data[field][0]}`;
+        });
       }
       return {
         ...state,
         registering: false,
         errors,
       };
+    }
     default:
       return state;
   }

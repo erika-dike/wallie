@@ -1,12 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
-  Button,
   Modal,
   NavItem,
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { FieldGroup } from '../../../';
+import { Authentication } from '../../../../components';
+
+// actions
+import { loginUser, refreshAuthState } from '../../../../actions/';
+
 
 import './LoginNavItem.css';
 
@@ -21,6 +25,12 @@ class LoginNavItem extends React.Component {
     this.close = this.close.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthenticated) {
+      this.close();
+    }
+  }
+
   open(e) {
     e.preventDefault();
     this.setState({ showModal: true });
@@ -28,10 +38,18 @@ class LoginNavItem extends React.Component {
 
   close() {
     this.setState({ showModal: false });
+    this.props.refreshAuthState();
   }
 
   render() {
-    const { eventKey, href } = this.props;
+    const { errors, eventKey, href } = this.props;
+    let mappedErrors = null;
+
+    if (errors.length) {
+      mappedErrors = errors.map((error, index) =>
+        <li className="text-danger list-unstyled" key={index}>{error}</li>,
+      );
+    }
     return (
       <NavItem eventKey={eventKey} href={href} onClick={this.open}>
         Log in
@@ -41,15 +59,14 @@ class LoginNavItem extends React.Component {
             <Modal.Title>Log in to Wallie</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form className="login-form">
-              <FieldGroup type="text" placeholder="Username" autoFocus />
-              <FieldGroup type="password" placeholder="Password" />
-              <div className="text-center">
-                <Button bsStyle="info" type="submit">
-                  Log in
-                </Button>
-              </div>
-            </form>
+            {
+              errors.length ? <ul>{mappedErrors}</ul> : null
+            }
+            <Authentication
+              loading={this.props.loading}
+              loginUser={this.props.loginUser}
+              isAuthenticated={this.props.isAuthenticated}
+            />
           </Modal.Body>
         </Modal>
       </NavItem>
@@ -58,8 +75,31 @@ class LoginNavItem extends React.Component {
 }
 
 LoginNavItem.propTypes = {
+  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   eventKey: PropTypes.number.isRequired,
   href: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  refreshAuthState: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
-export default LoginNavItem;
+function mapStateToProps(state) {
+  return {
+    errors: state.auth.errors,
+    loading: state.auth.loading,
+    isAuthenticated: state.auth.isAuthenticated,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    loginUser: (credential) => {
+      dispatch(loginUser(credential));
+    },
+    refreshAuthState: () => dispatch(refreshAuthState()),
+  };
+}
+
+export { LoginNavItem };
+export default connect(mapStateToProps, mapDispatchToProps)(LoginNavItem);
