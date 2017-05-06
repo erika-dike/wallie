@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Col,
@@ -40,12 +41,21 @@ class Home extends React.Component {
           <Col xs={8} md={6} mdPush={3}>
             <Posts />
           </Col>
-          <Col xs={4} md={3} mdPull={6}>
-            <section className="module profile-section">
-              <ProfileCard />
-            </section>
-          </Col>
-          <Col xs={4} md={3}>
+          {this.props.isAuthenticated
+            ?
+              <Col xs={4} md={3} mdPull={6}>
+                <section className="module profile-section">
+                  <ProfileCard profile={this.props.profile} />
+                </section>
+              </Col>
+            :
+              null
+          }
+          <Col
+            xs={4}
+            md={3}
+            mdPull={this.props.isAuthenticated ? null : 6}
+          >
             <section className="module top-post-section">
               <TopPosts />
             </section>
@@ -61,11 +71,32 @@ class Home extends React.Component {
   }
 }
 
+Home.defaultProps = {
+  profile: null,
+};
+
+Home.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      num_posts: PropTypes.number,
+    }),
+    about: PropTypes.string,
+    profile_pic: PropTypes.string,
+  }),
+};
+
 function mapStateToProps(state) {
   return {
     fetched: state.user.fetched,
     pending: state.user.pending,
     errors: state.user.errors,
+    isAuthenticated: state.auth.isAuthenticated,
+    profile: state.user.profile,
   };
 }
 

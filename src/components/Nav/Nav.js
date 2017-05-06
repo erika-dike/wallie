@@ -60,6 +60,7 @@ CustomNav.propTypes = {
       first_name: PropTypes.string,
       last_name: PropTypes.string,
       email: PropTypes.string,
+      num_posts: PropTypes.number,
     }),
     about: PropTypes.string,
     profile_pic: PropTypes.string,

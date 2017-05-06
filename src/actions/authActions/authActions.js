@@ -32,11 +32,11 @@ export function loginUser(credential) {
     dispatch(loginUserPending());
     api.post('accounts/auth/login/', credential)
       .then(
-        (response) => {
+        async (response) => {
           const { profile, token } = response.data;
           localStorage.setItem('token', token);
           localStorage.setItem('profile', JSON.stringify(profile));
-          dispatch(loginUserSuccess());
+          await dispatch(loginUserSuccess());
         },
         error => dispatch(loginUserFailed(error)),
       );
