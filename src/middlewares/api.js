@@ -1,5 +1,5 @@
 import api from '../actions/config';
-import { refreshToken, toggleLoginModal } from '../actions/';
+import { logoutUser, refreshToken, toggleLoginModal } from '../actions/';
 import { tokenBelowRefreshThreshold } from '../utils/';
 
 const UNAUTHORIZED = 'unauthorized';
@@ -54,7 +54,7 @@ export default store => next => action => {
       response => next({ payload: response, type: successType }),
       (error) => {
         if (error.message === UNAUTHORIZED) {
-          // TODO: next(logoutUser());
+          next(logoutUser());
           next(toggleLoginModal(true, ['You have to log in to continue']));
           console.log(`This is ${UNAUTHORIZED}`);
           // throw new Error(UNAUTHORIZED);

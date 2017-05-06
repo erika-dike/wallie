@@ -30,7 +30,6 @@ class LoginNavItem extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     if (nextProps.isAuthenticated) {
       this.close();
     } else if (this.props.showLoginModal !== nextProps.showLoginModal) {

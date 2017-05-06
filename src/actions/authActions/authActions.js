@@ -4,6 +4,8 @@ import {
   LOGIN_USER_FAILED,
   LOGIN_USER_PENDING,
   LOGIN_USER_SUCCESS,
+  LOGOUT_USER_REQUEST,
+  LOGOUT_USER_SUCCESS,
   REFRESH_AUTH_STATE,
   REFRESH_TOKEN_FAILURE,
   REFRESH_TOKEN_REQUEST,
@@ -75,9 +77,26 @@ export function refreshToken() {
 }
 
 export function toggleLoginModal(showLoginModal, errors) {
-  debugger;
   return {
     type: TOGGLE_LOGIN_MODAL,
     payload: { showLoginModal, errors },
+  };
+}
+
+function logoutUserRequest() {
+  return { type: LOGOUT_USER_REQUEST };
+}
+
+function logoutUserSuccess() {
+  return { type: LOGOUT_USER_SUCCESS };
+}
+
+export function logoutUser() {
+  return (dispatch) => {
+    debugger;
+    dispatch(logoutUserRequest());
+    localStorage.removeItem('token');
+    localStorage.removeItem('profile');
+    dispatch(logoutUserSuccess());
   };
 }
