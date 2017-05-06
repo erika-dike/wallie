@@ -64,7 +64,7 @@ export default function auth(state = INITIAL_STATE, action) {
       return { ...state, loading: true };
     case LOGOUT_USER_SUCCESS:
       debugger;
-      return { ...state, loading: false };
+      return { ...state, loading: false, isAuthenticated: false };
     default:
       return state;
   }

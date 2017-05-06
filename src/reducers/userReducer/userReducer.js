@@ -10,7 +10,7 @@ import {
 
 const INITIAL_STATE = {
   errors: [],
-  user: null,
+  profile: JSON.parse(localStorage.getItem('profile')),
   registering: false,
   registered: false,
   pending: false,
@@ -27,7 +27,7 @@ export default function user(state = INITIAL_STATE, action) {
         errors: [],
         registering: false,
         registered: true,
-        user: action.payload,
+        profile: action.payload,
       };
     case REGISTER_USER_FAILED: {
       const response = action.payload;
@@ -55,7 +55,7 @@ export default function user(state = INITIAL_STATE, action) {
       return { ...state, pending: true };
     case FETCH_USER_SUCCESS:
       debugger;
-      return { ...state, pending: false, fetched: true, user: action.payload };
+      return { ...state, pending: false, fetched: true, profile: action.payload };
     case FETCH_USER_FAILURE:
       return { ...state, pending: false, error: action.payload };
     default:

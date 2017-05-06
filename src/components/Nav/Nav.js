@@ -1,82 +1,85 @@
 import React from 'react';
-import {
-  NavDropdown,
-  MenuItem,
-  Nav,
-  Navbar,
-  NavItem,
-} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { LinkWithNavItem, LoginNavItem } from './components';
+import { AuthenticatedMenu, UnAuthenticatedMenu } from './components';
+
+import { logoutUser } from '../../actions/';
 
 // css
 import './Nav.css';
 
-// There are different pull right menus for authenticated and unauthenticated
-// views.
-// Here I use the presence of a token in localStorage to detect
-// if the user is authenticated
-function renderUnauthenticatedMenu() {
-  return (
-    <Nav pullRight>
-      <LinkWithNavItem to="signup">
-        <NavItem eventKey={1} href="/signup">Sign up</NavItem>
-      </LinkWithNavItem>
-      <LoginNavItem eventKey={2} href="/login" />
-    </Nav>
-  );
-}
-
-function renderAuthenticatedMenu(profile) {
-  const img = (
-    <img
-      className="Avatar Avatar--size32 Avatar--circle"
-      src={profile.profile_pic}
-      alt="Profile and settings"
-    />
-  );
-
-  return (
-    <Nav bsStyle="pills" pullRight>
-      <NavDropdown eventKey={1} title={img} href="#" className="right-actions" id="profile-and-settings-dropdown">
-        <MenuItem eventKey={1.1} className="account-summary">
-          <div className="content">
-            <div className="account-group">
-              <b className="fullname">
-                {`${profile.user.first_name} ${profile.user.last_name}`}
-              </b>
-              <small className="metadata">View Profile</small>
-            </div>
-          </div>
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey={1.1}>Log out</MenuItem>
-      </NavDropdown>
-    </Nav>
-  );
-}
-
-function getPullRightMenu() {
-  if (localStorage.token) {
-    const profile = JSON.parse(localStorage.profile);
-    return renderAuthenticatedMenu(profile);
+class CustomNav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
   }
-  return renderUnauthenticatedMenu();
+
+  logout() {
+    this.props.logoutUser();
+  }
+
+  render() {
+    return (
+      <Navbar collapseOnSelect fixedTop>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <NavLink exact to="/" activeClassName="selected">Wallie</NavLink>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          {
+            this.props.isAuthenticated
+            ?
+              <AuthenticatedMenu
+                logout={this.logout}
+                profile={this.props.profile}
+              />
+            :
+              <UnAuthenticatedMenu />
+          }
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
 }
 
+CustomNav.defaultProps = {
+  profile: null,
+};
 
-const CustomNav = () =>
-  <Navbar collapseOnSelect fixedTop>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <NavLink exact to="/" activeClassName="selected">Wallie</NavLink>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      {getPullRightMenu()}
-    </Navbar.Collapse>
-  </Navbar>;
+CustomNav.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+    }),
+    about: PropTypes.string,
+    profile_pic: PropTypes.string,
+  }),
+};
 
-export default CustomNav;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    profile: state.user.profile,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    logoutUser: () => {
+      dispatch(logoutUser());
+    },
+  };
+}
+
+export { CustomNav };
+export default connect(mapStateToProps, mapDispatchToProps)(CustomNav);

@@ -93,7 +93,6 @@ function logoutUserSuccess() {
 
 export function logoutUser() {
   return (dispatch) => {
-    debugger;
     dispatch(logoutUserRequest());
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
