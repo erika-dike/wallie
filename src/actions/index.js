@@ -1,5 +1,7 @@
 export {
   loginUser,
   refreshAuthState,
+  refreshToken,
+  toggleLoginModal,
 } from './authActions/authActions';
-export { registerUser } from './userActions/userActions';
+export { fetchUser, registerUser } from './userActions/userActions';

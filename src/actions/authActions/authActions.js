@@ -5,7 +5,11 @@ import {
   LOGIN_USER_PENDING,
   LOGIN_USER_SUCCESS,
   REFRESH_AUTH_STATE,
-} from '../types';
+  REFRESH_TOKEN_FAILURE,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  TOGGLE_LOGIN_MODAL,
+} from '../actionTypes';
 import handleErrors from '../errorHandler';
 
 export function loginUserPending() {
@@ -39,4 +43,41 @@ export function loginUser(credential) {
 
 export function refreshAuthState() {
   return { type: REFRESH_AUTH_STATE };
+}
+
+function refreshTokenRequest() {
+  return { type: REFRESH_TOKEN_REQUEST };
+}
+
+function refreshTokenFailure(response) {
+  const errors = handleErrors(response);
+  return { type: REFRESH_TOKEN_FAILURE, payload: errors };
+}
+
+function refreshTokenSuccess() {
+  return { type: REFRESH_TOKEN_SUCCESS };
+}
+
+export function refreshToken() {
+  return (dispatch) => {
+    dispatch(refreshTokenRequest());
+    api.post('accounts/auth/api-token-refresh/', { token: localStorage.token })
+      .then(
+        (response) => {
+          const { profile, token } = response.data;
+          localStorage.setItem('token', token);
+          localStorage.setItem('profile', JSON.stringify(profile));
+          dispatch(refreshTokenSuccess());
+        },
+        error => dispatch(refreshTokenFailure(error)),
+      );
+  };
+}
+
+export function toggleLoginModal(showLoginModal, errors) {
+  debugger;
+  return {
+    type: TOGGLE_LOGIN_MODAL,
+    payload: { showLoginModal, errors },
+  };
 }

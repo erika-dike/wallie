@@ -9,7 +9,11 @@ import { connect } from 'react-redux';
 import { Authentication } from '../../../../components';
 
 // actions
-import { loginUser, refreshAuthState } from '../../../../actions/';
+import {
+  loginUser,
+  refreshAuthState,
+  toggleLoginModal,
+} from '../../../../actions/';
 
 
 import './LoginNavItem.css';
@@ -26,8 +30,11 @@ class LoginNavItem extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    debugger;
     if (nextProps.isAuthenticated) {
       this.close();
+    } else if (this.props.showLoginModal !== nextProps.showLoginModal) {
+      this.setState({ showModal: nextProps.showLoginModal });
     }
   }
 
@@ -39,6 +46,11 @@ class LoginNavItem extends React.Component {
   close() {
     this.setState({ showModal: false });
     this.props.refreshAuthState();
+
+    // turn global showLoginModal false if it is true
+    if (this.props.showLoginModal) {
+      this.props.toggleLoginModal(false, []);
+    }
   }
 
   render() {
@@ -78,10 +90,12 @@ LoginNavItem.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   eventKey: PropTypes.number.isRequired,
   href: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
   refreshAuthState: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  showLoginModal: PropTypes.bool.isRequired,
+  toggleLoginModal: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -89,6 +103,7 @@ function mapStateToProps(state) {
     errors: state.auth.errors,
     loading: state.auth.loading,
     isAuthenticated: state.auth.isAuthenticated,
+    showLoginModal: state.auth.showLoginModal,
   };
 }
 
@@ -98,6 +113,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(loginUser(credential));
     },
     refreshAuthState: () => dispatch(refreshAuthState()),
+    toggleLoginModal: (showLoginModal, errors) => {
+      dispatch(toggleLoginModal(showLoginModal, errors));
+    },
   };
 }
 

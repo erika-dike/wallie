@@ -3,7 +3,7 @@ import {
   REGISTER_USER_FAILED,
   REGISTER_USER_PENDING,
   REGISTER_USER_SUCCESS,
-} from '../../actions/types';
+} from '../../actions/actionTypes';
 
 describe('User Reducer', () => {
   let state;

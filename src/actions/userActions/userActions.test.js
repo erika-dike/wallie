@@ -12,7 +12,7 @@ import {
   REGISTER_USER_FAILED,
   REGISTER_USER_PENDING,
   REGISTER_USER_SUCCESS,
-} from '../types';
+} from '../actionTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

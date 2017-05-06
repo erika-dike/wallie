@@ -1,8 +1,11 @@
 import {
+  FETCH_USER_FAILURE,
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
   REGISTER_USER_FAILED,
   REGISTER_USER_PENDING,
   REGISTER_USER_SUCCESS,
-} from '../../actions/types';
+} from '../../actions/actionTypes';
 
 
 const INITIAL_STATE = {
@@ -10,6 +13,8 @@ const INITIAL_STATE = {
   user: null,
   registering: false,
   registered: false,
+  pending: false,
+  fetched: true,
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -45,6 +50,14 @@ export default function user(state = INITIAL_STATE, action) {
         errors,
       };
     }
+    case FETCH_USER_REQUEST:
+      debugger;
+      return { ...state, pending: true };
+    case FETCH_USER_SUCCESS:
+      debugger;
+      return { ...state, pending: false, fetched: true, user: action.payload };
+    case FETCH_USER_FAILURE:
+      return { ...state, pending: false, error: action.payload };
     default:
       return state;
   }

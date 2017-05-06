@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 import {
+  FETCH_USER_FAILURE,
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
   REGISTER_USER_PENDING,
   REGISTER_USER_FAILED,
   REGISTER_USER_SUCCESS,
-} from '../types';
+} from '../actionTypes';
+
+import { CALL_API } from '../../middlewares/api';
 
 export function registerUserPending() {
   return { type: REGISTER_USER_PENDING };
@@ -26,5 +31,19 @@ export function registerUser(userData) {
         response => dispatch(registerUserSuccess(response.data)),
         error => dispatch(registerUserFailed(error)),
       );
+  };
+}
+
+/**
+  Action to fetch the authenticated users profile
+**/
+export function fetchUser() {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: 'accounts/profile/',
+      httpMethod: 'get',
+      types: [FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE],
+    },
   };
 }

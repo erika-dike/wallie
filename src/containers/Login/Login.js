@@ -49,9 +49,6 @@ class Login extends React.Component {
 
 Login.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
   loading: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
