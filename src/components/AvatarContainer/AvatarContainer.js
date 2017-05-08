@@ -36,12 +36,13 @@ const getTitle = img =>
     }
   </a>;
 
-const AvatarContainer = ({ img }) =>
+const AvatarContainer = ({ img, uploadImage }) =>
   <div className="ProfileCard-avatar-container">
     <div id="choose-photo" className="contols avatar-settings inline-upload-avatar dropdown center">
       <DropdownButton bsStyle="link" title={getTitle(img)} id="dropdown-test" noCaret>
-        <MenuItem eventKey="1">Upload Photo</MenuItem>
-        <MenuItem eventKey="2">Change Photo</MenuItem>
+        <MenuItem eventKey="1" onClick={uploadImage}>
+          Upload Photo
+        </MenuItem>
         <MenuItem divider />
         <MenuItem eventKey="4">Cancel</MenuItem>
       </DropdownButton>
@@ -54,6 +55,7 @@ AvatarContainer.defaultProps = {
 
 AvatarContainer.propTypes = {
   img: PropTypes.string,
+  uploadImage: PropTypes.func.isRequired,
 };
 
 export default AvatarContainer;

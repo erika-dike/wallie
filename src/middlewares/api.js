@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import api from '../actions/config';
 import { logoutUser, refreshToken, toggleLoginModal } from '../actions/';
 import { tokenBelowRefreshThreshold } from '../utils/';
@@ -5,10 +7,9 @@ import { tokenBelowRefreshThreshold } from '../utils/';
 const UNAUTHORIZED = 'unauthorized';
 
 
-function callApi(endpoint, httpMethod, authenticated) {
+function callApi(endpoint, httpMethod, authenticated, data) {
   const token = localStorage.getItem('token') || null;
   let config = {};
-
   if (authenticated) {
     if (token) {
       config = {
@@ -19,7 +20,15 @@ function callApi(endpoint, httpMethod, authenticated) {
     }
   }
 
-  return api[httpMethod](endpoint, config)
+  const methodsWithPayload = ['put', 'post'];
+  let rest = [];
+  if (methodsWithPayload.includes(httpMethod)) {
+    rest = [data, config];
+  } else {
+    rest = [config];
+  }
+
+  return api[httpMethod](endpoint, ...rest)
     .then(
       response => response.data,
       (error) => {
@@ -42,14 +51,14 @@ export default store => next => action => {
     return next(action);
   }
 
-  const { endpoint, httpMethod, types, authenticated } = callAPI;
+  const { endpoint, httpMethod, types, authenticated, data } = callAPI;
 
   const [requestType, successType, errorType] = types;
 
   // Passing the authenticated boolean back in out data will let us distinguish
   // between normal and secret quotes
   next({ type: requestType });
-  return callApi(endpoint, httpMethod, authenticated)
+  return callApi(endpoint, httpMethod, authenticated, data)
     .then(
       response => next({ payload: response, type: successType }),
       (error) => {

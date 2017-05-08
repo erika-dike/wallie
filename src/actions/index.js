@@ -5,4 +5,8 @@ export {
   refreshToken,
   toggleLoginModal,
 } from './authActions/authActions';
-export { fetchUser, registerUser } from './userActions/userActions';
+export {
+  fetchUser,
+  registerUser,
+  updateProfile,
+} from './userActions/userActions';

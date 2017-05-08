@@ -5,6 +5,9 @@ import {
   REGISTER_USER_FAILED,
   REGISTER_USER_PENDING,
   REGISTER_USER_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
 } from '../../actions/actionTypes';
 
 
@@ -51,12 +54,16 @@ export default function user(state = INITIAL_STATE, action) {
       };
     }
     case FETCH_USER_REQUEST:
-      debugger;
       return { ...state, pending: true };
     case FETCH_USER_SUCCESS:
-      debugger;
       return { ...state, pending: false, fetched: true, profile: action.payload };
     case FETCH_USER_FAILURE:
+      return { ...state, pending: false, error: action.payload };
+    case UPDATE_PROFILE_REQUEST:
+      return { ...state, pending: true };
+    case UPDATE_PROFILE_SUCCESS:
+      return { ...state, pending: false, fetched: true, profile: action.payload };
+    case UPDATE_PROFILE_FAILURE:
       return { ...state, pending: false, error: action.payload };
     default:
       return state;

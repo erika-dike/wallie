@@ -6,6 +6,7 @@ import {
   Grid,
   Row,
 } from 'react-bootstrap';
+import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
 
 import {
@@ -15,7 +16,9 @@ import {
   TopPosts,
 } from '../../components';
 
-import { fetchUser } from '../../actions';
+import { fetchUser, updateProfile } from '../../actions';
+
+import { deleteImageFromCloudinary } from '../../utils';
 
 // css
 import './Home.css';
@@ -25,10 +28,28 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.fetchUser = this.fetchUser.bind(this);
+    this.addNotification = this.addNotification.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
   }
 
   fetchUser() {
     this.props.fetchUser();
+  }
+
+  addNotification(title, message) {
+    this.notificationSystem.addNotification({
+      title,
+      message,
+      level: 'error',
+    });
+  }
+
+  async updateProfile(profile, oldProfilePicUrl) {
+    await this.props.updateProfile(profile);
+    if (this.props.profile.profile_pic === profile.profile_pic) {
+      localStorage.setItem('profile', JSON.stringify(profile));
+      deleteImageFromCloudinary(oldProfilePicUrl);
+    }
   }
 
   render() {
@@ -45,7 +66,14 @@ class Home extends React.Component {
             ?
               <Col xs={4} md={3} mdPull={6}>
                 <section className="module profile-section">
-                  <ProfileCard profile={this.props.profile} />
+                  <ProfileCard
+                    addNotification={this.addNotification}
+                    profile={this.props.profile}
+                    updateProfile={this.updateProfile}
+                  />
+                  <NotificationSystem
+                    ref={(input) => { this.notificationSystem = input; }}
+                  />
                 </section>
               </Col>
             :
@@ -88,6 +116,7 @@ Home.propTypes = {
     about: PropTypes.string,
     profile_pic: PropTypes.string,
   }),
+  updateProfile: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -104,6 +133,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchUser: () => {
       dispatch(fetchUser());
+    },
+    updateProfile: (profile) => {
+      dispatch(updateProfile(profile));
     },
   };
 }

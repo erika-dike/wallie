@@ -7,16 +7,42 @@ import { AvatarContainer, UserFields } from '../';
 import './ProfileCard.css';
 
 
+const cloudinary = global.cloudinary;
+
+
 class ProfileCard extends React.Component {
   constructor(props) {
     super(props);
     this.redirectToProfilePage = this.redirectToProfilePage.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
     this.profilePageUrl = `/profile/${this.props.profile.user.username}`;
   }
 
   redirectToProfilePage(event) {
     event.preventDefault();
     this.props.history.push(this.profilePageUrl);
+  }
+
+  /**
+    Uploads image to cloudinary using the global cloudinary object
+    On success, it dispatches action to update profile on server
+  **/
+  uploadImage() {
+    cloudinary.openUploadWidget({
+      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+      tags: ['profile_pic'],
+    }, (error, result) => {
+      if (result) {
+        const { profile } = this.props;
+        const oldProfilePicUrl = profile.profile_pic;
+        profile.profile_pic = result[0].secure_url;
+        this.props.updateProfile(profile, oldProfilePicUrl);
+      } else if (error) {
+        const title = 'Upload Image Error!';
+        this.props.addNotification(title, error.message);
+      }
+    });
   }
 
   render() {
@@ -30,8 +56,7 @@ class ProfileCard extends React.Component {
         <div className="ProfileCard-content">
           <AvatarContainer
             img={this.props.profile.profile_pic}
-            profilePageUrl={this.profilePageUrl}
-            redirectToProfilePage={this.redirectToProfilePage}
+            uploadImage={this.uploadImage}
           />
           <UserFields
             profilePageUrl={this.profilePageUrl}
@@ -60,7 +85,13 @@ class ProfileCard extends React.Component {
   }
 }
 
+ProfileCard.defaultProps = {
+  addNotification: null,
+  updateProfile: null,
+};
+
 ProfileCard.propTypes = {
+  addNotification: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -75,6 +106,7 @@ ProfileCard.propTypes = {
     about: PropTypes.string,
     profile_pic: PropTypes.string,
   }).isRequired,
+  updateProfile: PropTypes.func,
 };
 
 export default withRouter(ProfileCard);
