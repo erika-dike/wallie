@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 const LinkWithNavItem = (props) => {
   const { children, to, history } = props;
   const isActive = props.location.pathname === `/${to}`;
-
   return React.cloneElement(children, {
     href: to,
     className: isActive ? 'selected' : null,

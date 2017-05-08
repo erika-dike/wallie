@@ -10,3 +10,6 @@ export {
   registerUser,
   updateProfile,
 } from './userActions/userActions';
+export {
+  fetchPosts,
+} from './postActions/postActions';

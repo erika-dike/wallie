@@ -16,7 +16,11 @@ import {
   TopPosts,
 } from '../../components';
 
-import { fetchUser, updateProfile } from '../../actions';
+import {
+  fetchUser,
+  fetchPosts,
+  updateProfile,
+} from '../../actions';
 
 import { deleteImageFromCloudinary } from '../../utils';
 
@@ -30,6 +34,12 @@ class Home extends React.Component {
     this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
+  }
+
+  componentWillMount() {
+    // fetch top posts
+    const queryParams = 'q=top&limit=5';
+    this.props.fetchPosts(queryParams);
   }
 
   fetchUser() {
@@ -85,10 +95,12 @@ class Home extends React.Component {
             mdPull={this.props.isAuthenticated ? null : 6}
           >
             <section className="module top-post-section">
-              <TopPosts />
+              <TopPosts
+                posts={this.props.posts}
+              />
             </section>
           </Col>
-          <Col xs={4} md={3}>
+          <Col xs={4} md={3} mdPush={this.props.isAuthenticated ? 3 : null}>
             <section className="module about-section">
               <AboutUs />
             </section>
@@ -101,10 +113,26 @@ class Home extends React.Component {
 
 Home.defaultProps = {
   profile: null,
+  posts: [],
 };
 
 Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      date_created: PropTypes.string,
+      content: PropTypes.string,
+      author: PropTypes.shape({
+        username: PropTypes.string,
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
+        about: PropTypes.string,
+        profile_pic: PropTypes.string,
+      }),
+      num_loves: PropTypes.number,
+      in_love: PropTypes.bool,
+    }),
+  ),
   profile: PropTypes.shape({
     user: PropTypes.shape({
       username: PropTypes.string,
@@ -121,10 +149,11 @@ Home.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    fetched: state.user.fetched,
-    pending: state.user.pending,
     errors: state.user.errors,
+    fetched: state.user.fetched,
     isAuthenticated: state.auth.isAuthenticated,
+    pending: state.user.pending,
+    posts: state.post.posts,
     profile: state.user.profile,
   };
 }
@@ -133,6 +162,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchUser: () => {
       dispatch(fetchUser());
+    },
+    fetchPosts: (queryParams) => {
+      dispatch(fetchPosts(queryParams));
     },
     updateProfile: (profile) => {
       dispatch(updateProfile(profile));

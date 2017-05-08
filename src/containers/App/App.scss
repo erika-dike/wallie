@@ -37,3 +37,27 @@ form {
 .u-captalize {
   text-transform: capitalize;
 }
+
+li {
+    &:focus {
+        outline: none;
+    }
+
+    * {
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+a {
+    &:focus {
+        outline: none;
+    }
+
+    * {
+        &:focus {
+            outline: none;
+        }
+    }
+}

@@ -7,6 +7,8 @@ import {
 import { connect } from 'react-redux';
 
 import { Authentication } from '../../../../components';
+import { LinkWithNavItem } from '../../components';
+
 
 // actions
 import {
@@ -62,25 +64,27 @@ class LoginNavItem extends React.Component {
       );
     }
     return (
-      <NavItem eventKey={eventKey} href={href} onClick={this.open}>
-        Log in
+      <LinkWithNavItem to="login">
+        <NavItem eventKey={eventKey} href={href} onClick={this.open}>
+          Log in
 
-        <Modal show={this.state.showModal} onHide={this.close} autoFocus>
-          <Modal.Header closeButton>
-            <Modal.Title>Log in to Wallie</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {
-              errors.length ? <ul>{mappedErrors}</ul> : null
-            }
-            <Authentication
-              loading={this.props.loading}
-              loginUser={this.props.loginUser}
-              isAuthenticated={this.props.isAuthenticated}
-            />
-          </Modal.Body>
-        </Modal>
-      </NavItem>
+          <Modal show={this.state.showModal} onHide={this.close} autoFocus>
+            <Modal.Header closeButton>
+              <Modal.Title>Log in to Wallie</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {
+                errors.length ? <ul>{mappedErrors}</ul> : null
+              }
+              <Authentication
+                loading={this.props.loading}
+                loginUser={this.props.loginUser}
+                isAuthenticated={this.props.isAuthenticated}
+              />
+            </Modal.Body>
+          </Modal>
+        </NavItem>
+      </LinkWithNavItem>
     );
   }
 }
