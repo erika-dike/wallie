@@ -9,6 +9,7 @@ export {
   fetchPosts,
   fetchTopPosts,
   lovePost,
+  unlovePost,
 } from './postActions/postActions';
 export {
   fetchUser,

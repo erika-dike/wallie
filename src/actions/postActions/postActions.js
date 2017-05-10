@@ -10,6 +10,9 @@ import {
   LOVE_POST_FAILURE,
   LOVE_POST_REQUEST,
   LOVE_POST_SUCCESS,
+  UNLOVE_POST_FAILURE,
+  UNLOVE_POST_REQUEST,
+  UNLOVE_POST_SUCCESS,
 } from '../actionTypes';
 
 
@@ -63,6 +66,25 @@ export function lovePost(postId) {
         LOVE_POST_REQUEST,
         LOVE_POST_SUCCESS,
         LOVE_POST_FAILURE,
+      ],
+      data: {},
+    },
+  };
+}
+
+/**
+  Action to unlove a post
+**/
+export function unlovePost(postId) {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: `core/posts/${postId}/loves/`,
+      httpMethod: 'delete',
+      types: [
+        UNLOVE_POST_REQUEST,
+        UNLOVE_POST_SUCCESS,
+        UNLOVE_POST_FAILURE,
       ],
       data: {},
     },

@@ -8,6 +8,9 @@ import {
   LOVE_POST_FAILURE,
   LOVE_POST_REQUEST,
   LOVE_POST_SUCCESS,
+  UNLOVE_POST_FAILURE,
+  UNLOVE_POST_REQUEST,
+  UNLOVE_POST_SUCCESS,
 } from '../../actions/actionTypes';
 
 
@@ -60,6 +63,24 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case LOVE_POST_FAILURE:
+      return { ...state, pending: false, error: action.payload };
+    case UNLOVE_POST_REQUEST:
+      return { ...state, pending: true };
+    case UNLOVE_POST_SUCCESS: {
+      const { post_id, in_love, num_loves } = action.payload;
+      const newPosts = [...state.posts];
+      const postToUpdate = newPosts.findIndex(aPost => aPost.id === post_id);
+      newPosts[postToUpdate].num_loves = num_loves;
+      newPosts[postToUpdate].in_love = in_love;
+
+      return {
+        ...state,
+        pending: false,
+        fetched: true,
+        posts: newPosts,
+      };
+    }
+    case UNLOVE_POST_FAILURE:
       return { ...state, pending: false, error: action.payload };
     default:
       return state;

@@ -35,8 +35,14 @@ const getLoveButtonStyles = (inLove) => {
   return styles;
 };
 
-const PostItem = ({ lovePost, mode, post }) => {
-  const loveThisPost = () => (lovePost(post.id));
+const PostItem = ({ lovePost, mode, post, unlovePost }) => {
+  const toggleLoveStatus = () => {
+    if (post.in_love) {
+      unlovePost(post.id);
+    } else {
+      lovePost(post.id);
+    }
+  };
 
   const profile = {
     user: {
@@ -119,7 +125,7 @@ const PostItem = ({ lovePost, mode, post }) => {
                 >
                   <Button
                     className={getLoveButtonStyles(post.in_love)}
-                    onClick={loveThisPost}
+                    onClick={toggleLoveStatus}
                   >
                     <div className="icon-container">
                       <div className="heart-animation-container">
@@ -154,6 +160,7 @@ PostItem.defaultProps = {
 
 PostItem.propTypes = {
   lovePost: PropTypes.func.isRequired,
+  mode: PropTypes.string,
   post: PropTypes.shape({
     date_created: PropTypes.string,
     content: PropTypes.string,
@@ -167,7 +174,7 @@ PostItem.propTypes = {
     num_loves: PropTypes.number,
     in_love: PropTypes.bool,
   }),
-  mode: PropTypes.string,
+  unlovePost: PropTypes.func.isRequired,
 };
 
 export default PostItem;

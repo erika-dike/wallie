@@ -22,6 +22,7 @@ import {
   fetchTopPosts,
   lovePost,
   updateProfile,
+  unlovePost,
 } from '../../actions';
 
 import { deleteImageFromCloudinary } from '../../utils';
@@ -36,6 +37,7 @@ class Home extends React.Component {
     this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
     this.lovePost = this.lovePost.bind(this);
+    this.unlovePost = this.unlovePost.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
   }
 
@@ -61,6 +63,10 @@ class Home extends React.Component {
     this.props.lovePost(postId);
   }
 
+  unlovePost(postId) {
+    this.props.unlovePost(postId);
+  }
+
   async updateProfile(profile, oldProfilePicUrl) {
     await this.props.updateProfile(profile);
     if (this.props.profile.profile_pic === profile.profile_pic) {
@@ -77,7 +83,11 @@ class Home extends React.Component {
         </Button>
         <Row className="show-grid">
           <Col xs={8} md={6} mdPush={3}>
-            <Posts posts={this.props.posts} lovePost={this.lovePost} />
+            <Posts
+              posts={this.props.posts}
+              lovePost={this.lovePost}
+              unlovePost={this.unlovePost}
+            />
           </Col>
           {this.props.isAuthenticated
             ?
@@ -170,6 +180,7 @@ Home.propTypes = {
       in_love: PropTypes.bool,
     }),
   ),
+  unlovePost: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
 };
 
@@ -198,6 +209,9 @@ function mapDispatchToProps(dispatch) {
     },
     lovePost: (postId) => {
       dispatch(lovePost(postId));
+    },
+    unlovePost: (postId) => {
+      dispatch(unlovePost(postId));
     },
     updateProfile: (profile) => {
       dispatch(updateProfile(profile));

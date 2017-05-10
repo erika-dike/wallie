@@ -6,9 +6,14 @@ import { PostItem } from '../../../../components/';
 import './PostsList.css';
 
 
-const PostsList = ({ posts, lovePost }) => {
+const PostsList = ({ posts, lovePost, unlovePost }) => {
   const mappedPostItem = posts.map(post =>
-    <PostItem key={post.id} post={post} lovePost={lovePost} />,
+    <PostItem
+      key={post.id}
+      post={post}
+      lovePost={lovePost}
+      unlovePost={unlovePost}
+    />,
   );
 
   return (
@@ -39,6 +44,7 @@ PostsList.propTypes = {
       in_love: PropTypes.bool,
     }),
   ).isRequired,
+  unlovePost: PropTypes.func.isRequired,
 };
 
 export default PostsList;

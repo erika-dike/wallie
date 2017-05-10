@@ -5,10 +5,10 @@ import { PostsCreate, PostsList } from './components';
 
 import './Posts.css';
 
-const Posts = ({ posts, lovePost }) =>
+const Posts = ({ posts, lovePost, unlovePost }) =>
   <main className="content-main">
     <PostsCreate />
-    <PostsList posts={posts} lovePost={lovePost} />
+    <PostsList posts={posts} lovePost={lovePost} unlovePost={unlovePost} />
   </main>;
 
 Posts.propTypes = {
@@ -28,6 +28,7 @@ Posts.propTypes = {
       in_love: PropTypes.bool,
     }),
   ).isRequired,
+  unlovePost: PropTypes.func.isRequired,
 };
 
 export default Posts;
