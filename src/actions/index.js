@@ -6,11 +6,12 @@ export {
   toggleLoginModal,
 } from './authActions/authActions';
 export {
+  fetchPosts,
+  fetchTopPosts,
+  lovePost,
+} from './postActions/postActions';
+export {
   fetchUser,
   registerUser,
   updateProfile,
 } from './userActions/userActions';
-export {
-  fetchPosts,
-  fetchTopPosts,
-} from './postActions/postActions';

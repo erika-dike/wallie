@@ -20,6 +20,7 @@ import {
   fetchUser,
   fetchPosts,
   fetchTopPosts,
+  lovePost,
   updateProfile,
 } from '../../actions';
 
@@ -34,6 +35,7 @@ class Home extends React.Component {
     super(props);
     this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
+    this.lovePost = this.lovePost.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
   }
 
@@ -55,6 +57,10 @@ class Home extends React.Component {
     });
   }
 
+  lovePost(postId) {
+    this.props.lovePost(postId);
+  }
+
   async updateProfile(profile, oldProfilePicUrl) {
     await this.props.updateProfile(profile);
     if (this.props.profile.profile_pic === profile.profile_pic) {
@@ -71,7 +77,7 @@ class Home extends React.Component {
         </Button>
         <Row className="show-grid">
           <Col xs={8} md={6} mdPush={3}>
-            <Posts posts={this.props.posts} />
+            <Posts posts={this.props.posts} lovePost={this.lovePost} />
           </Col>
           {this.props.isAuthenticated
             ?
@@ -122,6 +128,7 @@ Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
+  lovePost: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,
@@ -188,6 +195,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchTopPosts: () => {
       dispatch(fetchTopPosts());
+    },
+    lovePost: (postId) => {
+      dispatch(lovePost(postId));
     },
     updateProfile: (profile) => {
       dispatch(updateProfile(profile));

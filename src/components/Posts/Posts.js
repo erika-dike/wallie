@@ -5,13 +5,14 @@ import { PostsCreate, PostsList } from './components';
 
 import './Posts.css';
 
-const Posts = ({ posts }) =>
+const Posts = ({ posts, lovePost }) =>
   <main className="content-main">
     <PostsCreate />
-    <PostsList posts={posts} />
+    <PostsList posts={posts} lovePost={lovePost} />
   </main>;
 
 Posts.propTypes = {
+  lovePost: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,

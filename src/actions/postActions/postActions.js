@@ -7,6 +7,9 @@ import {
   FETCH_TOP_POSTS_FAILURE,
   FETCH_TOP_POSTS_REQUEST,
   FETCH_TOP_POSTS_SUCCESS,
+  LOVE_POST_FAILURE,
+  LOVE_POST_REQUEST,
+  LOVE_POST_SUCCESS,
 } from '../actionTypes';
 
 
@@ -16,7 +19,7 @@ import {
 export function fetchPosts() {
   return {
     [CALL_API]: {
-      authenticated: false,
+      authenticated: localStorage.getItem('token') !== null,
       endpoint: 'core/posts/',
       httpMethod: 'get',
       types: [
@@ -35,7 +38,7 @@ export function fetchTopPosts() {
   const queryParams = 'q=top&limit=5';
   return {
     [CALL_API]: {
-      authenticated: false,
+      authenticated: localStorage.getItem('token') !== null,
       endpoint: `core/posts?${queryParams}`,
       httpMethod: 'get',
       types: [
@@ -47,3 +50,21 @@ export function fetchTopPosts() {
   };
 }
 
+/**
+  Action to love a post
+**/
+export function lovePost(postId) {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: `core/posts/${postId}/loves/`,
+      httpMethod: 'post',
+      types: [
+        LOVE_POST_REQUEST,
+        LOVE_POST_SUCCESS,
+        LOVE_POST_FAILURE,
+      ],
+      data: {},
+    },
+  };
+}

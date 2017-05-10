@@ -148,6 +148,31 @@ a.account-group {
             color: #e2264d;
         }
     }
+
+    &:focus {
+        outline: none;
+        background-color: transparent;
+    }
+
+    &:active {
+        outline: none;
+        background-color: transparent;
+
+        &:focus {
+            outline: none;
+            background-color: transparent;
+        }
+    }
+}
+
+.post-in-love {
+    .icon-container {
+        color: #e2264d;
+    }
+
+    .post-action-count {
+        color: #e2264d;
+    }
 }
 
 .icon-container {

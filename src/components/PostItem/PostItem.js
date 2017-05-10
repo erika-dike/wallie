@@ -27,8 +27,17 @@ const renderFullTime = time =>
     <span>{moment(time).format('h:mm a - D MMM YYYY')}</span>
   </div>;
 
+const getLoveButtonStyles = (inLove) => {
+  let styles = 'post-action-button action-button-undo action-button-trigger u-link-clean';
+  if (inLove) {
+    styles += ' post-in-love';
+  }
+  return styles;
+};
 
-const PostItem = ({ post, mode }) => {
+const PostItem = ({ lovePost, mode, post }) => {
+  const loveThisPost = () => (lovePost(post.id));
+
   const profile = {
     user: {
       username: post.author.username,
@@ -109,7 +118,8 @@ const PostItem = ({ post, mode }) => {
                   delayHide={150}
                 >
                   <Button
-                    className="post-action-button action-button-undo action-button-trigger u-link-clean"
+                    className={getLoveButtonStyles(post.in_love)}
+                    onClick={loveThisPost}
                   >
                     <div className="icon-container">
                       <div className="heart-animation-container">
@@ -120,7 +130,9 @@ const PostItem = ({ post, mode }) => {
                     </div>
                     <div className="icon-text-container">
                       <span className="post-action-count">
-                        <span className="post-action-count-presentation" aria-hidden="true">4</span>
+                        <span className="post-action-count-presentation" aria-hidden="true">
+                          {post.num_loves}
+                        </span>
                       </span>
                     </div>
                   </Button>
@@ -141,6 +153,7 @@ PostItem.defaultProps = {
 };
 
 PostItem.propTypes = {
+  lovePost: PropTypes.func.isRequired,
   post: PropTypes.shape({
     date_created: PropTypes.string,
     content: PropTypes.string,

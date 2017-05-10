@@ -6,9 +6,9 @@ import { PostItem } from '../../../../components/';
 import './PostsList.css';
 
 
-const PostsList = ({ posts }) => {
+const PostsList = ({ posts, lovePost }) => {
   const mappedPostItem = posts.map(post =>
-    <PostItem key={post.id} post={post} />,
+    <PostItem key={post.id} post={post} lovePost={lovePost} />,
   );
 
   return (
@@ -23,6 +23,7 @@ const PostsList = ({ posts }) => {
 };
 
 PostsList.propTypes = {
+  lovePost: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,
