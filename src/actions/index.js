@@ -12,4 +12,5 @@ export {
 } from './userActions/userActions';
 export {
   fetchPosts,
+  fetchTopPosts,
 } from './postActions/postActions';

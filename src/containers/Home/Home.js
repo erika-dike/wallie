@@ -19,6 +19,7 @@ import {
 import {
   fetchUser,
   fetchPosts,
+  fetchTopPosts,
   updateProfile,
 } from '../../actions';
 
@@ -38,8 +39,8 @@ class Home extends React.Component {
 
   componentWillMount() {
     // fetch top posts
-    const queryParams = 'q=top&limit=5';
-    this.props.fetchPosts(queryParams);
+    this.props.fetchTopPosts();
+    this.props.fetchPosts();
   }
 
   fetchUser() {
@@ -70,7 +71,7 @@ class Home extends React.Component {
         </Button>
         <Row className="show-grid">
           <Col xs={8} md={6} mdPush={3}>
-            <Posts />
+            <Posts posts={this.props.posts} />
           </Col>
           {this.props.isAuthenticated
             ?
@@ -96,7 +97,7 @@ class Home extends React.Component {
           >
             <section className="module top-post-section">
               <TopPosts
-                posts={this.props.posts}
+                posts={this.props.topPosts}
               />
             </section>
           </Col>
@@ -114,10 +115,13 @@ class Home extends React.Component {
 Home.defaultProps = {
   profile: null,
   posts: [],
+  topPosts: [],
 };
 
 Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  fetchPosts: PropTypes.func.isRequired,
+  fetchTopPosts: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,
@@ -144,6 +148,21 @@ Home.propTypes = {
     about: PropTypes.string,
     profile_pic: PropTypes.string,
   }),
+  topPosts: PropTypes.arrayOf(
+    PropTypes.shape({
+      date_created: PropTypes.string,
+      content: PropTypes.string,
+      author: PropTypes.shape({
+        username: PropTypes.string,
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
+        about: PropTypes.string,
+        profile_pic: PropTypes.string,
+      }),
+      num_loves: PropTypes.number,
+      in_love: PropTypes.bool,
+    }),
+  ),
   updateProfile: PropTypes.func.isRequired,
 };
 
@@ -155,6 +174,7 @@ function mapStateToProps(state) {
     pending: state.user.pending,
     posts: state.post.posts,
     profile: state.user.profile,
+    topPosts: state.post.topPosts,
   };
 }
 
@@ -163,8 +183,11 @@ function mapDispatchToProps(dispatch) {
     fetchUser: () => {
       dispatch(fetchUser());
     },
-    fetchPosts: (queryParams) => {
-      dispatch(fetchPosts(queryParams));
+    fetchPosts: () => {
+      dispatch(fetchPosts());
+    },
+    fetchTopPosts: () => {
+      dispatch(fetchTopPosts());
     },
     updateProfile: (profile) => {
       dispatch(updateProfile(profile));
@@ -174,6 +197,3 @@ function mapDispatchToProps(dispatch) {
 
 export { Home };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-
-
-// export default Home;
