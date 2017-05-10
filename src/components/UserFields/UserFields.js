@@ -29,9 +29,14 @@ const UserFields = ({ profilePageUrl, redirectToProfilePage, user }) =>
     </span>
   </div>;
 
+UserFields.defaultProps = {
+  profilePageUrl: null,
+  redirectToProfilePage: null,
+};
+
 UserFields.propTypes = {
-  profilePageUrl: PropTypes.string.isRequired,
-  redirectToProfilePage: PropTypes.func.isRequired,
+  profilePageUrl: PropTypes.string,
+  redirectToProfilePage: PropTypes.func,
   user: PropTypes.shape({
     username: PropTypes.string,
     first_name: PropTypes.string,

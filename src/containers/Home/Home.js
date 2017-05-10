@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import {
   AboutUs,
   Posts,
-  ProfileCard,
+  ProfileCardConsole,
   TopPosts,
 } from '../../components';
 
@@ -77,7 +77,7 @@ class Home extends React.Component {
             ?
               <Col xs={4} md={3} mdPull={6}>
                 <section className="module profile-section">
-                  <ProfileCard
+                  <ProfileCardConsole
                     addNotification={this.addNotification}
                     profile={this.props.profile}
                     updateProfile={this.updateProfile}

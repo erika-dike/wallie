@@ -51,11 +51,11 @@ const AvatarContainer = ({ img, uploadImage }) =>
 
 AvatarContainer.defaultProps = {
   img: DEFAULT_PROFILE_PIC,
+  uploadImage: null,
 };
 
 AvatarContainer.propTypes = {
   img: PropTypes.string,
-  uploadImage: PropTypes.func.isRequired,
 };
 
 export default AvatarContainer;

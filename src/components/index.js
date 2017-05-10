@@ -9,6 +9,7 @@ export { default as MessageAlert } from './MessageAlert/MessageAlert';
 export { default as Nav } from './Nav/Nav';
 export { default as Posts } from './Posts/Posts';
 export { default as ProfileCard } from './ProfileCard/ProfileCard';
+export { default as ProfileCardConsole } from './ProfileCardConsole/ProfileCardConsole';
 export { default as PostItem } from './PostItem/PostItem';
 export { default as ProfileUserFields } from './ProfileUserFields/ProfileUserFields';
 export { default as Spinner } from './Spinner/Spinner';

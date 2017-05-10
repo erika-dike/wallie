@@ -192,4 +192,8 @@ a.account-group {
 .popover-content {
     padding: 0;
     text-align: center;
+
+    .account-group {
+        left: 60px;
+    }
 }
