@@ -17,6 +17,7 @@ import {
 } from '../../components';
 
 import {
+  createPost,
   fetchUser,
   fetchPosts,
   fetchTopPosts,
@@ -36,6 +37,7 @@ class Home extends React.Component {
     super(props);
     this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
+    this.createPost = this.createPost.bind(this);
     this.lovePost = this.lovePost.bind(this);
     this.unlovePost = this.unlovePost.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
@@ -57,6 +59,10 @@ class Home extends React.Component {
       message,
       level: 'error',
     });
+  }
+
+  createPost(content) {
+    this.props.createPost(content);
   }
 
   lovePost(postId) {
@@ -84,6 +90,8 @@ class Home extends React.Component {
         <Row className="show-grid">
           <Col xs={8} md={6} mdPush={3}>
             <Posts
+              createPost={this.createPost}
+              profile={this.props.profile}
               posts={this.props.posts}
               lovePost={this.lovePost}
               unlovePost={this.unlovePost}
@@ -136,6 +144,7 @@ Home.defaultProps = {
 
 Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  createPost: PropTypes.func.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
@@ -198,6 +207,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    createPost: (content) => {
+      dispatch(createPost(content));
+    },
     fetchUser: () => {
       dispatch(fetchUser());
     },

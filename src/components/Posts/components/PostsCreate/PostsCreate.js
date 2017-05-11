@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   FormControl,
@@ -8,6 +9,8 @@ import {
 } from 'react-bootstrap';
 
 import './PostsCreate.css';
+
+import { DEFAULT_PROFILE_PIC } from '../../../../constants';
 
 class PostsCreate extends React.Component {
   constructor(props) {
@@ -20,6 +23,7 @@ class PostsCreate extends React.Component {
     this.handleFocusOnInactiveFormInput = this.handleFocusOnInactiveFormInput.bind(this);
     this.handleBlurActiveFormInput = this.handleBlurActiveFormInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleFocusOnInactiveFormInput() {
@@ -35,6 +39,12 @@ class PostsCreate extends React.Component {
   handleChange(event) {
     const value = event.currentTarget.value;
     this.setState({ post: value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.createPost(this.state.post);
+    this.setState({ isActive: false });
   }
 
   render() {
@@ -77,8 +87,8 @@ class PostsCreate extends React.Component {
             </div>
           </span>
         </div>
-        <div className="create-post-button ">
-          <Button bsClass="btn btn-info post-btn">
+        <div className="create-post-button">
+          <Button bsClass="btn btn-info post-btn" type="submit" onClick={this.handleSubmit}>
             <span className="button-text posting-text">
               <span className="Icon icon-post-create">
                 <i className="fa fa-paint-brush" aria-hidden="true" />
@@ -95,7 +105,7 @@ class PostsCreate extends React.Component {
         <div className="home-post-create-box post-create-box-component app-user">
           <img
             className="post-create-box-user-img avatar size32"
-            src="http://res.cloudinary.com/andela-troupon/image/upload/v1491232845/default_profile_normal_n8yvkf.png"
+            src={this.props.profile ? this.props.profile.profile_pic : DEFAULT_PROFILE_PIC}
             alt="Erika Dike"
           />
           <form className="post-create-form">
@@ -113,5 +123,23 @@ class PostsCreate extends React.Component {
     );
   }
 }
+
+PostsCreate.defaultProps = {
+  profile: null,
+};
+
+PostsCreate.propTypes = {
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      num_posts: PropTypes.number,
+    }),
+    about: PropTypes.string,
+    profile_pic: PropTypes.string,
+  }),
+};
 
 export default PostsCreate;

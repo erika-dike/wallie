@@ -5,13 +5,18 @@ import { PostsCreate, PostsList } from './components';
 
 import './Posts.css';
 
-const Posts = ({ posts, lovePost, unlovePost }) =>
+const Posts = ({ posts, lovePost, unlovePost, profile, createPost }) =>
   <main className="content-main">
-    <PostsCreate />
+    <PostsCreate profile={profile} createPost={createPost} />
     <PostsList posts={posts} lovePost={lovePost} unlovePost={unlovePost} />
   </main>;
 
+Posts.defaultProps = {
+  profile: null,
+};
+
 Posts.propTypes = {
+  createPost: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
@@ -28,6 +33,17 @@ Posts.propTypes = {
       in_love: PropTypes.bool,
     }),
   ).isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      num_posts: PropTypes.number,
+    }),
+    about: PropTypes.string,
+    profile_pic: PropTypes.string,
+  }),
   unlovePost: PropTypes.func.isRequired,
 };
 

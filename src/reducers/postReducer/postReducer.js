@@ -1,4 +1,7 @@
 import {
+  CREATE_POST_FAILURE,
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
@@ -45,6 +48,25 @@ export default function post(state = INITIAL_STATE, action) {
         topPosts: action.payload.results,
       };
     case FETCH_TOP_POSTS_FAILURE:
+      return { ...state, pending: false, error: action.payload };
+    case CREATE_POST_REQUEST:
+      return { ...state, pending: true };
+    case CREATE_POST_SUCCESS: {
+      const newPost = {
+        ...action.payload,
+        num_loves: 0,
+        in_love: false,
+      };
+      const newPosts = [newPost, ...state.posts];
+
+      return {
+        ...state,
+        pending: false,
+        fetched: true,
+        posts: newPosts,
+      };
+    }
+    case CREATE_POST_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case LOVE_POST_REQUEST:
       return { ...state, pending: true };

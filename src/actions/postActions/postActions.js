@@ -1,6 +1,9 @@
 import { CALL_API } from '../../middlewares/api';
 
 import {
+  CREATE_POST_FAILURE,
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
@@ -49,6 +52,25 @@ export function fetchTopPosts() {
         FETCH_TOP_POSTS_SUCCESS,
         FETCH_TOP_POSTS_FAILURE,
       ],
+    },
+  };
+}
+
+/**
+  Action to create a post
+**/
+export function createPost(content) {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: 'core/posts/',
+      httpMethod: 'post',
+      types: [
+        CREATE_POST_REQUEST,
+        CREATE_POST_SUCCESS,
+        CREATE_POST_FAILURE,
+      ],
+      data: { content },
     },
   };
 }

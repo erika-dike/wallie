@@ -6,6 +6,7 @@ export {
   toggleLoginModal,
 } from './authActions/authActions';
 export {
+  createPost,
   fetchPosts,
   fetchTopPosts,
   lovePost,
