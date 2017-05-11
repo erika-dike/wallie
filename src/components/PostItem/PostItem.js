@@ -35,12 +35,24 @@ const getLoveButtonStyles = (inLove) => {
   return styles;
 };
 
+/**
+  Show the heart fave animation by adding the class and removing at the
+  end of the animation
+**/
+const animateLove = (event) => {
+  const iconContainer = event.currentTarget.getElementsByClassName('icon-container')[0];
+  const heartElement = iconContainer.getElementsByClassName('heart')[0];
+  heartElement.classList.add('heart-animation');
+  setTimeout(() => heartElement.classList.remove('heart-animation'), 801);
+};
+
 const PostItem = ({ lovePost, mode, post, unlovePost }) => {
-  const toggleLoveStatus = () => {
+  const toggleLoveStatus = (event) => {
     if (post.in_love) {
       unlovePost(post.id);
     } else {
       lovePost(post.id);
+      animateLove(event);
     }
   };
 
@@ -128,11 +140,7 @@ const PostItem = ({ lovePost, mode, post, unlovePost }) => {
                     onClick={toggleLoveStatus}
                   >
                     <div className="icon-container">
-                      <div className="heart-animation-container">
-                        <div className="heart-animation">
-                          <i className="fa fa-heart" aria-hidden="true" />
-                        </div>
-                      </div>
+                      <div className="heart" />
                     </div>
                     <div className="icon-text-container">
                       <span className="post-action-count">

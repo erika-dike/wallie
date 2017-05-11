@@ -150,15 +150,18 @@ a.account-group {
     }
 
     &:focus {
+        color: #aab8c2;
         outline: none;
         background-color: transparent;
     }
 
     &:active {
+        color: #aab8c2;
         outline: none;
         background-color: transparent;
 
         &:focus {
+            color: #aab8c2;
             outline: none;
             background-color: transparent;
         }
@@ -166,8 +169,8 @@ a.account-group {
 }
 
 .post-in-love {
-    .icon-container {
-        color: #e2264d;
+    .heart {
+        background-position: right;
     }
 
     .post-action-count {
@@ -179,17 +182,30 @@ a.account-group {
     display: inline-block;
 }
 
-.heart-animation-container {
-    height: 16px;
-    left: .1rem;
+.heart {
+    height: 31px;
+    left: -1.9rem;
     overflow: hidden;
     padding-right: 1px;
     position: relative;
-    width: 16px;
+    width: 50px;
+    background-image: url('https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+
+    &:hover {
+        background-position: right;
+    }
+}
+
+@keyframes heart-burst {
+  from {background-position: left;}
+  to {background-position: right;}
 }
 
 .heart-animation {
-
+  animation: heart-burst .8s steps(28) 1;
 }
 
 .icon-text-container {
@@ -199,19 +215,11 @@ a.account-group {
 .post-action-count {
     color: #aab8c2;
     display: inline-block;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
-    margin-left: 6px;
     position: relative;
-    top: -2px
-}
-
-.action-button-undo {
-
-}
-
-.action-button-trigger {
-
+    top: -11px;
+    left: -27px;
 }
 
 .popover-content {
