@@ -230,3 +230,15 @@ a.account-group {
         left: 60px;
     }
 }
+
+.PostItem-menu {
+    display: inline-block;
+    float: right;
+    margin-top: -25px;
+
+    .btn {
+        &:focus {
+            outline: none;
+        }
+    }
+}

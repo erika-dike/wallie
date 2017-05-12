@@ -5,11 +5,44 @@ import { PostsCreate, PostsList } from './components';
 
 import './Posts.css';
 
-const Posts = ({ posts, lovePost, unlovePost, profile, createPost }) =>
-  <main className="content-main">
-    <PostsCreate profile={profile} createPost={createPost} />
-    <PostsList posts={posts} lovePost={lovePost} unlovePost={unlovePost} />
-  </main>;
+// const Posts = ({ posts, lovePost, unlovePost, profile, createPost }) => {
+class Posts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      postToEdit: null,
+    };
+    this.insertPostIntoCreateBox = this.insertPostIntoCreateBox.bind(this);
+  }
+
+  insertPostIntoCreateBox(post) {
+    this.setState({ postToEdit: post });
+  }
+
+  render() {
+    return (
+      <main className="content-main">
+        {this.props.profile
+          ?
+            <PostsCreate
+              profile={this.props.profile}
+              createPost={this.props.createPost}
+              postToEdit={this.state.postToEdit}
+            />
+          :
+            null
+        }
+        <PostsList
+          posts={this.props.posts}
+          profile={this.props.profile}
+          lovePost={this.props.lovePost}
+          unlovePost={this.props.unlovePost}
+          insertPostIntoCreateBox={this.insertPostIntoCreateBox}
+        />
+      </main>
+    );
+  }
+}
 
 Posts.defaultProps = {
   profile: null,

@@ -26,6 +26,12 @@ class PostsCreate extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentsWillReceiveProps(nextProps) {
+    if (nextProps.postToEdit) {
+      this.setState({ isActive: true, post: nextProps.postToEdit });
+    }
+  }
+
   handleFocusOnInactiveFormInput() {
     this.setState({ isActive: true });
   }

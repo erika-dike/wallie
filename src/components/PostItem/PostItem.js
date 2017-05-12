@@ -5,6 +5,8 @@ import { Button, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
 
 import { ProfileCard } from '../../components';
 
+import PostItemMenu from './components/PostItemMenu/PostItemMenu';
+
 import './PostItem.css';
 
 // constants
@@ -46,7 +48,14 @@ const animateLove = (event) => {
   setTimeout(() => heartElement.classList.remove('heart-animation'), 801);
 };
 
-const PostItem = ({ lovePost, mode, post, unlovePost }) => {
+const PostItem = ({
+  lovePost,
+  mode,
+  post,
+  profile,
+  unlovePost,
+  insertPostIntoCreateBox,
+}) => {
   const toggleLoveStatus = (event) => {
     if (post.in_love) {
       unlovePost(post.id);
@@ -56,7 +65,7 @@ const PostItem = ({ lovePost, mode, post, unlovePost }) => {
     }
   };
 
-  const profile = {
+  const authorsProfile = {
     user: {
       username: post.author.username,
       first_name: post.author.first_name,
@@ -69,7 +78,7 @@ const PostItem = ({ lovePost, mode, post, unlovePost }) => {
 
   const popoverProfileCard = (
     <Popover id="popover-trigger-hover-focus">
-      <ProfileCard profile={profile} />
+      <ProfileCard profile={authorsProfile} />
     </Popover>
   );
 
@@ -97,6 +106,16 @@ const PostItem = ({ lovePost, mode, post, unlovePost }) => {
                 @<b>{post.author.username}</b>
               </span>
             </a>
+
+            {profile && profile.user.username === post.author.username
+              ?
+                <div className="PostItem-menu">
+                  <PostItemMenu insertPostIntoCreateBox={insertPostIntoCreateBox} />
+                </div>
+              :
+                null
+            }
+
             <small className="time">
               <OverlayTrigger
                 overlay={timeTooltip}

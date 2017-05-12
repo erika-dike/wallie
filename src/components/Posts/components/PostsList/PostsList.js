@@ -6,13 +6,21 @@ import { PostItem } from '../../../../components/';
 import './PostsList.css';
 
 
-const PostsList = ({ posts, lovePost, unlovePost }) => {
+const PostsList = ({
+  posts,
+  profile,
+  lovePost,
+  unlovePost,
+  insertPostIntoCreateBox,
+}) => {
   const mappedPostItem = posts.map(post =>
     <PostItem
       key={post.id}
       post={post}
+      profile={profile}
       lovePost={lovePost}
       unlovePost={unlovePost}
+      insertPostIntoCreateBox={insertPostIntoCreateBox}
     />,
   );
 
