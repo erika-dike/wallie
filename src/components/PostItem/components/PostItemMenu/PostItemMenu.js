@@ -8,9 +8,9 @@ import {
 
 const PostItemMenu = ({ post, insertPostIntoCreateBox, deletePost }) => {
   const handleSelect = (eventKey) => {
-    if (eventKey === 1) {
+    if (eventKey === '1') {
       insertPostIntoCreateBox(post);
-    } else if (eventKey === 2) {
+    } else if (eventKey === '2') {
       deletePost(post);
     }
   };

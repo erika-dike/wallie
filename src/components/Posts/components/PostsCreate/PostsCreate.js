@@ -18,7 +18,10 @@ class PostsCreate extends React.Component {
     this.defaultMessage = "What's happening?";
     this.state = {
       isActive: false,
-      post: '',
+      post: {
+        id: null,
+        content: '',
+      },
     };
     this.handleFocusOnInactiveFormInput = this.handleFocusOnInactiveFormInput.bind(this);
     this.handleBlurActiveFormInput = this.handleBlurActiveFormInput.bind(this);
@@ -26,7 +29,7 @@ class PostsCreate extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentsWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.postToEdit) {
       this.setState({ isActive: true, post: nextProps.postToEdit });
     }
@@ -37,19 +40,27 @@ class PostsCreate extends React.Component {
   }
 
   handleBlurActiveFormInput() {
-    if (!this.state.post) {
+    if (!this.state.post.content) {
       this.setState({ isActive: false });
     }
   }
 
   handleChange(event) {
     const value = event.currentTarget.value;
-    this.setState({ post: value });
+    const { post } = this.state;
+    post.content = value;
+    this.setState({ post });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createPost(this.state.post);
+    const { id, content } = this.state.post;
+    if (id) {
+      // this.props.editPost(id, content);
+      console.log('Editing please.....');
+    } else {
+      this.props.createPost(content);
+    }
     this.setState({ isActive: false });
   }
 
@@ -60,11 +71,14 @@ class PostsCreate extends React.Component {
       </Tooltip>
     );
 
+    const submitButtonText = this.state.post.id ? 'Edit' : 'Post';
+
     const activeFormInput = (
       <FormGroup controlId="formControlsTextarea">
         <FormControl
           componentClass="textarea"
           placeholder={this.defaultMessage}
+          value={this.state.post.id ? this.state.post.content : null}
           autoFocus
           onBlur={this.handleBlurActiveFormInput}
           onChange={this.handleChange}
@@ -99,7 +113,7 @@ class PostsCreate extends React.Component {
               <span className="Icon icon-post-create">
                 <i className="fa fa-paint-brush" aria-hidden="true" />
               </span>
-              Post
+              {submitButtonText}
             </span>
           </Button>
         </div>

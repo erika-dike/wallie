@@ -110,7 +110,10 @@ const PostItem = ({
             {profile && profile.user.username === post.author.username
               ?
                 <div className="PostItem-menu">
-                  <PostItemMenu insertPostIntoCreateBox={insertPostIntoCreateBox} />
+                  <PostItemMenu
+                    post={post}
+                    insertPostIntoCreateBox={insertPostIntoCreateBox}
+                  />
                 </div>
               :
                 null

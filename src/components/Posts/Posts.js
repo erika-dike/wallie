@@ -16,7 +16,11 @@ class Posts extends React.Component {
   }
 
   insertPostIntoCreateBox(post) {
-    this.setState({ postToEdit: post });
+    const postToEdit = {
+      id: post.id,
+      content: post.content,
+    };
+    this.setState({ postToEdit });
   }
 
   render() {
