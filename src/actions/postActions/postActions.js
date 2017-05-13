@@ -50,7 +50,7 @@ export function fetchTopPosts(queryParams = '') {
   return {
     [CALL_API]: {
       authenticated: localStorage.getItem('token') !== null,
-      endpoint: `core/posts?${queryParams}&limit=5`,
+      endpoint: `core/posts?${queryParams}&q=top&limit=5`,
       httpMethod: 'get',
       types: [
         FETCH_TOP_POSTS_REQUEST,

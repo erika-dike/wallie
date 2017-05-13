@@ -50,7 +50,7 @@ class Profile extends React.Component {
 
   componentWillMount() {
     // fetch top posts
-    this.props.fetchTopPosts('q=top&private=True');
+    this.props.fetchTopPosts('private=True');
     // fetch posts authored by current user
     this.props.fetchPosts('private=True');
   }

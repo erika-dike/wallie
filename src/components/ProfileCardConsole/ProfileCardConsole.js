@@ -12,7 +12,7 @@ class ProfileCardConsole extends React.Component {
     super(props);
     this.redirectToProfilePage = this.redirectToProfilePage.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
-    this.profilePageUrl = `/profile/${this.props.profile.user.username}`;
+    this.profilePageUrl = `/${this.props.profile.user.username}`;
   }
 
   redirectToProfilePage(event) {

@@ -13,21 +13,23 @@ import './PostItem.css';
 import { DEFAULT_PROFILE_PIC } from '../../constants/';
 
 
-const timeTooltip = (
-  <Tooltip id="erika-ids">4:20 AM - 14 Apr 2017</Tooltip>
-);
+const getLoveToolTip = (loveStatus) => {
+  let text = '';
+  if (loveStatus) {
+    text = 'Undo Love';
+  } else {
+    text = 'Love';
+  }
 
-const Love = 'Love';
-const unLove = 'Undo Love';
-const loveTooltip = (
-  <Tooltip id="love-tooltip">{Love}</Tooltip>
-);
+  return <Tooltip id="love-tooltip">{text}</Tooltip>;
+};
+
+const getFullTime = time => (moment(time).format('h:mm a - D MMM YYYY'));
 
 
-const renderFullTime = time =>
-  <div className="full-time">
-    <span>{moment(time).format('h:mm a - D MMM YYYY')}</span>
-  </div>;
+const getTimeTooltip = time =>
+  <Tooltip id="time-tooltip">{getFullTime(time)}</Tooltip>;
+
 
 const getLoveButtonStyles = (inLove) => {
   let styles = 'post-action-button action-button-undo action-button-trigger u-link-clean';
@@ -123,7 +125,7 @@ const PostItem = ({
 
             <small className="time">
               <OverlayTrigger
-                overlay={timeTooltip}
+                overlay={getTimeTooltip(post.date_created)}
                 placement="top"
                 delayShow={200}
                 delayHide={150}
@@ -149,12 +151,19 @@ const PostItem = ({
           </div>
           <div className="stream-item-footer">
 
-            {mode === 'modal' ? renderFullTime(post.date_created) : null}
+            {mode === 'modal'
+              ?
+                <div className="full-time">
+                  <span>{getFullTime(post.date_created)}</span>
+                </div>
+              :
+                null
+            }
 
             <div className="post-action-list">
               <div className="post-action">
                 <OverlayTrigger
-                  overlay={loveTooltip}
+                  overlay={getLoveToolTip(post.in_love)}
                   placement="top"
                   delayShow={200}
                   delayHide={150}
