@@ -30,7 +30,12 @@ function callApi(endpoint, httpMethod, authenticated, data) {
 
   return api[httpMethod](endpoint, ...rest)
     .then(
-      response => response.data,
+      (response) => {
+        if (httpMethod === 'delete' && !response.data) {
+          return endpoint;
+        }
+        return response.data;
+      },
       (error) => {
         if (error.response.status === 401) {
           throw new Error(UNAUTHORIZED);

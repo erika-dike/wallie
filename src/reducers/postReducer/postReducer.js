@@ -2,6 +2,9 @@ import {
   CREATE_POST_FAILURE,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   EDIT_POST_FAILURE,
   EDIT_POST_REQUEST,
   EDIT_POST_SUCCESS,
@@ -86,6 +89,21 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case EDIT_POST_FAILURE:
+      return { ...state, pending: false, error: action.payload };
+    case DELETE_POST_REQUEST:
+      return { ...state, pending: true, fetched: false };
+    case DELETE_POST_SUCCESS: {
+      const postId = Number(action.payload.split('/')[2]);
+      const newPosts = state.posts.filter(apost => apost.id !== postId);
+
+      return {
+        ...state,
+        pending: false,
+        fetched: true,
+        posts: newPosts,
+      };
+    }
+    case DELETE_POST_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case LOVE_POST_REQUEST:
       return { ...state, pending: true, fetched: false };

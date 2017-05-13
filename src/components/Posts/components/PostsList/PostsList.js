@@ -7,20 +7,22 @@ import './PostsList.css';
 
 
 const PostsList = ({
+  deletePost,
+  insertPostIntoCreateBox,
+  lovePost,
   posts,
   profile,
-  lovePost,
   unlovePost,
-  insertPostIntoCreateBox,
 }) => {
   const mappedPostItem = posts.map(post =>
     <PostItem
       key={post.id}
+      deletePost={deletePost}
+      insertPostIntoCreateBox={insertPostIntoCreateBox}
+      lovePost={lovePost}
       post={post}
       profile={profile}
-      lovePost={lovePost}
       unlovePost={unlovePost}
-      insertPostIntoCreateBox={insertPostIntoCreateBox}
     />,
   );
 
@@ -35,7 +37,13 @@ const PostsList = ({
   );
 };
 
+PostsList.defaultProps = {
+  profile: null,
+};
+
 PostsList.propTypes = {
+  deletePost: PropTypes.func.isRequired,
+  insertPostIntoCreateBox: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
@@ -52,6 +60,17 @@ PostsList.propTypes = {
       in_love: PropTypes.bool,
     }),
   ).isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      num_posts: PropTypes.number,
+    }),
+    about: PropTypes.string,
+    profile_pic: PropTypes.string,
+  }),
   unlovePost: PropTypes.func.isRequired,
 };
 

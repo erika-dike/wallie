@@ -18,6 +18,7 @@ import {
 
 import {
   createPost,
+  deletePost,
   editPost,
   fetchUser,
   fetchPosts,
@@ -39,6 +40,7 @@ class Home extends React.Component {
     this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
     this.createPost = this.createPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.lovePost = this.lovePost.bind(this);
     this.unlovePost = this.unlovePost.bind(this);
@@ -78,6 +80,10 @@ class Home extends React.Component {
     this.props.createPost(content);
   }
 
+  deletePost(id) {
+    this.props.deletePost(id);
+  }
+
   editPost(id, content) {
     this.props.editPost(id, content);
   }
@@ -108,6 +114,7 @@ class Home extends React.Component {
           <Col xs={8} md={6} mdPush={3}>
             <Posts
               createPost={this.createPost}
+              deletePost={this.deletePost}
               editPost={this.editPost}
               lovePost={this.lovePost}
               fetched={this.props.postsFetched}
@@ -165,6 +172,7 @@ Home.defaultProps = {
 Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   createPost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
@@ -184,6 +192,9 @@ Home.propTypes = {
       in_love: PropTypes.bool,
     }),
   ),
+  postsErrors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  postsFetched: PropTypes.bool.isRequired,
+  postsPending: PropTypes.bool.isRequired,
   profile: PropTypes.shape({
     user: PropTypes.shape({
       username: PropTypes.string,
@@ -233,6 +244,9 @@ function mapDispatchToProps(dispatch) {
   return {
     createPost: (content) => {
       dispatch(createPost(content));
+    },
+    deletePost: (id) => {
+      dispatch(deletePost(id));
     },
     editPost: (id, content) => {
       dispatch(editPost(id, content));

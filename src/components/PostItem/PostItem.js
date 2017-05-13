@@ -49,12 +49,13 @@ const animateLove = (event) => {
 };
 
 const PostItem = ({
+  deletePost,
+  insertPostIntoCreateBox,
   lovePost,
   mode,
   post,
   profile,
   unlovePost,
-  insertPostIntoCreateBox,
 }) => {
   const toggleLoveStatus = (event) => {
     if (post.in_love) {
@@ -111,8 +112,9 @@ const PostItem = ({
               ?
                 <div className="PostItem-menu">
                   <PostItemMenu
-                    post={post}
+                    deletePost={deletePost}
                     insertPostIntoCreateBox={insertPostIntoCreateBox}
+                    post={post}
                   />
                 </div>
               :
@@ -186,9 +188,12 @@ const PostItem = ({
 PostItem.defaultProps = {
   mode: 'post-list',
   post: null,
+  profile: null,
 };
 
 PostItem.propTypes = {
+  deletePost: PropTypes.func.isRequired,
+  insertPostIntoCreateBox: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
   mode: PropTypes.string,
   post: PropTypes.shape({
@@ -203,6 +208,17 @@ PostItem.propTypes = {
     }),
     num_loves: PropTypes.number,
     in_love: PropTypes.bool,
+  }),
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      num_posts: PropTypes.number,
+    }),
+    about: PropTypes.string,
+    profile_pic: PropTypes.string,
   }),
   unlovePost: PropTypes.func.isRequired,
 };

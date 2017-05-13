@@ -68,7 +68,12 @@ class LoginNavItem extends React.Component {
         <NavItem eventKey={eventKey} href={href} onClick={this.open}>
           Log in
 
-          <Modal show={this.state.showModal} onHide={this.close} autoFocus>
+          <Modal
+            dialogClassName="login-modal"
+            show={this.state.showModal}
+            onHide={this.close}
+            autoFocus
+          >
             <Modal.Header closeButton>
               <Modal.Title>Log in to Wallie</Modal.Title>
             </Modal.Header>

@@ -46,6 +46,7 @@ class Posts extends React.Component {
             null
         }
         <PostsList
+          deletePost={this.props.deletePost}
           fetched={this.props.fetched}
           insertPostIntoCreateBox={this.insertPostIntoCreateBox}
           lovePost={this.props.lovePost}
@@ -66,6 +67,7 @@ Posts.defaultProps = {
 Posts.propTypes = {
   createPost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   fetched: PropTypes.bool.isRequired,
   lovePost: PropTypes.func.isRequired,
   pending: PropTypes.bool.isRequired,

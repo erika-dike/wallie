@@ -4,6 +4,9 @@ import {
   CREATE_POST_FAILURE,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   EDIT_POST_FAILURE,
   EDIT_POST_REQUEST,
   EDIT_POST_SUCCESS,
@@ -93,6 +96,24 @@ export function editPost(id, content) {
         EDIT_POST_FAILURE,
       ],
       data: { content },
+    },
+  };
+}
+
+/**
+  Action to delete a post
+**/
+export function deletePost(id) {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: `core/posts/${id}/`,
+      httpMethod: 'delete',
+      types: [
+        DELETE_POST_REQUEST,
+        DELETE_POST_SUCCESS,
+        DELETE_POST_FAILURE,
+      ],
     },
   };
 }

@@ -83,7 +83,7 @@ class PostsCreate extends React.Component {
         <FormControl
           componentClass="textarea"
           placeholder={this.defaultMessage}
-          value={this.state.post.id ? this.state.post.content : null}
+          value={this.state.post.content}
           autoFocus
           onBlur={this.handleBlurActiveFormInput}
           onChange={this.handleChange}
