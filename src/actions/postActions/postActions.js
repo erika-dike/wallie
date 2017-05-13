@@ -28,11 +28,11 @@ import {
 /**
   Action to fetch posts
 **/
-export function fetchPosts() {
+export function fetchPosts(queryParams = '') {
   return {
     [CALL_API]: {
       authenticated: localStorage.getItem('token') !== null,
-      endpoint: 'core/posts/',
+      endpoint: `core/posts/?${queryParams}`,
       httpMethod: 'get',
       types: [
         FETCH_POSTS_REQUEST,
@@ -46,12 +46,11 @@ export function fetchPosts() {
 /**
   Action to fetch top posts
 **/
-export function fetchTopPosts() {
-  const queryParams = 'q=top&limit=5';
+export function fetchTopPosts(queryParams = '') {
   return {
     [CALL_API]: {
       authenticated: localStorage.getItem('token') !== null,
-      endpoint: `core/posts?${queryParams}`,
+      endpoint: `core/posts?${queryParams}&limit=5`,
       httpMethod: 'get',
       types: [
         FETCH_TOP_POSTS_REQUEST,

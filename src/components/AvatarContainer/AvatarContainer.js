@@ -56,6 +56,7 @@ AvatarContainer.defaultProps = {
 
 AvatarContainer.propTypes = {
   img: PropTypes.string,
+  uploadImage: PropTypes.func,
 };
 
 export default AvatarContainer;
