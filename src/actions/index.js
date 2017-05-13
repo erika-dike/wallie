@@ -7,6 +7,7 @@ export {
 } from './authActions/authActions';
 export {
   createPost,
+  editPost,
   fetchPosts,
   fetchTopPosts,
   lovePost,

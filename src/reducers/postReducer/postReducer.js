@@ -2,6 +2,9 @@ import {
   CREATE_POST_FAILURE,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
+  EDIT_POST_FAILURE,
+  EDIT_POST_REQUEST,
+  EDIT_POST_SUCCESS,
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
@@ -28,7 +31,7 @@ const INITIAL_STATE = {
 export default function post(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_POSTS_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case FETCH_POSTS_SUCCESS:
       return {
         ...state,
@@ -39,7 +42,7 @@ export default function post(state = INITIAL_STATE, action) {
     case FETCH_POSTS_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case FETCH_TOP_POSTS_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case FETCH_TOP_POSTS_SUCCESS:
       return {
         ...state,
@@ -50,7 +53,7 @@ export default function post(state = INITIAL_STATE, action) {
     case FETCH_TOP_POSTS_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case CREATE_POST_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case CREATE_POST_SUCCESS: {
       const newPost = {
         ...action.payload,
@@ -68,8 +71,24 @@ export default function post(state = INITIAL_STATE, action) {
     }
     case CREATE_POST_FAILURE:
       return { ...state, pending: false, error: action.payload };
+    case EDIT_POST_REQUEST:
+      return { ...state, pending: true, fetched: false };
+    case EDIT_POST_SUCCESS: {
+      const editedPost = action.payload;
+      const oldPosts = state.posts.filter(apost => apost.id !== editedPost.id);
+      const newPosts = [editedPost, ...oldPosts];
+
+      return {
+        ...state,
+        pending: false,
+        fetched: true,
+        posts: newPosts,
+      };
+    }
+    case EDIT_POST_FAILURE:
+      return { ...state, pending: false, error: action.payload };
     case LOVE_POST_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case LOVE_POST_SUCCESS: {
       const { post_id, in_love, num_loves } = action.payload;
       const newPosts = [...state.posts];
@@ -87,7 +106,7 @@ export default function post(state = INITIAL_STATE, action) {
     case LOVE_POST_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case UNLOVE_POST_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case UNLOVE_POST_SUCCESS: {
       const { post_id, in_love, num_loves } = action.payload;
       const newPosts = [...state.posts];

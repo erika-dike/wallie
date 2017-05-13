@@ -60,10 +60,8 @@ export default function auth(state = INITIAL_STATE, action) {
         errors: action.payload.errors,
       };
     case LOGOUT_USER_REQUEST:
-      debugger;
       return { ...state, loading: true };
     case LOGOUT_USER_SUCCESS:
-      debugger;
       return { ...state, loading: false, isAuthenticated: false };
     default:
       return state;

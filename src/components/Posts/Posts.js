@@ -13,6 +13,7 @@ class Posts extends React.Component {
       postToEdit: null,
     };
     this.insertPostIntoCreateBox = this.insertPostIntoCreateBox.bind(this);
+    this.removePostFromCreateBox = this.removePostFromCreateBox.bind(this);
   }
 
   insertPostIntoCreateBox(post) {
@@ -23,25 +24,35 @@ class Posts extends React.Component {
     this.setState({ postToEdit });
   }
 
+  removePostFromCreateBox() {
+    this.setState({ postToEdit: null });
+  }
+
   render() {
     return (
       <main className="content-main">
         {this.props.profile
           ?
             <PostsCreate
-              profile={this.props.profile}
               createPost={this.props.createPost}
+              editPost={this.props.editPost}
+              fetched={this.props.fetched}
+              pending={this.props.pending}
               postToEdit={this.state.postToEdit}
+              profile={this.props.profile}
+              removePostFromCreateBox={this.removePostFromCreateBox}
             />
           :
             null
         }
         <PostsList
+          fetched={this.props.fetched}
+          insertPostIntoCreateBox={this.insertPostIntoCreateBox}
+          lovePost={this.props.lovePost}
+          pending={this.props.pending}
           posts={this.props.posts}
           profile={this.props.profile}
-          lovePost={this.props.lovePost}
           unlovePost={this.props.unlovePost}
-          insertPostIntoCreateBox={this.insertPostIntoCreateBox}
         />
       </main>
     );
@@ -54,7 +65,10 @@ Posts.defaultProps = {
 
 Posts.propTypes = {
   createPost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
+  fetched: PropTypes.bool.isRequired,
   lovePost: PropTypes.func.isRequired,
+  pending: PropTypes.bool.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,

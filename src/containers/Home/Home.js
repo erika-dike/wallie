@@ -18,6 +18,7 @@ import {
 
 import {
   createPost,
+  editPost,
   fetchUser,
   fetchPosts,
   fetchTopPosts,
@@ -38,6 +39,7 @@ class Home extends React.Component {
     this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
     this.createPost = this.createPost.bind(this);
+    this.editPost = this.editPost.bind(this);
     this.lovePost = this.lovePost.bind(this);
     this.unlovePost = this.unlovePost.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
@@ -47,6 +49,17 @@ class Home extends React.Component {
     // fetch top posts
     this.props.fetchTopPosts();
     this.props.fetchPosts();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Notify user of errors when the occur.
+    const { postsErrors } = nextProps;
+    let errors = [];
+    const title = null;
+    if (postsErrors) {
+      errors = postsErrors;
+    }
+    errors.forEach(error => this.addNotification(title, error));
   }
 
   fetchUser() {
@@ -63,6 +76,10 @@ class Home extends React.Component {
 
   createPost(content) {
     this.props.createPost(content);
+  }
+
+  editPost(id, content) {
+    this.props.editPost(id, content);
   }
 
   lovePost(postId) {
@@ -91,9 +108,12 @@ class Home extends React.Component {
           <Col xs={8} md={6} mdPush={3}>
             <Posts
               createPost={this.createPost}
-              profile={this.props.profile}
-              posts={this.props.posts}
+              editPost={this.editPost}
               lovePost={this.lovePost}
+              fetched={this.props.postsFetched}
+              pending={this.props.postsPending}
+              posts={this.props.posts}
+              profile={this.props.profile}
               unlovePost={this.unlovePost}
             />
           </Col>
@@ -145,6 +165,7 @@ Home.defaultProps = {
 Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   createPost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
@@ -200,6 +221,9 @@ function mapStateToProps(state) {
     isAuthenticated: state.auth.isAuthenticated,
     pending: state.user.pending,
     posts: state.post.posts,
+    postsErrors: state.post.errors,
+    postsFetched: state.post.fetched,
+    postsPending: state.post.pending,
     profile: state.user.profile,
     topPosts: state.post.topPosts,
   };
@@ -209,6 +233,9 @@ function mapDispatchToProps(dispatch) {
   return {
     createPost: (content) => {
       dispatch(createPost(content));
+    },
+    editPost: (id, content) => {
+      dispatch(editPost(id, content));
     },
     fetchUser: () => {
       dispatch(fetchUser());

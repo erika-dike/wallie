@@ -4,6 +4,9 @@ import {
   CREATE_POST_FAILURE,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
+  EDIT_POST_FAILURE,
+  EDIT_POST_REQUEST,
+  EDIT_POST_SUCCESS,
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
@@ -69,6 +72,25 @@ export function createPost(content) {
         CREATE_POST_REQUEST,
         CREATE_POST_SUCCESS,
         CREATE_POST_FAILURE,
+      ],
+      data: { content },
+    },
+  };
+}
+
+/**
+  Action to edit a post
+**/
+export function editPost(id, content) {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: `core/posts/${id}/`,
+      httpMethod: 'put',
+      types: [
+        EDIT_POST_REQUEST,
+        EDIT_POST_SUCCESS,
+        EDIT_POST_FAILURE,
       ],
       data: { content },
     },

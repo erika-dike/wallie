@@ -30,7 +30,14 @@ class PostsCreate extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.postToEdit) {
+    // if object was created or editied successfully, reset both the state
+    // of this component and the parent with the removePostFromCreateBox
+    // callback.
+    if (this.props.pending && nextProps.fetched) {
+      this.props.removePostFromCreateBox();
+      const post = { id: null, content: '' };
+      this.setState({ isActive: false, post });
+    } else if (nextProps.postToEdit) {
       this.setState({ isActive: true, post: nextProps.postToEdit });
     }
   }
@@ -56,12 +63,10 @@ class PostsCreate extends React.Component {
     event.preventDefault();
     const { id, content } = this.state.post;
     if (id) {
-      // this.props.editPost(id, content);
-      console.log('Editing please.....');
+      this.props.editPost(id, content);
     } else {
       this.props.createPost(content);
     }
-    this.setState({ isActive: false });
   }
 
   render() {
@@ -145,10 +150,19 @@ class PostsCreate extends React.Component {
 }
 
 PostsCreate.defaultProps = {
+  postToEdit: null,
   profile: null,
 };
 
 PostsCreate.propTypes = {
+  createPost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
+  fetched: PropTypes.bool.isRequired,
+  pending: PropTypes.bool.isRequired,
+  postToEdit: PropTypes.shape({
+    id: PropTypes.number,
+    content: PropTypes.string,
+  }),
   profile: PropTypes.shape({
     user: PropTypes.shape({
       username: PropTypes.string,
@@ -160,6 +174,7 @@ PostsCreate.propTypes = {
     about: PropTypes.string,
     profile_pic: PropTypes.string,
   }),
+  removePostFromCreateBox: PropTypes.func.isRequired,
 };
 
 export default PostsCreate;
