@@ -5,49 +5,45 @@ import { FieldGroup } from '../';
 
 
 class EditProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      profile: {
-        user: {
-          username: props.profile.user.username,
-          first_name: props.profile.user.first_name,
-          last_name: props.profile.user.last_name,
-          email: props.profile.user.email,
-        },
-        about: props.profile.about,
-      },
-    };
-  }
   render() {
     return (
       <div className="edit-profile-form-container">
         <form className="edit-profile-form">
           <FieldGroup
+            name="first_name"
             type="text"
             placeholder="First Name"
-            value={this.state.profile.user.first_name}
+            value={this.props.profile.user.first_name}
+            onChange={this.props.handleChangeInEditProfileForm}
             autoFocus
           />
           <FieldGroup
+            name="last_name"
             type="text"
             placeholder="Last Name"
-            value={this.state.profile.user.last_name}
+            value={this.props.profile.user.last_name}
+            onChange={this.props.handleChangeInEditProfileForm}
           />
           <FieldGroup
+            name="username"
             type="text"
             placeholder="Username"
-            value={this.state.profile.user.username}
+            value={this.props.profile.user.username}
+            onChange={this.props.handleChangeInEditProfileForm}
           />
           <FieldGroup
+            name="email"
             type="email"
             placeholder="Email"
-            value={this.state.profile.user.email}
+            value={this.props.profile.user.email}
+            onChange={this.props.handleChangeInEditProfileForm}
           />
           <FieldGroup
+            name="about"
             type="textarea"
             placeholder="About me"
-            value={this.state.profile.about}
+            value={this.props.profile.about}
+            onChange={this.props.handleChangeInEditProfileForm}
           />
         </form>
       </div>
@@ -56,14 +52,12 @@ class EditProfile extends React.Component {
 }
 
 EditProfile.propTypes = {
+  handleChangeInEditProfileForm: PropTypes.func.isRequired,
   profile: PropTypes.shape({
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
-      email: PropTypes.string,
-      num_posts: PropTypes.number,
-    }),
+    username: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    email: PropTypes.string,
     about: PropTypes.string,
     profile_pic: PropTypes.string,
   }).isRequired,

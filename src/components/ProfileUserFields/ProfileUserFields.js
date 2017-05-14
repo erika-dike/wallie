@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import { UserFields } from '../';
 
+import './ProfileUserFields.css';
+
 
 const ProfileUserFields = ({ profile }) =>
   <div className="Profile-user-fields">

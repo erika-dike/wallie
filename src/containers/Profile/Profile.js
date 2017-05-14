@@ -42,9 +42,13 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       showEditView: false,
+      profile: this.constructProfileForState,
     };
     this.addNotification = this.addNotification.bind(this);
+    this.constructProfileForState = this.constructProfileForState.bind(this);
+    this.handleChangeInEditProfileForm = this.handleChangeInEditProfileForm.bind(this);
     this.toggleEditView = this.toggleEditView.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
   }
 
@@ -53,6 +57,22 @@ class Profile extends React.Component {
     this.props.fetchTopPosts('private=True');
     // fetch posts authored by current user
     this.props.fetchPosts('private=True');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { profile } = this.props;
+    if (nextProps.fetched && this.state.showEditView) {  // success
+      this.toggleEditView();
+      localStorage.setItem('profile', JSON.stringify(this.props.profile));
+
+      // fetch posts with the new profile changes reflected
+      this.props.fetchTopPosts('private=True');
+      this.props.fetchPosts('private=True');
+    } else {  // failure
+      this.props.errors.forEach(error =>
+        this.addNotification('Update Profile Error!', error),
+      );
+    }
   }
 
   componentDidUpdate() {
@@ -70,8 +90,36 @@ class Profile extends React.Component {
     }
   }
 
+  constructProfileForState() {
+    const { profile } = this.props;
+    return {
+      user: {
+        username: profile.user.username,
+        first_name: profile.user.first_name,
+        last_name: profile.user.last_name,
+        email: profile.user.email,
+      },
+      about: profile.about,
+      profile_pic: profile.profile_pic,
+    };
+  }
+
   toggleEditView() {
-    this.setState({ showEditView: !this.state.showEditView });
+    this.setState({
+      profile: this.constructProfileForState(),
+      showEditView: !this.state.showEditView,
+    });
+  }
+
+  handleChangeInEditProfileForm(event) {
+    const { name, value } = event.target;
+    const { profile } = this.state;
+    if (name === 'profile') {
+      profile[name] = value;
+    } else {
+      profile.user[name] = value;
+    }
+    this.setState({ profile });
   }
 
   addNotification(title, message) {
@@ -94,25 +142,18 @@ class Profile extends React.Component {
     this.props.editPost(id, content);
   }
 
-  lovePost(postId) {
-    this.props.lovePost(postId);
-  }
-
-  unlovePost(postId) {
-    this.props.unlovePost(postId);
-  }
-
   /**
-    Update profile with current profile just received after updating
-    profile picture
+    Update profile with current profile just received after updating profile
   **/
-  async updateProfile(profile, oldProfilePicUrl) {
-    await this.props.updateProfile(profile);
-    if (this.props.profile.profile_pic === profile.profile_pic) {
-      localStorage.setItem('profile', JSON.stringify(profile));
-      deleteImageFromCloudinary(oldProfilePicUrl);
-    }
-  }
+  updateProfile(profile, oldProfilePicUrl) {
+    this.props.updateProfile(this.state.profile);
+
+    // TODO; FIT THIS WITH the PROFILE page. still optimized for home currently
+    // if (this.props.profile.profile_pic === profile.profile_pic) {
+    // localStorage.setItem('profile', JSON.stringify(profile));
+    //   deleteImageFromCloudinary(oldProfilePicUrl);
+    // }
+}
 
   /**
     Uploads image to cloudinary using the global cloudinary object
@@ -128,7 +169,7 @@ class Profile extends React.Component {
         const { profile } = this.props;
         const oldProfilePicUrl = profile.profile_pic;
         profile.profile_pic = result[0].secure_url;
-        this.props.updateProfile(profile, oldProfilePicUrl);
+        this.updateProfile(profile, oldProfilePicUrl);
       } else if (error) {
         const title = 'Upload Image Error!';
         this.addNotification(title, error.message);
@@ -161,8 +202,9 @@ class Profile extends React.Component {
               <Col xs={2} md={3}>
                 <div id="edit-profile-menu" className="Profile-edit-profile-menu">
                   <EditMenu
-                    callBackParent={this.toggleEditView}
                     showEditView={this.state.showEditView}
+                    toggleVisibility={this.toggleEditView}
+                    updateProfile={this.updateProfile}
                   />
                 </div>
               </Col>
@@ -170,7 +212,9 @@ class Profile extends React.Component {
                 <Nav bsStyle="pills">
                   <NavItem eventKey={1} className="Profile-nav-stat text-center u-border-user-color">
                     <span className="Profile-nav-label">Posts</span>
-                    <span className="Profile-nav-value">87</span>
+                    <span className="Profile-nav-value">
+                      {this.props.profile.user.num_posts}
+                    </span>
                   </NavItem>
                 </Nav>
               </Col>
@@ -184,19 +228,22 @@ class Profile extends React.Component {
                 createPost={this.createPost}
                 deletePost={this.deletePost}
                 editPost={this.editPost}
-                lovePost={this.lovePost}
+                lovePost={this.props.lovePost}
                 fetched={this.props.postsFetched}
                 pending={this.props.postsPending}
                 posts={this.props.posts}
                 profile={this.props.profile}
-                unlovePost={this.unlovePost}
+                unlovePost={this.props.unlovePost}
               />
             </Col>
             <Col xs={4} md={3} mdPush={3}>
               <div id="profile-user-field" className="Profile-user-fields">
                 {this.state.showEditView
                   ?
-                    <EditProfile profile={this.props.profile} />
+                    <EditProfile
+                      handleChangeInEditProfileForm={this.handleChangeInEditProfileForm}
+                      profile={this.state.profile}
+                    />
                   :
                     <ProfileUserFields profile={this.props.profile} />
                 }
@@ -306,6 +353,9 @@ function mapDispatchToProps(dispatch) {
     },
     editPost: (id, content) => {
       dispatch(editPost(id, content));
+    },
+    editProfile: (data) => {
+      dispatch(updateProfile(data));
     },
     fetchUser: (queryParams) => {
       dispatch(fetchUser(queryParams));

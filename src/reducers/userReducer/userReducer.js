@@ -23,7 +23,7 @@ const INITIAL_STATE = {
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
     case REGISTER_USER_PENDING:
-      return { ...state, registering: true };
+      return { ...state, registering: true, fetched: false };
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
@@ -54,13 +54,13 @@ export default function user(state = INITIAL_STATE, action) {
       };
     }
     case FETCH_USER_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case FETCH_USER_SUCCESS:
       return { ...state, pending: false, fetched: true, profile: action.payload };
     case FETCH_USER_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case UPDATE_PROFILE_REQUEST:
-      return { ...state, pending: true };
+      return { ...state, pending: true, fetched: false };
     case UPDATE_PROFILE_SUCCESS:
       return { ...state, pending: false, fetched: true, profile: action.payload };
     case UPDATE_PROFILE_FAILURE:

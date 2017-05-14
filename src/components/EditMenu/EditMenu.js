@@ -4,15 +4,6 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 
 
 class EditMenu extends React.Component {
-  constructor() {
-    super();
-    this.toggleEditView = this.toggleEditView.bind(this);
-  }
-
-  toggleEditView() {
-    this.props.callBackParent();
-  }
-
   render() {
     return (
       <div className="Profile-edit-profile-btn">
@@ -21,12 +12,12 @@ class EditMenu extends React.Component {
             ?
               (
                 <ButtonToolbar>
-                  <Button onClick={this.toggleEditView}>Cancel</Button>
-                  <Button onClick={this.toggleEditView} bsStyle="info">Save changes</Button>
+                  <Button onClick={this.props.toggleVisibility}>Cancel</Button>
+                  <Button onClick={this.props.updateProfile} bsStyle="info">Save changes</Button>
                 </ButtonToolbar>
               )
             :
-                <Button onClick={this.toggleEditView}>Edit Profile</Button>
+                <Button onClick={this.props.toggleVisibility}>Edit Profile</Button>
         }
       </div>
     );
@@ -34,8 +25,9 @@ class EditMenu extends React.Component {
 }
 
 EditMenu.propTypes = {
-  callBackParent: PropType.func.isRequired,
+  updateProfile: PropType.func.isRequired,
   showEditView: PropType.bool.isRequired,
+  toggleVisibility: PropType.func.isRequired,
 };
 
 export default EditMenu;
