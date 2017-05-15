@@ -1,5 +1,7 @@
 import React from 'react';
+import pluralize from 'pluralize';
 import PropTypes from 'prop-types';
+import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
 import {
   Col,
@@ -31,7 +33,10 @@ import {
   unlovePost,
 } from '../../actions';
 
-import { deleteImageFromCloudinary } from '../../utils';
+import {
+  deleteImageFromCloudinary,
+  getValidationState,
+} from '../../utils';
 
 import './Profile.css';
 
@@ -42,13 +47,16 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       showEditView: false,
+      showFieldErrors: false,
       profile: this.constructProfileForState,
     };
     this.addNotification = this.addNotification.bind(this);
     this.constructProfileForState = this.constructProfileForState.bind(this);
+    this.getFieldLength = this.getFieldLength.bind(this);
     this.handleChangeInEditProfileForm = this.handleChangeInEditProfileForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.isFormValid = this.isFormValid.bind(this);
     this.toggleEditView = this.toggleEditView.bind(this);
-    this.updateProfile = this.updateProfile.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
   }
 
@@ -60,17 +68,20 @@ class Profile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { profile } = this.props;
-    if (nextProps.fetched && this.state.showEditView) {  // success
+    if (nextProps.fetched && this.state.showEditView) {
       this.toggleEditView();
-      localStorage.setItem('profile', JSON.stringify(this.props.profile));
+      localStorage.setItem('profile', JSON.stringify(nextProps.profile));
 
       // fetch posts with the new profile changes reflected
       this.props.fetchTopPosts('private=True');
       this.props.fetchPosts('private=True');
-    } else {  // failure
-      this.props.errors.forEach(error =>
+    } else if (nextProps.userReducerErrors.length) {
+      nextProps.userReducerErrors.forEach(error =>
         this.addNotification('Update Profile Error!', error),
+      );
+    } else if (nextProps.postsErrors.length) {
+      nextProps.postsErrors.forEach(error =>
+        this.addNotification('Fetch Posts Error!', error),
       );
     }
   }
@@ -88,6 +99,19 @@ class Profile extends React.Component {
       editProfileMenu.classList.remove('spotlight');
       profileUserField.classList.remove('spotlight');
     }
+  }
+
+  /**
+    Get length of the field supplied as argument
+  **/
+  getFieldLength(field) {
+    let fieldLength;
+    if (field === 'about') {
+      fieldLength = this.state.profile[field].length;
+    } else {
+      fieldLength = this.state.profile.user[field].length;
+    }
+    return fieldLength;
   }
 
   constructProfileForState() {
@@ -143,17 +167,45 @@ class Profile extends React.Component {
   }
 
   /**
+    Check if form is valid by verifying length requirements
+  **/
+  isFormValid() {
+    const fieldToMinLengthMapping = {
+      first_name: 1,
+      last_name: 1,
+      username: 5,
+      about: 5,
+    };
+
+    let errors = false;
+    Object.keys(fieldToMinLengthMapping).forEach((field) => {
+      const fieldLength = this.getFieldLength(field);
+      const minLength = fieldToMinLengthMapping[field];
+      if (getValidationState(fieldLength, minLength) === 'error') {
+        const title = `${field.replace('_', ' ')} validation error`;
+        const message = `This field must have atleast
+          ${minLength} ${pluralize('character', minLength)}`;
+        this.addNotification(title, message);
+        errors = true;
+      }
+    });
+
+    if (errors) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
     Update profile with current profile just received after updating profile
   **/
-  updateProfile(profile, oldProfilePicUrl) {
-    this.props.updateProfile(this.state.profile);
-
-    // TODO; FIT THIS WITH the PROFILE page. still optimized for home currently
-    // if (this.props.profile.profile_pic === profile.profile_pic) {
-    // localStorage.setItem('profile', JSON.stringify(profile));
-    //   deleteImageFromCloudinary(oldProfilePicUrl);
-    // }
-}
+  handleSubmit() {
+    if (this.isFormValid()) {
+      this.props.updateProfile(this.state.profile);
+    } else {
+      this.setState({ showFieldErrors: true });
+    }
+  }
 
   /**
     Uploads image to cloudinary using the global cloudinary object
@@ -164,12 +216,18 @@ class Profile extends React.Component {
       cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
       upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
       tags: ['profile_pic'],
-    }, (error, result) => {
+    }, async (error, result) => {
       if (result) {
         const { profile } = this.props;
         const oldProfilePicUrl = profile.profile_pic;
         profile.profile_pic = result[0].secure_url;
-        this.updateProfile(profile, oldProfilePicUrl);
+        this.setState({ profile });
+        await this.updateProfile();
+
+        // delete old image from cloudinary if image was successfully updated
+        if (this.props.profile.profile_pic === result[0].secure_url) {
+          deleteImageFromCloudinary(oldProfilePicUrl);
+        }
       } else if (error) {
         const title = 'Upload Image Error!';
         this.addNotification(title, error.message);
@@ -182,6 +240,11 @@ class Profile extends React.Component {
       <div className="Profile">
         <div className="Profile-first-banner u-bg-user-color">
           <Grid>
+            <Row>
+              <NotificationSystem
+                ref={(input) => { this.notificationSystem = input; }}
+              />
+            </Row>
             <Row>
               <Col xsOffset={9} xs={3}>
                 <div className="Profile-first-banner-content">
@@ -204,7 +267,7 @@ class Profile extends React.Component {
                   <EditMenu
                     showEditView={this.state.showEditView}
                     toggleVisibility={this.toggleEditView}
-                    updateProfile={this.updateProfile}
+                    handleSubmit={this.handleSubmit}
                   />
                 </div>
               </Col>
@@ -273,12 +336,14 @@ Profile.defaultProps = {
 };
 
 Profile.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
   createPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
+  userReducerErrors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetched: PropTypes.bool.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
   lovePost: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
@@ -330,7 +395,7 @@ Profile.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    errors: state.user.errors,
+    userReducerErrors: state.user.errors,
     fetched: state.user.fetched,
     isAuthenticated: state.auth.isAuthenticated,
     pending: state.user.pending,

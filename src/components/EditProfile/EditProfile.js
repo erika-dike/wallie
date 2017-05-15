@@ -32,13 +32,6 @@ class EditProfile extends React.Component {
             onChange={this.props.handleChangeInEditProfileForm}
           />
           <FieldGroup
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={this.props.profile.user.email}
-            onChange={this.props.handleChangeInEditProfileForm}
-          />
-          <FieldGroup
             name="about"
             type="textarea"
             placeholder="About me"
@@ -54,13 +47,16 @@ class EditProfile extends React.Component {
 EditProfile.propTypes = {
   handleChangeInEditProfileForm: PropTypes.func.isRequired,
   profile: PropTypes.shape({
-    username: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-    email: PropTypes.string,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      num_posts: PropTypes.number,
+    }).isRequired,
     about: PropTypes.string,
     profile_pic: PropTypes.string,
-  }).isRequired,
+  }),
 };
 
 export default EditProfile;

@@ -13,7 +13,7 @@ class EditMenu extends React.Component {
               (
                 <ButtonToolbar>
                   <Button onClick={this.props.toggleVisibility}>Cancel</Button>
-                  <Button onClick={this.props.updateProfile} bsStyle="info">Save changes</Button>
+                  <Button onClick={this.props.handleSubmit} bsStyle="info">Save changes</Button>
                 </ButtonToolbar>
               )
             :
@@ -25,7 +25,7 @@ class EditMenu extends React.Component {
 }
 
 EditMenu.propTypes = {
-  updateProfile: PropType.func.isRequired,
+  handleSubmit: PropType.func.isRequired,
   showEditView: PropType.bool.isRequired,
   toggleVisibility: PropType.func.isRequired,
 };

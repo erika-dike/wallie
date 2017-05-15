@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import api from '../actions/config';
+import handleErrors from '../actions/errorHandler';
 import { logoutUser, refreshToken, toggleLoginModal } from '../actions/';
 import { tokenBelowRefreshThreshold } from '../utils/';
 
@@ -40,9 +39,9 @@ function callApi(endpoint, httpMethod, authenticated, data) {
         if (error.response.status === 401) {
           throw new Error(UNAUTHORIZED);
         }
+        return Promise.reject(error);
       },
-    )
-    .then();
+    );
 }
 
 export const CALL_API = Symbol('Call API');
@@ -73,8 +72,9 @@ export default store => next => action => {
           console.log(`This is ${UNAUTHORIZED}`);
           // throw new Error(UNAUTHORIZED);
         } else {
+          const errors = handleErrors(error);
           next({
-            error: error.message || 'There was an error',
+            payload: errors,
             type: errorType,
           });
         }

@@ -22,6 +22,7 @@
     "enzyme": "^2.8.2",
     "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
+    "pluralize": "^4.0.0",
     "prop-types": "^15.5.7",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.8",
