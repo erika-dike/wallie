@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // local components
 import { Nav } from './../../components/';
-import { Home, Login, Profile, SignUp } from '../../containers';
+import { Home, Login, NotFound, Profile, SignUp } from '../../containers';
 
 // static files
 import './App.css';
@@ -15,15 +15,18 @@ const App = ({ isAuthenticated, profile }) =>
     <div className="App">
       <div id="body-overlay" />
       <Nav />
-      <Route exact path="/" component={Home} />
-      <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/login" component={Login} />
-      {isAuthenticated
-        ?
-          <Route path={`/${profile.user.username}`} component={Profile} />
-        :
-          null
-      }
+      <Switch>
+        <Route exact path="/" component={Home} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
+          {isAuthenticated
+            ?
+              <Route path={`/${profile.user.username}`} component={Profile} />
+            :
+              null
+          }
+        <Route component={NotFound} />
+      </Switch>
     </div>
   </Router>;
 
