@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './UserFields.css';
+
 
 const UserFields = ({ profilePageUrl, redirectToProfilePage, user }) =>
-  <div className="ProfileCard-user-fields account-group">
-    <div className="ProfileCard-name u-text-truncate text-capitalize">
+  <div className="user-fields account-group">
+    <div className="name u-text-truncate text-capitalize">
       <a
         className="u-text-inherit-color"
         href={profilePageUrl}
@@ -15,9 +17,9 @@ const UserFields = ({ profilePageUrl, redirectToProfilePage, user }) =>
       </a>
       <span className="user-badges" />
     </div>
-    <span className="ProfileCard-screenname u-inline-block u-dir" dir="ltr">
+    <span className="screenname u-inline-block u-dir" dir="ltr">
       <a
-        className="ProfileCard-screename-link u-link-complex u-link-clean"
+        className="screename-link u-link-complex u-link-clean"
         href={profilePageUrl}
         rel="noopener"
         onClick={redirectToProfilePage}

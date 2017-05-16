@@ -55,7 +55,7 @@ class LoginNavItem extends React.Component {
   }
 
   render() {
-    const { errors, eventKey, href } = this.props;
+    const { errors, eventKey, handleSelectNavItem, href } = this.props;
     let mappedErrors = null;
 
     if (errors.length) {
@@ -64,8 +64,8 @@ class LoginNavItem extends React.Component {
       );
     }
     return (
-      <LinkWithNavItem to="login">
-        <NavItem eventKey={eventKey} href={href} onClick={this.open}>
+      <LinkWithNavItem to="login" handleSelectNavItem={handleSelectNavItem}>
+        <NavItem eventKey={eventKey} href={href}>
           Log in
 
           <Modal
@@ -97,6 +97,7 @@ class LoginNavItem extends React.Component {
 LoginNavItem.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   eventKey: PropTypes.number.isRequired,
+  handleSelectNavItem: PropTypes.func.isRequired,
   href: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,

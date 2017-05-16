@@ -17,14 +17,14 @@ const App = ({ isAuthenticated, profile }) =>
       <Nav />
       <Switch>
         <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/login" component={Login} />
-          {isAuthenticated
-            ?
-              <Route path={`/${profile.user.username}`} component={Profile} />
-            :
-              null
-          }
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/login" component={Login} />
+        {isAuthenticated
+          ?
+            <Route path={`/${profile.user.username}`} component={Profile} />
+          :
+            null
+        }
         <Route component={NotFound} />
       </Switch>
     </div>

@@ -93,20 +93,6 @@
     position: relative;
 }
 
-.ProfileCard-user-fields {
-    position: absolute;
-    top: 103px;
-    left: 79px;
-    width: 129px;
-}
-
-.ProfileCard-name {
-    font-weight: 700;
-    font-size: 1.3em;
-    line-height: 25px;
-    margin: -1px 0 -2px 0;
-}
-
 .u-text-truncate {
     max-width: 100%;
     overflow: hidden !important;
@@ -123,12 +109,6 @@
     direction: ltr!important;
     text-align: left!important;
     unicode-bidi: embed;
-}
-
-.ProfileCard-screenname-link {
-    font-size: 12px;
-    padding-right: 5px;
-    color: #66757f;
 }
 
 @mixin text-decoration($value) {

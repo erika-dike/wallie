@@ -12,13 +12,13 @@ import { logoutUser } from '../../actions/';
 import './Nav.css';
 
 class CustomNav extends React.Component {
-  constructor(props) {
-    super(props);
-    this.logout = this.logout.bind(this);
-  }
-
-  logout() {
-    this.props.logoutUser();
+  static handleSelectNavItem(event) {
+    const nav = document.getElementsByTagName('nav')[0];
+    const oldSelected = nav.getElementsByClassName('selected')[0];
+    if (oldSelected) {
+      oldSelected.classList.remove('selected');
+    }
+    event.currentTarget.classList.add('selected');
   }
 
   render() {
@@ -26,7 +26,14 @@ class CustomNav extends React.Component {
       <Navbar collapseOnSelect fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <NavLink exact to="/" activeClassName="selected">Wallie</NavLink>
+            <NavLink
+              exact
+              to="/"
+              activeClassName="selected"
+              onClick={CustomNav.handleSelectNavItem}
+            >
+              Wallie
+            </NavLink>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -35,11 +42,13 @@ class CustomNav extends React.Component {
             this.props.isAuthenticated
             ?
               <AuthenticatedMenu
-                logout={this.logout}
+                logout={this.props.logout}
                 profile={this.props.profile}
               />
             :
-              <UnAuthenticatedMenu />
+              <UnAuthenticatedMenu
+                handleSelectNavItem={CustomNav.handleSelectNavItem}
+              />
           }
         </Navbar.Collapse>
       </Navbar>
@@ -53,7 +62,7 @@ CustomNav.defaultProps = {
 
 CustomNav.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  logoutUser: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   profile: PropTypes.shape({
     user: PropTypes.shape({
       username: PropTypes.string,
