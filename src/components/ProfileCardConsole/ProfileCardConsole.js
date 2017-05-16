@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { ProfileCard } from '../../components';
 
-const cloudinary = global.cloudinary;
+import { openCloudinaryUploadWidget } from '../../utils';
 
 
 class ProfileCardConsole extends React.Component {
@@ -25,21 +25,17 @@ class ProfileCardConsole extends React.Component {
     On success, it dispatches action to update profile on server
   **/
   uploadImage() {
-    cloudinary.openUploadWidget({
-      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
-      tags: ['profile_pic'],
-    }, (error, result) => {
-      if (result) {
+    openCloudinaryUploadWidget()
+      .then(async (result) => {
         const { profile } = this.props;
         const oldProfilePicUrl = profile.profile_pic;
         profile.profile_pic = result[0].secure_url;
         this.props.updateProfile(profile, oldProfilePicUrl);
-      } else if (error) {
+      })
+      .catch((error) => {
         const title = 'Upload Image Error!';
-        this.props.addNotification(title, error.message);
-      }
-    });
+        this.props.addNotification(title, error);
+      });
   }
 
   render() {

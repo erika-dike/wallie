@@ -36,11 +36,11 @@ import {
 import {
   deleteImageFromCloudinary,
   getValidationState,
+  openCloudinaryUploadWidget,
 } from '../../utils';
 
 import './Profile.css';
 
-const cloudinary = global.cloudinary;
 
 class Profile extends React.Component {
   constructor(props) {
@@ -212,27 +212,22 @@ class Profile extends React.Component {
     On success, it dispatches action to update profile on server
   **/
   uploadImage() {
-    cloudinary.openUploadWidget({
-      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
-      tags: ['profile_pic'],
-    }, async (error, result) => {
-      if (result) {
+    openCloudinaryUploadWidget()
+      .then(async (result) => {
         const { profile } = this.props;
         const oldProfilePicUrl = profile.profile_pic;
-        profile.profile_pic = result[0].secure_url;
+        profile.profile_pic = result;
         this.setState({ profile });
-        await this.updateProfile();
+        await this.updateProfile;
 
-        // delete old image from cloudinary if image was successfully updated
-        if (this.props.profile.profile_pic === result[0].secure_url) {
+        if (this.props.profile.profile_pic === result) {
           deleteImageFromCloudinary(oldProfilePicUrl);
         }
-      } else if (error) {
+      })
+      .catch((error) => {
         const title = 'Upload Image Error!';
-        this.addNotification(title, error.message);
-      }
-    });
+        this.addNotification(title, error);
+      });
   }
 
   render() {

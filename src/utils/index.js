@@ -8,3 +8,6 @@ export {
 export {
   getValidationState,
 } from './validators/validators';
+export {
+  default as openCloudinaryUploadWidget,
+} from './openCloudinaryUploadWidget/openCloudinaryUploadWidget';
