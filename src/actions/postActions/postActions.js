@@ -19,6 +19,9 @@ import {
   LOVE_POST_FAILURE,
   LOVE_POST_REQUEST,
   LOVE_POST_SUCCESS,
+  RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+  RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+  RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
   UNLOVE_POST_FAILURE,
   UNLOVE_POST_REQUEST,
   UNLOVE_POST_SUCCESS,
@@ -40,6 +43,36 @@ export function fetchPosts(queryParams = '') {
         FETCH_POSTS_FAILURE,
       ],
     },
+  };
+}
+
+/**
+  Action to receive love update from websocket connection
+**/
+export function receiveWebSocketLoveUpdate(data) {
+  return {
+    type: RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+    payload: data,
+  };
+}
+
+/**
+  Action to receive post delete command from websocket connection
+**/
+export function receiveWebSocketPostDelete(data) {
+  return {
+    type: RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+    payload: data,
+  };
+}
+
+/**
+  Action to receive post create or edit notification from websocket connection
+**/
+export function receiveWebSocketPostUpdate(data) {
+  return {
+    type: RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
+    payload: data,
   };
 }
 

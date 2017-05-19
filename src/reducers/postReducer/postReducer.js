@@ -17,6 +17,9 @@ import {
   LOVE_POST_FAILURE,
   LOVE_POST_REQUEST,
   LOVE_POST_SUCCESS,
+  RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+  RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+  RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
   UNLOVE_POST_FAILURE,
   UNLOVE_POST_REQUEST,
   UNLOVE_POST_SUCCESS,
@@ -44,6 +47,41 @@ export default function post(state = INITIAL_STATE, action) {
       };
     case FETCH_POSTS_FAILURE:
       return { ...state, pending: false, error: action.payload };
+    case RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET: {
+      const { post_id, num_loves } = action.payload;
+      const newPosts = [...state.posts];
+      const postToUpdate = newPosts.findIndex(aPost => aPost.id === post_id);
+
+      // this prevents errors when a private user is logged in and doesn't have
+      // the posts of others in his store
+      if (postToUpdate > -1) {
+        newPosts[postToUpdate].num_loves = num_loves;
+      }
+
+      return {
+        ...state,
+        pending: false,
+        fetched: true,
+        posts: newPosts,
+      };
+    }
+    case RECEIVED_POST_UPDATE_VIA_WEBSOCKET: {
+      const newPost = action.payload;
+      const oldPosts = state.posts.filter(eachPost => eachPost.id !== newPost.id);
+      const newPosts = [newPost, ...oldPosts];
+      return {
+        ...state,
+        posts: newPosts,
+      };
+    }
+    case RECEIVED_POST_DELETE_VIA_WEBSOCKET: {
+      const postId = action.payload;
+      const newPosts = state.posts.filter(eachPost => eachPost.id !== postId);
+      return {
+        ...state,
+        posts: newPosts,
+      };
+    }
     case FETCH_TOP_POSTS_REQUEST:
       return { ...state, pending: true, fetched: false };
     case FETCH_TOP_POSTS_SUCCESS:

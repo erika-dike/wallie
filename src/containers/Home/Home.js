@@ -28,6 +28,7 @@ import {
   unlovePost,
 } from '../../actions';
 
+import { openWebSocket } from '../../services';
 import { deleteImageFromCloudinary } from '../../utils';
 
 // css
@@ -51,6 +52,7 @@ class Home extends React.Component {
     // fetch top posts
     this.props.fetchTopPosts();
     this.props.fetchPosts();
+    this.socket = openWebSocket();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,6 +64,10 @@ class Home extends React.Component {
       errors = postsErrors;
     }
     errors.forEach(error => this.addNotification(title, error));
+  }
+
+  componentWillUnmount() {
+    this.socket.close();
   }
 
   fetchUser() {
