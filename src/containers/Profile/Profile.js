@@ -218,7 +218,7 @@ class Profile extends React.Component {
         const oldProfilePicUrl = profile.profile_pic;
         profile.profile_pic = result;
         this.setState({ profile });
-        await this.updateProfile;
+        await this.props.updateProfile(this.state.profile);
 
         if (this.props.profile.profile_pic === result) {
           deleteImageFromCloudinary(oldProfilePicUrl);

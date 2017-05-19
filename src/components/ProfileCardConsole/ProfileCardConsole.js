@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -29,7 +30,7 @@ class ProfileCardConsole extends React.Component {
       .then(async (result) => {
         const { profile } = this.props;
         const oldProfilePicUrl = profile.profile_pic;
-        profile.profile_pic = result[0].secure_url;
+        profile.profile_pic = result;
         this.props.updateProfile(profile, oldProfilePicUrl);
       })
       .catch((error) => {

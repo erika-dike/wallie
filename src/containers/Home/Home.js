@@ -99,7 +99,7 @@ class Home extends React.Component {
   async updateProfile(profile, oldProfilePicUrl) {
     await this.props.updateProfile(profile);
     if (this.props.profile.profile_pic === profile.profile_pic) {
-      localStorage.setItem('profile', JSON.stringify(profile));
+      localStorage.setItem('profile', JSON.stringify(this.props.profile));
       deleteImageFromCloudinary(oldProfilePicUrl);
     }
   }
