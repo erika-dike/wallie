@@ -33,6 +33,7 @@ import {
   unlovePost,
 } from '../../actions';
 
+import { openWebSocket } from '../../services';
 import {
   deleteImageFromCloudinary,
   getValidationState,
@@ -65,6 +66,8 @@ class Profile extends React.Component {
     this.props.fetchTopPosts('private=True');
     // fetch posts authored by current user
     this.props.fetchPosts('?private=True&page_size=6');
+
+    this.socket = openWebSocket('private_stream');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -99,6 +102,10 @@ class Profile extends React.Component {
       editProfileMenu.classList.remove('spotlight');
       profileUserField.classList.remove('spotlight');
     }
+  }
+
+  componentWillUnmount() {
+    this.socket.close();
   }
 
   /**

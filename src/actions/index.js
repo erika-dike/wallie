@@ -11,6 +11,9 @@ export {
   fetchPosts,
   fetchTopPosts,
   lovePost,
+  receiveWebSocketLoveUpdate,
+  receiveWebSocketPostDelete,
+  receiveWebSocketPostUpdate,
   unlovePost,
 } from './postActions/postActions';
 export {
