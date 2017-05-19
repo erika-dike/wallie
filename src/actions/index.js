@@ -1,6 +1,6 @@
 export {
   loginUser,
-  logoutUser,
+  logout,
   refreshAuthState,
   refreshToken,
   toggleLoginModal,

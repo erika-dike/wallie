@@ -91,7 +91,7 @@ function logoutUserSuccess() {
   return { type: LOGOUT_USER_SUCCESS };
 }
 
-export function logoutUser() {
+export function logout() {
   return (dispatch) => {
     dispatch(logoutUserRequest());
     localStorage.removeItem('token');

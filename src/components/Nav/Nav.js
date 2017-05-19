@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { AuthenticatedMenu, UnAuthenticatedMenu } from './components';
 
-import { logoutUser } from '../../actions/';
+import { logout } from '../../actions/';
 
 // css
 import './Nav.css';
@@ -85,8 +85,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logoutUser: () => {
-      dispatch(logoutUser());
+    logout: () => {
+      dispatch(logout());
     },
   };
 }
