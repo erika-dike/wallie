@@ -3,7 +3,10 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Button, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
 
-import { ProfileCard } from '../../components';
+import {
+  PostContent,
+  ProfileCard,
+} from '../../components';
 
 import PostItemMenu from './components/PostItemMenu/PostItemMenu';
 
@@ -60,11 +63,13 @@ const PostItem = ({
   unlovePost,
 }) => {
   const toggleLoveStatus = (event) => {
-    if (post.in_love) {
-      unlovePost(post.id);
-    } else {
-      lovePost(post.id);
-      animateLove(event);
+    if (profile) {
+      if (post.in_love) {
+        unlovePost(post.id);
+      } else {
+        lovePost(post.id);
+        animateLove(event);
+      }
     }
   };
 
@@ -141,14 +146,10 @@ const PostItem = ({
               </OverlayTrigger>
             </small>
           </div>
-          <div className="post-text-container">
-            <p className="post-text-size post-text">
-              {post.content}
-            </p>
-          </div>
-          <div className="media-container media-card">
-            <span style={{ display: 'none' }}>THIS IS WHERE LINKS AND VIDEOS WILL BE DISPLAYED</span>
-          </div>
+
+        {/** Renders the post cotent **/}
+          <PostContent content={post.content} />
+
           <div className="stream-item-footer">
 
             {mode === 'modal'
@@ -195,15 +196,19 @@ const PostItem = ({
 
 
 PostItem.defaultProps = {
+  deletePost: null,
+  insertPostIntoCreateBox: null,
+  lovePost: null,
+  unlovePost: null,
   mode: 'post-list',
   post: null,
   profile: null,
 };
 
 PostItem.propTypes = {
-  deletePost: PropTypes.func.isRequired,
-  insertPostIntoCreateBox: PropTypes.func.isRequired,
-  lovePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func,
+  insertPostIntoCreateBox: PropTypes.func,
+  lovePost: PropTypes.func,
   mode: PropTypes.string,
   post: PropTypes.shape({
     date_created: PropTypes.string,
@@ -229,7 +234,7 @@ PostItem.propTypes = {
     about: PropTypes.string,
     profile_pic: PropTypes.string,
   }),
-  unlovePost: PropTypes.func.isRequired,
+  unlovePost: PropTypes.func,
 };
 
 export default PostItem;

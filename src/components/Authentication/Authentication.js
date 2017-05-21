@@ -25,6 +25,7 @@ class Authentication extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
       this.props.history.push('/');
+      // window.location.href = window.location.origin;
     }
   }
 

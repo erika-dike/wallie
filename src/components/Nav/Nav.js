@@ -78,8 +78,8 @@ CustomNav.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    profile: state.user.profile,
+    // isAuthenticated: state.auth.isAuthenticated,
+    // profile: state.user.profile,
   };
 }
 

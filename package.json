@@ -20,7 +20,9 @@
     "bootstrap": "^3.3.7",
     "cloudinary": "^1.9.0",
     "enzyme": "^2.8.2",
+    "get-urls": "^7.0.0",
     "jwt-decode": "^2.2.0",
+    "linkifyjs": "^2.1.4",
     "moment": "^2.18.1",
     "pluralize": "^4.0.0",
     "prop-types": "^15.5.7",
@@ -33,7 +35,8 @@
     "react-test-renderer": "^15.5.4",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.0.1"
   },
   "scripts": {
     "build-css": "node-sass src/ -o src/",

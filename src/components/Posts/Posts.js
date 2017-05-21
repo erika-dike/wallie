@@ -34,6 +34,7 @@ class Posts extends React.Component {
         {this.props.profile
           ?
             <PostsCreate
+              addNotification={this.props.addNotification}
               createPost={this.props.createPost}
               editPost={this.props.editPost}
               fetched={this.props.fetched}
@@ -65,6 +66,7 @@ Posts.defaultProps = {
 };
 
 Posts.propTypes = {
+  addNotification: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,

@@ -47,7 +47,7 @@ class Home extends React.Component {
     this.updateProfile = this.updateProfile.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // fetch top posts
     this.props.fetchTopPosts();
     this.props.fetchPosts();
@@ -113,6 +113,7 @@ class Home extends React.Component {
         <Row className="show-grid">
           <Col xs={8} md={6} mdPush={3}>
             <Posts
+              addNotification={this.addNotification}
               createPost={this.createPost}
               deletePost={this.deletePost}
               editPost={this.editPost}

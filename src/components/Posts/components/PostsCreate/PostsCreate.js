@@ -8,6 +8,8 @@ import {
   Tooltip,
 } from 'react-bootstrap';
 
+import { openCloudinaryUploadWidget } from '../../../../utils';
+
 import './PostsCreate.css';
 
 import { DEFAULT_PROFILE_PIC } from '../../../../constants';
@@ -21,8 +23,10 @@ class PostsCreate extends React.Component {
       post: {
         id: null,
         content: '',
+        type: 'text',
       },
     };
+    this.createImagePost = this.createImagePost.bind(this);
     this.handleFocusOnInactiveFormInput = this.handleFocusOnInactiveFormInput.bind(this);
     this.handleBlurActiveFormInput = this.handleBlurActiveFormInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -40,6 +44,18 @@ class PostsCreate extends React.Component {
     } else if (nextProps.postToEdit) {
       this.setState({ isActive: true, post: nextProps.postToEdit });
     }
+  }
+
+  createImagePost() {
+    openCloudinaryUploadWidget()
+      .then(async (result) => {
+        this.setState({ content: result, type: 'image' });
+        this.handleSubmit();
+      })
+      .catch((error) => {
+        const title = 'Upload Image Error!';
+        this.props.addNotification(title, error);
+      });
   }
 
   handleFocusOnInactiveFormInput() {
@@ -61,11 +77,11 @@ class PostsCreate extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { id, content } = this.state.post;
+    const { id, content, type } = this.state.post;
     if (id) {
       this.props.editPost(id, content);
     } else {
-      this.props.createPost(content);
+      this.props.createPost(content, type);
     }
   }
 
@@ -85,7 +101,6 @@ class PostsCreate extends React.Component {
           placeholder={this.defaultMessage}
           value={this.state.post.content}
           autoFocus
-          onBlur={this.handleBlurActiveFormInput}
           onChange={this.handleChange}
         />
       </FormGroup>
@@ -103,7 +118,7 @@ class PostsCreate extends React.Component {
           <span className="post-create-box-extras-item post-create-box-media-picker">
             <div className="photo-selector">
               <OverlayTrigger placement="top" overlay={tooltip}>
-                <Button bsClass="btn icon-btn">
+                <Button bsClass="btn icon-btn" onclick={this.createImagePost}>
                   <span className="post-create-camera Icon Icon--extra-large">
                     <i className="fa fa-camera" aria-hidden="true" />
                   </span>
@@ -136,7 +151,10 @@ class PostsCreate extends React.Component {
           <form className="post-create-form">
             <div className="rich-editor">
               <div className="rich-editor-container u-border-radius-inherit fake-focus">
-                <div className="rich-editor-scroll-container u-border-radius-inherit">
+                <div
+                  className="rich-editor-scroll-container u-border-radius-inherit"
+                  onBlur={this.handleBlurActiveFormInput}
+                >
                   {this.state.isActive ? activeFormInput : inActiveFormInput}
                 </div>
               </div>
@@ -155,6 +173,7 @@ PostsCreate.defaultProps = {
 };
 
 PostsCreate.propTypes = {
+  addNotification: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   fetched: PropTypes.bool.isRequired,

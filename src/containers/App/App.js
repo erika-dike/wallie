@@ -14,12 +14,12 @@ const App = ({ isAuthenticated, profile }) =>
   <Router>
     <div className="App">
       <div id="body-overlay" />
-      <Nav />
+      <Nav isAuthenticated={isAuthenticated} profile={profile} />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
-        {isAuthenticated
+        {isAuthenticated && profile
           ?
             <Route path={`/${profile.user.username}`} component={Profile} />
           :
