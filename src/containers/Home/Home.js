@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   Col,
   Grid,
   Row,
@@ -20,7 +19,6 @@ import {
   createPost,
   deletePost,
   editPost,
-  fetchUser,
   fetchPosts,
   fetchTopPosts,
   lovePost,
@@ -37,7 +35,6 @@ import './Home.css';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchUser = this.fetchUser.bind(this);
     this.addNotification = this.addNotification.bind(this);
     this.createPost = this.createPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
@@ -62,10 +59,6 @@ class Home extends React.Component {
       errors = postsErrors;
     }
     errors.forEach(error => this.addNotification(title, error));
-  }
-
-  fetchUser() {
-    this.props.fetchUser();
   }
 
   addNotification(title, message) {
@@ -107,9 +100,6 @@ class Home extends React.Component {
   render() {
     return (
       <Grid>
-        <Button bsStyle="primary" onClick={this.fetchUser}>
-          Fetch User
-        </Button>
         <Row className="show-grid">
           <Col xs={8} md={6} mdPush={3}>
             <Posts
@@ -119,6 +109,8 @@ class Home extends React.Component {
               editPost={this.editPost}
               lovePost={this.lovePost}
               fetched={this.props.postsFetched}
+              fetchPosts={this.props.fetchPosts}
+              next={this.props.next}
               pending={this.props.postsPending}
               posts={this.props.posts}
               profile={this.props.profile}
@@ -165,6 +157,7 @@ class Home extends React.Component {
 }
 
 Home.defaultProps = {
+  next: null,
   profile: null,
   posts: [],
   topPosts: [],
@@ -178,6 +171,7 @@ Home.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
+  next: PropTypes.string,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,
@@ -231,6 +225,7 @@ function mapStateToProps(state) {
     errors: state.user.errors,
     fetched: state.user.fetched,
     isAuthenticated: state.auth.isAuthenticated,
+    next: state.post.next,
     pending: state.user.pending,
     posts: state.post.posts,
     postsErrors: state.post.errors,
@@ -252,11 +247,8 @@ function mapDispatchToProps(dispatch) {
     editPost: (id, content) => {
       dispatch(editPost(id, content));
     },
-    fetchUser: () => {
-      dispatch(fetchUser());
-    },
-    fetchPosts: () => {
-      dispatch(fetchPosts());
+    fetchPosts: (queryParams) => {
+      dispatch(fetchPosts(queryParams));
     },
     fetchTopPosts: () => {
       dispatch(fetchTopPosts());

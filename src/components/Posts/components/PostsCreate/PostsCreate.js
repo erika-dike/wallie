@@ -118,7 +118,7 @@ class PostsCreate extends React.Component {
           <span className="post-create-box-extras-item post-create-box-media-picker">
             <div className="photo-selector">
               <OverlayTrigger placement="top" overlay={tooltip}>
-                <Button bsClass="btn icon-btn" onclick={this.createImagePost}>
+                <Button bsClass="btn icon-btn" onClick={this.createImagePost}>
                   <span className="post-create-camera Icon Icon--extra-large">
                     <i className="fa fa-camera" aria-hidden="true" />
                   </span>

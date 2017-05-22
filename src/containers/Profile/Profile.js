@@ -64,7 +64,7 @@ class Profile extends React.Component {
     // fetch top posts
     this.props.fetchTopPosts('private=True');
     // fetch posts authored by current user
-    this.props.fetchPosts('private=True');
+    this.props.fetchPosts('?private=True&page_size=6');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -283,8 +283,10 @@ class Profile extends React.Component {
           <Row className="Profile-main">
             <Col xs={8} md={6} mdPush={3}>
               <Posts
+                addNotification={this.addNotification}
                 createPost={this.createPost}
                 deletePost={this.deletePost}
+                fetchPosts={this.props.fetchPosts}
                 editPost={this.editPost}
                 lovePost={this.props.lovePost}
                 fetched={this.props.postsFetched}

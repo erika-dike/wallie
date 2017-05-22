@@ -27,6 +27,8 @@ const INITIAL_STATE = {
   errors: [],
   posts: [],
   topPosts: [],
+  next: null,
+  previous: null,
   pending: false,
   fetched: true,
 };
@@ -35,13 +37,16 @@ export default function post(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_POSTS_REQUEST:
       return { ...state, pending: true, fetched: false };
-    case FETCH_POSTS_SUCCESS:
+    case FETCH_POSTS_SUCCESS: {
+      const newPosts = [...state.posts, ...action.payload.results];
       return {
         ...state,
         pending: false,
         fetched: true,
-        posts: action.payload.results,
+        posts: newPosts,
+        next: action.payload.next,
       };
+    }
     case FETCH_POSTS_FAILURE:
       return { ...state, pending: false, error: action.payload };
     case FETCH_TOP_POSTS_REQUEST:

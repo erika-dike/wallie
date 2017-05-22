@@ -1,19 +1,17 @@
 import React from 'react';
-import moment from 'moment';
 import PropTypes from 'prop-types';
-import { Button, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+
+import { PostContent } from '../../components';
+import { getFullTime } from '../../utils';
 
 import {
-  PostContent,
-  ProfileCard,
-} from '../../components';
-
-import PostItemMenu from './components/PostItemMenu/PostItemMenu';
+  PostItemMenu,
+  StreamItemHeaderTitle,
+  StreamItemHeaderTimeDisplay,
+} from './components';
 
 import './PostItem.css';
-
-// constants
-import { DEFAULT_PROFILE_PIC } from '../../constants/';
 
 
 const getLoveToolTip = (loveStatus) => {
@@ -26,12 +24,6 @@ const getLoveToolTip = (loveStatus) => {
 
   return <Tooltip id="love-tooltip">{text}</Tooltip>;
 };
-
-const getFullTime = time => (moment(time).format('h:mm a - D MMM YYYY'));
-
-
-const getTimeTooltip = time =>
-  <Tooltip id="time-tooltip">{getFullTime(time)}</Tooltip>;
 
 
 const getLoveButtonStyles = (inLove) => {
@@ -73,47 +65,13 @@ const PostItem = ({
     }
   };
 
-  const authorsProfile = {
-    user: {
-      username: post.author.username,
-      first_name: post.author.first_name,
-      last_name: post.author.last_name,
-      num_posts: post.author.num_posts,
-    },
-    about: post.author.about,
-    profile_pic: post.author.profile_pic,
-  };
-
-  const popoverProfileCard = (
-    <Popover id="popover-trigger-hover-focus">
-      <ProfileCard profile={authorsProfile} />
-    </Popover>
-  );
-
   return (
     <li className="stream-item">
       <div className="post">
         <div className="context" />
         <div className="content">
           <div className="stream-item-header">
-            <a className="account-group" href="#">
-              <img
-                className="avatar"
-                src={post.author.profile_pic || DEFAULT_PROFILE_PIC}
-                alt={`${post.author.first_name} ${post.author.last_name}`}
-              />
-              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={popoverProfileCard}>
-                <span className="fullname-group">
-                  <strong className="fullname show-popup-with-id">{post.author.first_name} {post.author.last_name}</strong>
-                  <span>&rlm;</span>
-                  <span className="user-badges" />
-                  <span className="username-break">&nbsp;</span>
-                </span>
-              </OverlayTrigger>
-              <span className="username u-dir" dir="ltr">
-                @<b>{post.author.username}</b>
-              </span>
-            </a>
+            <StreamItemHeaderTitle post={post} />
 
             {profile && profile.user.username === post.author.username
               ?
@@ -128,26 +86,10 @@ const PostItem = ({
                 null
             }
 
-            <small className="time">
-              <OverlayTrigger
-                overlay={getTimeTooltip(post.date_created)}
-                placement="top"
-                delayShow={200}
-                delayHide={150}
-              >
-                <a className="post-timestamp">
-                  <span className="timestamp">
-                    {moment(post.date_created).fromNow(true)}
-                  </span>
-                  <span style={{ display: 'none' }}>
-                    {moment(post.date_created).fromNow()}
-                  </span>
-                </a>
-              </OverlayTrigger>
-            </small>
+            <StreamItemHeaderTimeDisplay date_created={post.date_created} />
           </div>
 
-        {/** Renders the post cotent **/}
+          {/** Renders the post cotent **/}
           <PostContent content={post.content} />
 
           <div className="stream-item-footer">

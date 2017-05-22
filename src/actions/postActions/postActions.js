@@ -26,13 +26,14 @@ import {
 
 
 /**
-  Action to fetch posts
+  Action to fetch posts.
+  Fetches six posts per request
 **/
-export function fetchPosts(queryParams = '') {
+export function fetchPosts(queryParams = '?page_size=6') {
   return {
     [CALL_API]: {
       authenticated: localStorage.getItem('token') !== null,
-      endpoint: `core/posts/?${queryParams}`,
+      endpoint: `core/posts/${queryParams}`,
       httpMethod: 'get',
       types: [
         FETCH_POSTS_REQUEST,
