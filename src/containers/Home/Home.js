@@ -36,6 +36,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.addNotification = this.addNotification.bind(this);
+    this.getAboutUsPushValue = this.getAboutUsPushValue.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
   }
 
@@ -54,6 +55,14 @@ class Home extends React.Component {
       errors = postsErrors;
     }
     errors.forEach(error => this.addNotification(title, error));
+  }
+
+  getAboutUsPushValue() {
+    // this.props.isAuthenticated ? 3 : null
+    if (this.props.isAuthenticated && this.props.topPosts.length) {
+      return 3;
+    }
+    return null;
   }
 
   addNotification(title, message) {
@@ -109,18 +118,23 @@ class Home extends React.Component {
             :
               null
           }
-          <Col
-            xs={4}
-            md={3}
-            mdPull={this.props.isAuthenticated ? null : 6}
-          >
-            <section className="module top-post-section">
-              <TopPosts
-                posts={this.props.topPosts}
-              />
-            </section>
-          </Col>
-          <Col xs={4} md={3} mdPush={this.props.isAuthenticated ? 3 : null}>
+          {this.props.topPosts.length
+            ?
+              <Col
+                xs={4}
+                md={3}
+                mdPull={this.props.isAuthenticated ? null : 6}
+              >
+                <section className="module top-post-section">
+                  <TopPosts
+                    posts={this.props.topPosts}
+                  />
+                </section>
+              </Col>
+            :
+              null
+          }
+          <Col xs={4} md={3} mdPush={this.getAboutUsPushValue()}>
             <section className="module about-section">
               <AboutUs />
             </section>
