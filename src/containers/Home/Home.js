@@ -58,7 +58,6 @@ class Home extends React.Component {
   }
 
   getAboutUsPushValue() {
-    // this.props.isAuthenticated ? 3 : null
     if (this.props.isAuthenticated && this.props.topPosts.length) {
       return 3;
     }
@@ -134,11 +133,16 @@ class Home extends React.Component {
             :
               null
           }
-          <Col xs={4} md={3} mdPush={this.getAboutUsPushValue()}>
-            <section className="module about-section">
-              <AboutUs />
-            </section>
-          </Col>
+          {this.props.posts.length && this.props.topPosts.length
+            ?
+              <Col xs={4} md={3} mdPush={this.getAboutUsPushValue()}>
+                <section className="module about-section">
+                  <AboutUs />
+                </section>
+              </Col>
+            :
+              null
+          }
         </Row>
       </Grid>
     );

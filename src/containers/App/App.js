@@ -7,14 +7,21 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Nav } from './../../components/';
 import { Home, Login, NotFound, Profile, SignUp } from '../../containers';
 
+// actions
+import { logout } from '../../actions/';
+
 // static files
 import './App.css';
 
-const App = ({ isAuthenticated, profile }) =>
+const App = ({ isAuthenticated, logoutUser, profile }) =>
   <Router>
     <div className="App">
       <div id="body-overlay" />
-      <Nav isAuthenticated={isAuthenticated} profile={profile} />
+      <Nav
+        isAuthenticated={isAuthenticated}
+        logout={logoutUser}
+        profile={profile}
+      />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
@@ -36,6 +43,7 @@ App.defaultProps = {
 
 App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  logoutUser: PropTypes.func.isRequired,
   profile: PropTypes.shape({
     user: PropTypes.shape({
       username: PropTypes.string,
@@ -56,5 +64,13 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    logoutUser: () => {
+      dispatch(logout());
+    },
+  };
+}
+
 export { App };
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

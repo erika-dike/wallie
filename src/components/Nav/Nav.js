@@ -2,11 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import { AuthenticatedMenu, UnAuthenticatedMenu } from './components';
-
-import { logout } from '../../actions/';
 
 // css
 import './Nav.css';
@@ -76,20 +73,4 @@ CustomNav.propTypes = {
   }),
 };
 
-function mapStateToProps(state) {
-  return {
-    // isAuthenticated: state.auth.isAuthenticated,
-    // profile: state.user.profile,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    logout: () => {
-      dispatch(logout());
-    },
-  };
-}
-
-export { CustomNav };
-export default connect(mapStateToProps, mapDispatchToProps)(CustomNav);
+export default CustomNav;

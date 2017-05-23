@@ -27,9 +27,9 @@ import {
 
 /**
   Action to fetch posts.
-  Fetches six posts per request
+  Fetches seven posts per request
 **/
-export function fetchPosts(queryParams = '?page_size=6') {
+export function fetchPosts(queryParams = '?page_size=7') {
   return {
     [CALL_API]: {
       authenticated: localStorage.getItem('token') !== null,

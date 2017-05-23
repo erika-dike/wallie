@@ -92,10 +92,11 @@ function logoutUserSuccess() {
 }
 
 export function logout() {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(logoutUserRequest());
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
     dispatch(logoutUserSuccess());
+    window.location.reload();
   };
 }
