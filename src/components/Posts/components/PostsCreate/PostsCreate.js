@@ -28,7 +28,6 @@ class PostsCreate extends React.Component {
     };
     this.createImagePost = this.createImagePost.bind(this);
     this.handleFocusOnInactiveFormInput = this.handleFocusOnInactiveFormInput.bind(this);
-    this.handleBlurActiveFormInput = this.handleBlurActiveFormInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -59,19 +58,22 @@ class PostsCreate extends React.Component {
       });
   }
 
+  /**
+    Makes the textarea visible when a user clicks on the form input to be used
+    as inactive placeholder
+
+    Adds a click event to render the text area inactive when the user clicks
+    outside the form and the textarea is empty
+  **/
   handleFocusOnInactiveFormInput() {
     this.setState({ isActive: true });
-  }
-
-  /**
-    Render editable text area inactive when the user clicks outside the form
-    and the textarea is empty
-  **/
-  handleBlurActiveFormInput(event) {
-    const formElement = document.getElementsByClassName('post-create-form')[0];
-    if (!formElement.contains(event.target) && !this.state.post.content) {
-      this.setState({ isActive: false });
-    }
+    window.addEventListener('click', (event) => {
+      const formElement = document.getElementsByClassName('post-create-form')[0];
+      if (!formElement.contains(event.target) && !this.state.post.content) {
+        this.setState({ isActive: false });
+        window.removeEventListener('click');
+      }
+    });
   }
 
   handleChange(event) {
@@ -154,10 +156,7 @@ class PostsCreate extends React.Component {
             src={this.props.profile ? this.props.profile.profile_pic : DEFAULT_PROFILE_PIC}
             alt={this.props.profile.user.username}
           />
-          <form
-            className="post-create-form"
-            onBlur={this.handleBlurActiveFormInput}
-          >
+          <form className="post-create-form">
             <div className="rich-editor">
               <div className="rich-editor-container u-border-radius-inherit fake-focus">
                 <div
