@@ -274,10 +274,11 @@ class Profile extends React.Component {
                 addNotification={this.addNotification}
                 createPost={this.props.createPost}
                 deletePost={this.props.deletePost}
-                fetchPosts={this.props.fetchPosts}
                 editPost={this.props.editPost}
-                lovePost={this.props.lovePost}
                 fetched={this.props.postsFetched}
+                fetchPosts={this.props.fetchPosts}
+                lovePost={this.props.lovePost}
+                next={this.props.next}
                 pending={this.props.postsPending}
                 posts={this.props.posts}
                 profile={this.props.profile}
@@ -315,6 +316,7 @@ class Profile extends React.Component {
 }
 
 Profile.defaultProps = {
+  next: null,
   profile: null,
   posts: [],
   topPosts: [],
@@ -330,6 +332,7 @@ Profile.propTypes = {
   fetchTopPosts: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   lovePost: PropTypes.func.isRequired,
+  next: PropTypes.string,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,
@@ -383,6 +386,7 @@ function mapStateToProps(state) {
     userReducerErrors: state.user.errors,
     fetched: state.user.fetched,
     isAuthenticated: state.auth.isAuthenticated,
+    next: state.post.next,
     pending: state.user.pending,
     posts: state.post.posts,
     postsErrors: state.post.errors,
