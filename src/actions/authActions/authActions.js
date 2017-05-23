@@ -1,6 +1,7 @@
 import api from '../config';
 
 import {
+  FETCH_USER_SUCCESS,
   LOGIN_USER_FAILED,
   LOGIN_USER_PENDING,
   LOGIN_USER_SUCCESS,
@@ -27,16 +28,21 @@ export function loginUserSuccess() {
   return { type: LOGIN_USER_SUCCESS };
 }
 
+function updateUserOnLogin(profile) {
+  return { type: FETCH_USER_SUCCESS, payload: profile };
+}
+
 export function loginUser(credential) {
   return (dispatch) => {
     dispatch(loginUserPending());
     api.post('accounts/auth/login/', credential)
       .then(
-        async (response) => {
+        (response) => {
           const { profile, token } = response.data;
+          dispatch(updateUserOnLogin(profile));
+          dispatch(loginUserSuccess());
           localStorage.setItem('token', token);
           localStorage.setItem('profile', JSON.stringify(profile));
-          await dispatch(loginUserSuccess());
         },
         error => dispatch(loginUserFailed(error)),
       );

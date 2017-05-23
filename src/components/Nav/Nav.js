@@ -36,7 +36,7 @@ class CustomNav extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           {
-            this.props.isAuthenticated
+            this.props.isAuthenticated && this.props.profile
             ?
               <AuthenticatedMenu
                 logout={this.props.logout}
