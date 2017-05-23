@@ -60,7 +60,7 @@ class Profile extends React.Component {
     this.uploadImage = this.uploadImage.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // fetch top posts
     this.props.fetchTopPosts('private=True');
     // fetch posts authored by current user
@@ -152,18 +152,6 @@ class Profile extends React.Component {
       message,
       level: 'error',
     });
-  }
-
-  createPost(content) {
-    this.props.createPost(content);
-  }
-
-  deletePost(id) {
-    this.props.deletePost(id);
-  }
-
-  editPost(id, content) {
-    this.props.editPost(id, content);
   }
 
   /**
@@ -284,10 +272,10 @@ class Profile extends React.Component {
             <Col xs={8} md={6} mdPush={3}>
               <Posts
                 addNotification={this.addNotification}
-                createPost={this.createPost}
-                deletePost={this.deletePost}
+                createPost={this.props.createPost}
+                deletePost={this.props.deletePost}
                 fetchPosts={this.props.fetchPosts}
-                editPost={this.editPost}
+                editPost={this.props.editPost}
                 lovePost={this.props.lovePost}
                 fetched={this.props.postsFetched}
                 pending={this.props.postsPending}

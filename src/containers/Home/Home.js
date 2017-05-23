@@ -36,11 +36,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.addNotification = this.addNotification.bind(this);
-    this.createPost = this.createPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.editPost = this.editPost.bind(this);
-    this.lovePost = this.lovePost.bind(this);
-    this.unlovePost = this.unlovePost.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
   }
 
@@ -69,26 +64,6 @@ class Home extends React.Component {
     });
   }
 
-  createPost(content) {
-    this.props.createPost(content);
-  }
-
-  deletePost(id) {
-    this.props.deletePost(id);
-  }
-
-  editPost(id, content) {
-    this.props.editPost(id, content);
-  }
-
-  lovePost(postId) {
-    this.props.lovePost(postId);
-  }
-
-  unlovePost(postId) {
-    this.props.unlovePost(postId);
-  }
-
   async updateProfile(profile, oldProfilePicUrl) {
     await this.props.updateProfile(profile);
     if (this.props.profile.profile_pic === profile.profile_pic) {
@@ -104,17 +79,17 @@ class Home extends React.Component {
           <Col xs={8} md={6} mdPush={3}>
             <Posts
               addNotification={this.addNotification}
-              createPost={this.createPost}
-              deletePost={this.deletePost}
-              editPost={this.editPost}
-              lovePost={this.lovePost}
+              createPost={this.props.createPost}
+              deletePost={this.props.deletePost}
+              editPost={this.props.editPost}
+              lovePost={this.props.lovePost}
               fetched={this.props.postsFetched}
               fetchPosts={this.props.fetchPosts}
               next={this.props.next}
               pending={this.props.postsPending}
               posts={this.props.posts}
               profile={this.props.profile}
-              unlovePost={this.unlovePost}
+              unlovePost={this.props.unlovePost}
             />
           </Col>
           {this.props.isAuthenticated

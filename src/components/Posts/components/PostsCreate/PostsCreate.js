@@ -49,8 +49,9 @@ class PostsCreate extends React.Component {
   createImagePost() {
     openCloudinaryUploadWidget()
       .then(async (result) => {
-        this.setState({ content: result, type: 'image' });
-        this.handleSubmit();
+        const { post } = this.state;
+        post.content = `${post.content}\n${result}`;
+        this.setState({ post });
       })
       .catch((error) => {
         const title = 'Upload Image Error!';
@@ -62,8 +63,13 @@ class PostsCreate extends React.Component {
     this.setState({ isActive: true });
   }
 
-  handleBlurActiveFormInput() {
-    if (!this.state.post.content) {
+  /**
+    Render editable text area inactive when the user clicks outside the form
+    and the textarea is empty
+  **/
+  handleBlurActiveFormInput(event) {
+    const formElement = document.getElementsByClassName('post-create-form')[0];
+    if (!formElement.contains(event.target) && !this.state.post.content) {
       this.setState({ isActive: false });
     }
   }
@@ -146,14 +152,16 @@ class PostsCreate extends React.Component {
           <img
             className="post-create-box-user-img avatar size32"
             src={this.props.profile ? this.props.profile.profile_pic : DEFAULT_PROFILE_PIC}
-            alt="Erika Dike"
+            alt={this.props.profile.user.username}
           />
-          <form className="post-create-form">
+          <form
+            className="post-create-form"
+            onBlur={this.handleBlurActiveFormInput}
+          >
             <div className="rich-editor">
               <div className="rich-editor-container u-border-radius-inherit fake-focus">
                 <div
                   className="rich-editor-scroll-container u-border-radius-inherit"
-                  onBlur={this.handleBlurActiveFormInput}
                 >
                   {this.state.isActive ? activeFormInput : inActiveFormInput}
                 </div>
