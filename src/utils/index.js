@@ -16,4 +16,5 @@ export {
 } from './tokenRefreshUtils/tokenRefreshUtils';
 export {
   getFullTime,
+  shakeButton,
 } from './misc/misc';

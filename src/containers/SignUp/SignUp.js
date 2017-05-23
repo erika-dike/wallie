@@ -15,7 +15,7 @@ import { SignUpForm } from './components';
 import { registerUser } from '../../actions';
 
 // utils
-import { isValidEmail } from '../../utils';
+import { isValidEmail, shakeButton } from '../../utils';
 
 import './SignUp.css';
 
@@ -159,9 +159,7 @@ class SignUp extends React.Component {
       const { user } = this.state;
       this.props.registerUser(user);
     } else {
-      const elem = document.getElementById('submit-button');
-      elem.classList.add('element-shake');
-      setTimeout(() => elem.classList.remove('element-shake'), 500);
+      shakeButton('signup-button');
     }
   }
 

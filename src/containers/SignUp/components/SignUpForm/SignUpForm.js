@@ -152,7 +152,7 @@ const SignUpForm = ({
         bsStyle="info"
         bsSize="large"
         type="submit"
-        id="submit-button"
+        id="signup-button"
         block
         onClick={handleSubmit}
       >

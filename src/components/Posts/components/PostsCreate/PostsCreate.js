@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from 'react-bootstrap';
 
-import { openCloudinaryUploadWidget } from '../../../../utils';
+import { openCloudinaryUploadWidget, shakeButton } from '../../../../utils';
 
 import './PostsCreate.css';
 
@@ -20,6 +20,7 @@ class PostsCreate extends React.Component {
     this.defaultMessage = "What's happening?";
     this.state = {
       isActive: false,
+      numRows: 3,
       post: {
         id: null,
         content: '',
@@ -27,8 +28,9 @@ class PostsCreate extends React.Component {
       },
     };
     this.createImagePost = this.createImagePost.bind(this);
-    this.handleFocusOnInactiveFormInput = this.handleFocusOnInactiveFormInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleFocusOnInactiveFormInput = this.handleFocusOnInactiveFormInput.bind(this);
+    this.handleRenderingFormInputInactive = this.handleRenderingFormInputInactive.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -44,6 +46,8 @@ class PostsCreate extends React.Component {
       this.setState({ isActive: true, post: nextProps.postToEdit });
     }
   }
+
+  MIN_ROWS = 3;
 
   createImagePost() {
     openCloudinaryUploadWidget()
@@ -67,29 +71,40 @@ class PostsCreate extends React.Component {
   **/
   handleFocusOnInactiveFormInput() {
     this.setState({ isActive: true });
-    window.addEventListener('click', (event) => {
-      const formElement = document.getElementsByClassName('post-create-form')[0];
-      if (!formElement.contains(event.target) && !this.state.post.content) {
-        this.setState({ isActive: false });
-        window.removeEventListener('click');
-      }
-    });
+    window.addEventListener('click', this.handleRenderingFormInputInactive);
+  }
+
+  handleRenderingFormInputInactive(event) {
+    const formElement = document.getElementsByClassName('post-create-form')[0];
+    if (!formElement.contains(event.target) && !this.state.post.content) {
+      this.setState({ isActive: false, numRows: this.MIN_ROWS });
+      window.removeEventListener('click', this.handleRenderingFormInputInactive);
+    }
   }
 
   handleChange(event) {
-    const value = event.currentTarget.value;
+    const element = event.currentTarget;
     const { post } = this.state;
-    post.content = value;
+    post.content = element.value;
     this.setState({ post });
+    if (element.scrollHeight > element.clientHeight) {
+      const rows = Math.ceil((element.scrollHeight - element.clientHeight) / 17);
+      this.setState({ numRows: this.state.numRows + rows });
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const { id, content, type } = this.state.post;
-    if (id) {
-      this.props.editPost(id, content);
+    if (content.length) {
+      if (id) {
+        this.props.editPost(id, content);
+      } else {
+        this.props.createPost(content, type);
+      }
     } else {
-      this.props.createPost(content, type);
+      // add shake animation to post button
+      shakeButton('post-button');
     }
   }
 
@@ -107,6 +122,7 @@ class PostsCreate extends React.Component {
         <FormControl
           componentClass="textarea"
           placeholder={this.defaultMessage}
+          rows={this.state.numRows}
           value={this.state.post.content}
           autoFocus
           onChange={this.handleChange}
@@ -136,7 +152,9 @@ class PostsCreate extends React.Component {
           </span>
         </div>
         <div className="create-post-button">
-          <Button bsClass="btn btn-info post-btn" type="submit" onClick={this.handleSubmit}>
+          <span className="spinner" />
+          <span className="post-counter">{this.state.post.content.length}</span>
+          <Button id="post-button" bsClass="btn btn-info post-btn" type="submit" onClick={this.handleSubmit}>
             <span className="button-text posting-text">
               <span className="Icon icon-post-create">
                 <i className="fa fa-paint-brush" aria-hidden="true" />

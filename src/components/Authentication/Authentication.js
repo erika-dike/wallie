@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 // local components
 import { LoginForm } from '../../components/';
 
+import { shakeButton } from '../../utils/';
+
 
 class Authentication extends React.Component {
   constructor(props) {
@@ -63,11 +65,7 @@ class Authentication extends React.Component {
       // show user helpful hightlights around invalid inputs
       this.setState({ showFieldErrors: true });
       this.focusOnFirstInputWithError();
-
-      // add shake animation to login button
-      const elem = document.getElementById('login-button');
-      elem.classList.add('element-shake');
-      setTimeout(() => elem.classList.remove('element-shake'), 500);
+      shakeButton('login-button');
     }
   }
 

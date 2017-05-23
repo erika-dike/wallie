@@ -48,6 +48,19 @@
         margin-left: auto;
     }
 
+    .post-counter {
+        top: 3px;
+        margin-right: 5px;
+        color: #657786;
+        display: inline-block;
+        width: 35px;
+        padding: 0 3px;
+        position: relative;
+        text-align: right;
+        font-size: 14px;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
+    }
+
     .post-btn {
         display: inline-block;
     }
