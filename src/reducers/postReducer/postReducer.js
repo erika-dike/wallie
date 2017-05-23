@@ -38,7 +38,13 @@ export default function post(state = INITIAL_STATE, action) {
     case FETCH_POSTS_REQUEST:
       return { ...state, pending: true, fetched: false };
     case FETCH_POSTS_SUCCESS: {
-      const newPosts = [...state.posts, ...action.payload.results];
+      let newPosts;
+      if (action.payload.previous) {
+        newPosts = [...state.posts, ...action.payload.results];
+      } else {
+        newPosts = [...action.payload.results];
+      }
+
       return {
         ...state,
         pending: false,
