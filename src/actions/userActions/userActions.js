@@ -1,6 +1,3 @@
-
-import axios from 'axios';
-
 import {
   FETCH_USER_FAILURE,
   FETCH_USER_REQUEST,
@@ -12,6 +9,8 @@ import {
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_SUCCESS,
 } from '../actionTypes';
+import api from '../config';
+import handleErrors from '../errorHandler';
 
 import { CALL_API } from '../../middlewares/api';
 
@@ -20,7 +19,8 @@ export function registerUserPending() {
 }
 
 export function registerUserFailed(response) {
-  return { type: REGISTER_USER_FAILED, payload: response };
+  const errors = handleErrors(response);
+  return { type: REGISTER_USER_FAILED, payload: errors };
 }
 
 export function registerUserSuccess(data) {
@@ -30,7 +30,7 @@ export function registerUserSuccess(data) {
 export function registerUser(userData) {
   return (dispatch) => {
     dispatch(registerUserPending());
-    axios.post('http://localhost:8000/api/v1/accounts/auth/register/', userData)
+    api.post('accounts/auth/register/', userData)
       .then(
         response => dispatch(registerUserSuccess(response.data)),
         error => dispatch(registerUserFailed(error)),

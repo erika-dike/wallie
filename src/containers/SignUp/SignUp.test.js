@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { FormControl } from 'react-bootstrap';
 
 import { SignUp } from './SignUp';
 
@@ -107,7 +106,7 @@ describe('SignUp component Test Suite', () => {
     });
 
     it('calls handleSubmit on submit', () => {
-      const input = wrapper.find('#submit-button');
+      const input = wrapper.find('#signup-button');
       input.simulate('click');
       expect(SignUp.prototype.handleSubmit).toHaveBeenCalled();
     });
@@ -187,7 +186,7 @@ describe('SignUp component Test Suite', () => {
     test('action registerUser is called when form valid', () => {
       SignUp.prototype.isFormValid = () => true;
       wrapper = mount(<SignUp {...props} />);
-      const input = wrapper.find('#submit-button');
+      const input = wrapper.find('#signup-button');
       input.simulate('click');
       expect(props.registerUser).toHaveBeenCalled();
     });
@@ -195,7 +194,7 @@ describe('SignUp component Test Suite', () => {
     test('action registerUser is not called when form is invalid', () => {
       SignUp.prototype.isFormValid = () => false;
       wrapper = mount(<SignUp {...props} />);
-      const input = wrapper.find('#submit-button');
+      const input = wrapper.find('#signup-button');
       input.simulate('click');
       expect(props.registerUser).not.toHaveBeenCalled();
     });

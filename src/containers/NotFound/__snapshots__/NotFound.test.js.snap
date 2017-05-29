@@ -1,0 +1,24 @@
+exports[`test renders correctly 1`] = `
+<div
+  className="not-found container">
+  <div
+    className="row">
+    <div
+      className="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
+      <div
+        className="body-content">
+        <h1>
+          Sorry, that page doesn\'t exist
+        </h1>
+        <p>
+          You can 
+          <a
+            href="http://localhost">
+            return to the homepage.
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

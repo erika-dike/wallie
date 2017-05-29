@@ -1,6 +1,7 @@
-import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+
+import api from '../config';
 
 import {
   registerUser,
@@ -47,7 +48,7 @@ describe('register actions', () => {
     };
     const expectedAction = {
       type: REGISTER_USER_FAILED,
-      payload: errors,
+      payload: errors.response.data,
     };
     expect(registerUserFailed(errors)).toEqual(expectedAction);
   });
@@ -81,7 +82,7 @@ describe('register actions', () => {
         { type: REGISTER_USER_SUCCESS, payload: response.data },
       ];
       // mock the axios.post method. so it will just resolve the promise
-      axios.post = jest.fn(() => Promise.resolve(response));
+      api.post = jest.fn(() => Promise.resolve(response));
 
 
       const store = mockStore({ user: {} });
@@ -101,8 +102,8 @@ describe('register actions', () => {
         { type: REGISTER_USER_PENDING },
         { type: REGISTER_USER_SUCCESS, payload: response.data },
       ];
-      // mock the axios.post method. so it will just resolve the promise
-      axios.post = jest.fn(() => Promise.resolve(response));
+      // mock the api.post method. so it will just resolve the promise
+      api.post = jest.fn(() => Promise.resolve(response));
 
       // mock dispatch
       const dispatch = jest.fn(() => response.data);
@@ -124,11 +125,11 @@ describe('register actions', () => {
       };
       const expectedActions = [
         { type: REGISTER_USER_PENDING },
-        { type: REGISTER_USER_FAILED, payload: errors },
+        { type: REGISTER_USER_FAILED, payload: errors.response.data },
       ];
 
-      // mock the axios.post method. so it will just resolve the promise
-      axios.post = jest.fn(() => Promise.reject(errors));
+      // mock the api.post method. so it will just resolve the promise
+      api.post = jest.fn(() => Promise.reject(errors));
 
       const store = mockStore({ user: {} });
       await store.dispatch(registerUser(userData));
@@ -141,13 +142,15 @@ describe('register actions', () => {
         message: 'Network Error',
         response: undefined,
       };
+      const errorMessage = ['Something seems to be wrong with the network. Please try again'];
+
       const expectedActions = [
         { type: REGISTER_USER_PENDING },
-        { type: REGISTER_USER_FAILED, payload: errors },
+        { type: REGISTER_USER_FAILED, payload: errorMessage },
       ];
 
-      // mock the axios.post method. so it will just resolve the promise
-      axios.post = jest.fn(() => Promise.reject(errors));
+      // mock the api.post method. so it will just resolve the promise
+      api.post = jest.fn(() => Promise.reject(errors));
 
       const store = mockStore({ user: {} });
       await store.dispatch(registerUser(userData));

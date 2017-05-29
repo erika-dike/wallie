@@ -1,5 +1,3 @@
-import api from '../config';
-
 import {
   FETCH_USER_SUCCESS,
   LOGIN_USER_FAILED,
@@ -13,6 +11,7 @@ import {
   REFRESH_TOKEN_SUCCESS,
   TOGGLE_LOGIN_MODAL,
 } from '../actionTypes';
+import api from '../config';
 import handleErrors from '../errorHandler';
 
 export function loginUserPending() {

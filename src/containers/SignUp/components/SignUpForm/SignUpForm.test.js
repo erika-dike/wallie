@@ -204,7 +204,7 @@ describe('SignUpForm', () => {
   describe('Submit Button', () => {
     it('calls the right function on click', () => {
       const form = shallow(<SignUpForm {...props} />);
-      const button = form.find('#submit-button');
+      const button = form.find('#signup-button');
       button.simulate('click');
       expect(props.handleSubmit).toHaveBeenCalled();
     });

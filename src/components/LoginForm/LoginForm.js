@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
 import { FieldGroup, Spinner } from '../';
@@ -47,5 +48,19 @@ const LoginForm = ({
       </Button>
     </div>
   </form>;
+
+LoginForm.propTypes = {
+  credential: PropTypes.shape({
+    username: PropTypes.string,
+    password: PropTypes.string,
+  }).isRequired,
+  getFieldLengthValidationState: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  passwordRef: PropTypes.func.isRequired,
+  usernameRef: PropTypes.func.isRequired,
+};
+
 
 export default LoginForm;
