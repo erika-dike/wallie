@@ -6,6 +6,7 @@ import SignUpForm from './SignUpForm';
 
 describe('SignUpForm', () => {
   let props;
+
   beforeEach(() => {
     props = {
       getEmailValidationState: jest.fn(() => 'email'),
@@ -194,6 +195,7 @@ describe('SignUpForm', () => {
       const form = shallow(<SignUpForm {...props} />);
       expect(form.find('.spinner')).toHaveLength(0);
     });
+
     it('renders spinner animation when registration request is pending', () => {
       props.registering = true;
       const form = mount(<SignUpForm {...props} />);
