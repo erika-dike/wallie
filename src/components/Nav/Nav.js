@@ -11,10 +11,8 @@ import './Nav.css';
 class CustomNav extends React.Component {
   static handleSelectNavItem(event) {
     const nav = document.getElementsByTagName('nav')[0];
-    const oldSelected = nav.getElementsByClassName('selected')[0];
-    if (oldSelected) {
-      oldSelected.classList.remove('selected');
-    }
+    const oldSelected = nav.getElementsByClassName('selected');
+    Array.from(oldSelected).forEach(element => element.classList.remove('selected'));
     event.currentTarget.classList.add('selected');
   }
 

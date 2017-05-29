@@ -109,9 +109,6 @@ class Home extends React.Component {
                     profile={this.props.profile}
                     updateProfile={this.updateProfile}
                   />
-                  <NotificationSystem
-                    ref={(input) => { this.notificationSystem = input; }}
-                  />
                 </section>
               </Col>
             :
@@ -143,6 +140,11 @@ class Home extends React.Component {
             :
               null
           }
+          <Col>
+            <NotificationSystem
+              ref={(input) => { this.notificationSystem = input; }}
+            />
+          </Col>
         </Row>
       </Grid>
     );
@@ -215,7 +217,7 @@ Home.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    errors: state.user.errors,
+    userErrors: state.user.errors,
     fetched: state.user.fetched,
     isAuthenticated: state.auth.isAuthenticated,
     next: state.post.next,

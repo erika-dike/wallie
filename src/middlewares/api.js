@@ -1,7 +1,7 @@
 import api from '../actions/config';
 import handleErrors from '../actions/errorHandler';
 import { logout, refreshToken, toggleLoginModal } from '../actions/';
-import { tokenBelowRefreshThreshold } from '../utils/';
+import { isTokenExpired, tokenBelowRefreshThreshold } from '../utils/';
 
 const UNAUTHORIZED = 'unauthorized';
 
@@ -36,7 +36,7 @@ function callApi(endpoint, httpMethod, authenticated, data) {
         return response.data;
       },
       (error) => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           throw new Error(UNAUTHORIZED);
         }
         return Promise.reject(error);
@@ -69,8 +69,6 @@ export default store => next => action => {
         if (error.message === UNAUTHORIZED) {
           next(logout());
           next(toggleLoginModal(true, ['You have to log in to continue']));
-          console.log(`This is ${UNAUTHORIZED}`);
-          // throw new Error(UNAUTHORIZED);
         } else {
           const errors = handleErrors(error);
           next({
@@ -82,7 +80,7 @@ export default store => next => action => {
     )
     .then((response) => {
       // refresh token if below threshbold
-      if (tokenBelowRefreshThreshold()) {
+      if (!isTokenExpired() && tokenBelowRefreshThreshold()) {
         next(refreshToken());
       }
       return response;

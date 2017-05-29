@@ -1,3 +1,4 @@
+import { isTokenExpired } from '../../utils';
 import {
   FETCH_USER_FAILURE,
   FETCH_USER_REQUEST,
@@ -13,7 +14,7 @@ import {
 
 const INITIAL_STATE = {
   errors: [],
-  profile: JSON.parse(localStorage.getItem('profile')),
+  profile: isTokenExpired() ? null : JSON.parse(localStorage.getItem('profile')),
   registering: false,
   registered: false,
   pending: false,
@@ -30,7 +31,6 @@ export default function user(state = INITIAL_STATE, action) {
         errors: [],
         registering: false,
         registered: true,
-        profile: action.payload,
       };
     case REGISTER_USER_FAILED: {
       const response = action.payload;

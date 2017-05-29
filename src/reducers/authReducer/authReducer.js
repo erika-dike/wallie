@@ -1,3 +1,4 @@
+import { isTokenExpired } from '../../utils';
 import {
   LOGIN_USER_FAILED,
   LOGIN_USER_PENDING,
@@ -15,7 +16,7 @@ import {
 const INITIAL_STATE = {
   errors: [],
   loading: false,
-  isAuthenticated: localStorage.getItem('token') !== null,
+  isAuthenticated: !isTokenExpired(),
   showLoginModal: false,
 };
 

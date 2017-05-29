@@ -2,12 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WayPoint from 'react-waypoint';
 
-import { PostItem } from '../../../../components/';
+import { ContentPlaceholder, PostItem } from '../../../../components/';
 
 import './PostsList.css';
 
 
 class PostsList extends React.Component {
+  static renderContentPlaceholder() {
+    return (<ContentPlaceholder number={2} />);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -61,18 +65,21 @@ class PostsList extends React.Component {
       profile,
       unlovePost,
     } = this.props;
+    let mappedPostItems;
 
-    const mappedPostItem = posts.map(post =>
-      <PostItem
-        key={post.id}
-        deletePost={deletePost}
-        insertPostIntoCreateBox={insertPostIntoCreateBox}
-        lovePost={lovePost}
-        post={post}
-        profile={profile}
-        unlovePost={unlovePost}
-      />,
-    );
+    if (posts.length) {
+      mappedPostItems = posts.map(post =>
+        <PostItem
+          key={post.id}
+          deletePost={deletePost}
+          insertPostIntoCreateBox={insertPostIntoCreateBox}
+          lovePost={lovePost}
+          post={post}
+          profile={profile}
+          unlovePost={unlovePost}
+        />,
+      );
+    }
 
     return (
       <div className="stream-container conversations-enabled">
@@ -81,7 +88,7 @@ class PostsList extends React.Component {
             className="stream-items"
             id="stream-items-id"
           >
-            {posts ? mappedPostItem : null}
+            {posts.length ? mappedPostItems : PostsList.renderContentPlaceholder()}
           </ol>
         </div>
         {this.renderWayPoint()}

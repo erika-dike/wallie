@@ -1,0 +1,79 @@
+{
+    "results": [
+        {
+            "id": 9,
+            "date_created": "2017-05-10T11:41:08.735591Z",
+            "content": "My first post ever. Hii haa",
+            "author": {
+                "username": "test_user",
+                "first_name": "test",
+                "last_name": "testing",
+                "about": "robo soldier",
+                "profile_pic": "https://res.cloudinary.com/andela-troupon/image/upload/v1495184471/wall_app/wut4gfvg5ly7strddmna.png",
+                "num_posts": 19
+            },
+            "num_loves": 1,
+            "in_love": false
+        },
+        {
+            "id": 8,
+            "date_created": "2017-04-10T01:28:07.751578Z",
+            "content": "Test",
+            "author": {
+                "username": "admin",
+                "first_name": "Admin",
+                "last_name": "Django",
+                "about": "engineer @TSL",
+                "profile_pic": "http://res.cloudinary.com/andela-troupon/image/upload/v1491232845/default_profile_normal_n8yvkf.png",
+                "num_posts": 8
+            },
+            "num_loves": 1,
+            "in_love": false
+        },
+        {
+            "id": 13,
+            "date_created": "2017-05-11T10:12:52.703410Z",
+            "content": "Second time posting to the front end app. This time, I am trying to test that the reducer work as expected. Hallelujah!!",
+            "author": {
+                "username": "test_user",
+                "first_name": "test",
+                "last_name": "testing",
+                "about": "robo soldier",
+                "profile_pic": "https://res.cloudinary.com/andela-troupon/image/upload/v1495184471/wall_app/wut4gfvg5ly7strddmna.png",
+                "num_posts": 19
+            },
+            "num_loves": 0,
+            "in_love": false
+        },
+        {
+            "id": 12,
+            "date_created": "2017-05-11T10:01:42.428033Z",
+            "content": "First time posting from the front end app. Yippeee!!!",
+            "author": {
+                "username": "test_user",
+                "first_name": "test",
+                "last_name": "testing",
+                "about": "robo soldier",
+                "profile_pic": "https://res.cloudinary.com/andela-troupon/image/upload/v1495184471/wall_app/wut4gfvg5ly7strddmna.png",
+                "num_posts": 19
+            },
+            "num_loves": 0,
+            "in_love": false
+        },
+        {
+            "id": 11,
+            "date_created": "2017-05-11T09:54:02.425064Z",
+            "content": "Let me see what the payload of a create post is like.",
+            "author": {
+                "username": "test_user",
+                "first_name": "test",
+                "last_name": "testing",
+                "about": "robo soldier",
+                "profile_pic": "https://res.cloudinary.com/andela-troupon/image/upload/v1495184471/wall_app/wut4gfvg5ly7strddmna.png",
+                "num_posts": 19
+            },
+            "num_loves": 1,
+            "in_love": false
+        }
+    ]
+}

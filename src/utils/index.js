@@ -12,8 +12,9 @@ export {
   default as replaceUrlsWithLinks,
 } from './replaceUrlsWithLinks/replaceUrlsWithLinks';
 export {
-  default as tokenBelowRefreshThreshold,
-} from './tokenRefreshUtils/tokenRefreshUtils';
+  isTokenExpired,
+  tokenBelowRefreshThreshold,
+} from './tokenUtils/tokenUtils';
 export {
   getFullTime,
   shakeButton,

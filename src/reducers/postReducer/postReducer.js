@@ -54,7 +54,7 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case FETCH_POSTS_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case FETCH_TOP_POSTS_REQUEST:
       return { ...state, pending: true, fetched: false };
     case FETCH_TOP_POSTS_SUCCESS:
@@ -65,7 +65,7 @@ export default function post(state = INITIAL_STATE, action) {
         topPosts: action.payload.results,
       };
     case FETCH_TOP_POSTS_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case CREATE_POST_REQUEST:
       return { ...state, pending: true, fetched: false };
     case CREATE_POST_SUCCESS: {
@@ -84,7 +84,7 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case CREATE_POST_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case EDIT_POST_REQUEST:
       return { ...state, pending: true, fetched: false };
     case EDIT_POST_SUCCESS: {
@@ -100,7 +100,7 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case EDIT_POST_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case DELETE_POST_REQUEST:
       return { ...state, pending: true, fetched: false };
     case DELETE_POST_SUCCESS: {
@@ -115,7 +115,7 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case DELETE_POST_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case LOVE_POST_REQUEST:
       return { ...state, pending: true, fetched: false };
     case LOVE_POST_SUCCESS: {
@@ -133,7 +133,7 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case LOVE_POST_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case UNLOVE_POST_REQUEST:
       return { ...state, pending: true, fetched: false };
     case UNLOVE_POST_SUCCESS: {
@@ -151,7 +151,7 @@ export default function post(state = INITIAL_STATE, action) {
       };
     }
     case UNLOVE_POST_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     default:
       return state;
   }
