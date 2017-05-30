@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 
 import { shakeButton } from '../../utils/';
 
@@ -108,10 +109,6 @@ describe('Authentication Component Test Suite', () => {
     let originalFunction;
 
     beforeEach(() => {
-      props.credential = {
-        username: 'john_doe',
-        password: 'notsecret',
-      };
       // mock handleSubmit
       originalFunction = Authentication.prototype.focusOnFirstInputWithError;
       Authentication.prototype.focusOnFirstInputWithError = jest.fn();
@@ -128,5 +125,22 @@ describe('Authentication Component Test Suite', () => {
       expect(wrapper.state('showFieldErrors')).toBeTruthy();
       expect(Authentication.prototype.focusOnFirstInputWithError).toHaveBeenCalled();
     });
+
+    it('calls the loginUser function when form passes validation', () => {
+      const wrapper = mount(<Authentication {...props} />);
+      wrapper.setState({
+        credential: { username: 'john_doe', password: 'notsecret' },
+      });
+      const submitButton = wrapper.find('#login-button');
+      submitButton.simulate('click');
+      expect(props.loginUser).toHaveBeenCalledWith(wrapper.state('credential'));
+    });
+  });
+
+  it('changes the location of the page when isAuthenticated is updated', () => {
+    const wrapper = mount(<Authentication {...props} />);
+    expect(wrapper.props().history.push).not.toHaveBeenCalled();
+    wrapper.setProps({ isAuthenticated: true });
+    expect(wrapper.props().history.push).toHaveBeenCalled();
   });
 });

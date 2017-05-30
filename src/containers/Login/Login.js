@@ -16,41 +16,35 @@ import { loginUser } from '../../actions';
 import './Login.css';
 
 
-class Login extends React.Component {
-  render() {
-    return (
-      <Grid>
-        <Row>
-          <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+const Login = ({ errors, isAuthenticated, loading, login }) =>
+  <Grid>
+    <Row>
+      <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+      <div className="alert-wrapper">
+          <MessageAlert
+            errors={errors}
+            successful={false}
+            successMessage=""
+            title="Log in"
+          />
+        </div>
 
-            <div className="alert-wrapper">
-              <MessageAlert
-                errors={this.props.errors}
-                successful={false}
-                successMessage=""
-                title="Log in"
-              />
-            </div>
-
-            <div className="login-wrapper">
-              <h1>Login to Wallie</h1>
-              <Authentication
-                loading={this.props.loading}
-                loginUser={this.props.loginUser}
-                isAuthenticated={this.props.isAuthenticated}
-              />
-            </div>
-          </Col>
-        </Row>
-      </Grid>
-    );
-  }
-}
+        <div className="login-wrapper">
+          <h1>Login to Wallie</h1>
+          <Authentication
+            loading={loading}
+            loginUser={login}
+            isAuthenticated={isAuthenticated}
+          />
+        </div>
+      </Col>
+    </Row>
+  </Grid>;
 
 Login.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   loading: PropTypes.bool.isRequired,
-  loginUser: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
 };
 
@@ -64,7 +58,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginUser: (credential) => {
+    login: (credential) => {
       dispatch(loginUser(credential));
     },
   };

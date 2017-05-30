@@ -26,6 +26,7 @@ class Authentication extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
+      console.log(nextProps)
       this.props.history.push('/');
     }
   }
