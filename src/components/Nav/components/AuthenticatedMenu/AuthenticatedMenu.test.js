@@ -58,5 +58,11 @@ describe('AuthenticatedMenu Component Test Suite', () => {
       profilePageLink.simulate('click');
       expect(wrapper.state('profilePageClicked')).toBeTruthy();
     });
+
+    it('calls logout when logout button is clicked', () => {
+      const logoutLink = wrapper.find(MenuItem).at(2).find('a');
+      logoutLink.simulate('click');
+      expect(props.logout).toHaveBeenCalled();
+    });
   });
 });

@@ -17,7 +17,6 @@ class CustomNav extends React.Component {
   }
 
   render() {
-    console.log(this.props.isAuthenticated, this.props.profile)
     return (
       <Navbar collapseOnSelect fixedTop>
         <Navbar.Header>
