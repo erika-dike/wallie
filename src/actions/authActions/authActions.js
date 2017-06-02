@@ -14,6 +14,7 @@ import {
 import api from '../config';
 import handleErrors from '../errorHandler';
 
+
 export function loginUserPending() {
   return { type: LOGIN_USER_PENDING };
 }
@@ -102,6 +103,6 @@ export function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
     dispatch(logoutUserSuccess());
-    window.location.reload();
+    // window.location.reload();
   };
 }

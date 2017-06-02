@@ -8,10 +8,6 @@ import './PostsList.css';
 
 
 class PostsList extends React.Component {
-  static renderContentPlaceholder() {
-    return (<ContentPlaceholder number={2} />);
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +15,7 @@ class PostsList extends React.Component {
       statusMessage: this.LOADING_MESSAGE,
     };
     this.loadMorePosts = this.loadMorePosts.bind(this);
+    this.renderContentPlaceholder = this.renderContentPlaceholder.bind(this);
     this.renderWayPoint = this.renderWayPoint.bind(this);
   }
 
@@ -33,6 +30,14 @@ class PostsList extends React.Component {
     } else {
       this.setState({ statusMessage: this.CAUGHT_UP_MESSAGE });
     }
+  }
+
+  renderContentPlaceholder() {
+    return (
+      <ContentPlaceholder
+        number={2}
+        addNotification={this.props.addNotification}
+      />);
   }
 
   renderWayPoint() {
@@ -88,7 +93,7 @@ class PostsList extends React.Component {
             className="stream-items"
             id="stream-items-id"
           >
-            {posts.length ? mappedPostItems : PostsList.renderContentPlaceholder()}
+            {posts.length ? mappedPostItems : this.renderContentPlaceholder()}
           </ol>
         </div>
         {this.renderWayPoint()}

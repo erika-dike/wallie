@@ -48,6 +48,7 @@ class Home extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // Notify user of errors when the occur.
+    console.log(nextProps.posts)
     const { postsErrors } = nextProps;
     let errors = [];
     const title = null;

@@ -47,6 +47,7 @@ class Posts extends React.Component {
             null
         }
         <PostsList
+          addNotification={this.props.addNotification}
           deletePost={this.props.deletePost}
           fetched={this.props.fetched}
           fetchPosts={this.props.fetchPosts}

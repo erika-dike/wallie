@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Nav, NavItem } from 'react-bootstrap';
 
-import {
-  LinkWithNavItem,
-  LoginNavItem,
-} from '../../components';
+import { LinkWithNavItem } from '../../components';
 
 
 const UnAuthenticatedMenu = ({ handleSelectNavItem }) =>
@@ -15,11 +12,11 @@ const UnAuthenticatedMenu = ({ handleSelectNavItem }) =>
         Sign up
       </NavItem>
     </LinkWithNavItem>
-    <LoginNavItem
-      eventKey={2}
-      href="/login"
-      handleSelectNavItem={handleSelectNavItem}
-    />
+    <LinkWithNavItem to="login" handleSelectNavItem={handleSelectNavItem}>
+      <NavItem eventKey={2} href="/login">
+        Log in
+      </NavItem>
+    </LinkWithNavItem>
   </Nav>;
 
 UnAuthenticatedMenu.propTypes = {

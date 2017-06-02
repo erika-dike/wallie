@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // local components
-import { Nav } from './../../components/';
+import { LoginModal, Nav } from './../../components/';
 import { Home, Login, NotFound, Profile, SignUp } from '../../containers';
 
 // actions
@@ -34,6 +34,7 @@ const App = ({ isAuthenticated, logoutUser, profile }) =>
         }
         <Route component={NotFound} />
       </Switch>
+      <LoginModal />
     </div>
   </Router>;
 

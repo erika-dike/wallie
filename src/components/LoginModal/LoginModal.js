@@ -1,27 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Modal,
-  NavItem,
-} from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Redirect, withRouter } from 'react-router-dom';
 
-import { Authentication } from '../../../../components';
-import { LinkWithNavItem } from '../../components';
-
+import { Authentication } from '../../components';
 
 // actions
 import {
   loginUser,
   refreshAuthState,
   toggleLoginModal,
-} from '../../../../actions/';
+} from '../../actions/';
 
 
-import './LoginNavItem.css';
+import './LoginModal.css';
 
 
-class LoginNavItem extends React.Component {
+class LoginModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +28,7 @@ class LoginNavItem extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isAuthenticated) {
+    if (!this.props.isAuthenticated && nextProps.isAuthenticated) {
       this.close();
     } else if (this.props.showLoginModal !== nextProps.showLoginModal) {
       this.setState({ showModal: nextProps.showLoginModal });
@@ -46,7 +42,6 @@ class LoginNavItem extends React.Component {
 
   close() {
     this.setState({ showModal: false });
-    this.props.refreshAuthState();
 
     // turn global showLoginModal false if it is true
     if (this.props.showLoginModal) {
@@ -55,7 +50,7 @@ class LoginNavItem extends React.Component {
   }
 
   render() {
-    const { errors, eventKey, handleSelectNavItem, href } = this.props;
+    const { errors } = this.props;
     let mappedErrors = null;
 
     if (errors.length) {
@@ -63,42 +58,39 @@ class LoginNavItem extends React.Component {
         <li className="text-danger list-unstyled" key={index}>{error}</li>,
       );
     }
-    return (
-      <LinkWithNavItem to="login" handleSelectNavItem={handleSelectNavItem}>
-        <NavItem eventKey={eventKey} href={href}>
-          Log in
 
-          <Modal
-            dialogClassName="login-modal"
-            show={this.state.showModal}
-            onHide={this.close}
-            autoFocus
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Log in to Wallie</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {
-                errors.length ? <ul>{mappedErrors}</ul> : null
-              }
-              <Authentication
-                loading={this.props.loading}
-                loginUser={this.props.loginUser}
-                isAuthenticated={this.props.isAuthenticated}
-              />
-            </Modal.Body>
-          </Modal>
-        </NavItem>
-      </LinkWithNavItem>
+    // if (this.props.isAuthenticated) {
+    //   debugger;
+    //   return (<Redirect push to="/" />);
+    // }
+
+    return (
+      <Modal
+        dialogClassName="login-modal"
+        show={this.state.showModal}
+        onHide={this.close}
+        autoFocus
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Log in to Wallie</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {
+            errors.length ? <ul>{mappedErrors}</ul> : null
+          }
+          <Authentication
+            loading={this.props.loading}
+            loginUser={this.props.loginUser}
+            isAuthenticated={this.props.isAuthenticated}
+          />
+        </Modal.Body>
+      </Modal>
     );
   }
 }
 
-LoginNavItem.propTypes = {
+LoginModal.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  eventKey: PropTypes.number.isRequired,
-  handleSelectNavItem: PropTypes.func.isRequired,
-  href: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
@@ -128,5 +120,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export { LoginNavItem };
-export default connect(mapStateToProps, mapDispatchToProps)(LoginNavItem);
+export { LoginModal };
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginModal));

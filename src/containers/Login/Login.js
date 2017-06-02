@@ -16,33 +16,49 @@ import { loginUser } from '../../actions';
 import './Login.css';
 
 
-const Login = ({ errors, isAuthenticated, loading, login }) =>
-  <Grid>
-    <Row>
-      <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
-      <div className="alert-wrapper">
-          <MessageAlert
-            errors={errors}
-            successful={false}
-            successMessage=""
-            title="Log in"
-          />
-        </div>
+class Login extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthenticated) {
+      this.props.history.push('/');
+    }
+  }
 
-        <div className="login-wrapper">
-          <h1>Login to Wallie</h1>
-          <Authentication
-            loading={loading}
-            loginUser={login}
-            isAuthenticated={isAuthenticated}
-          />
-        </div>
-      </Col>
-    </Row>
-  </Grid>;
+  render() {
+    const { errors, isAuthenticated, loading, login } = this.props;
+
+    return (
+      <Grid>
+        <Row>
+          <Col xs={10} xsOffset={1} md={6} mdOffset={3}>
+            <div className="alert-wrapper">
+              <MessageAlert
+                errors={errors}
+                successful={false}
+                successMessage=""
+                title="Log in"
+              />
+            </div>
+
+            <div className="login-wrapper">
+              <h1>Login to Wallie</h1>
+              <Authentication
+                loading={loading}
+                loginUser={login}
+                isAuthenticated={isAuthenticated}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Grid>
+    );
+  }
+}
 
 Login.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   loading: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,

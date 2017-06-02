@@ -17,6 +17,11 @@ class AuthenticatedMenu extends React.Component {
     this.state = {
       profilePageClicked: false,
     };
+    this.handleProfileLinkClick = this.handleProfileLinkClick.bind(this);
+  }
+
+  handleProfileLinkClick() {
+    this.setState({ profilePageClicked: true });
   }
 
   render() {
@@ -47,7 +52,7 @@ class AuthenticatedMenu extends React.Component {
           <MenuItem
             eventKey={1.1}
             className="account-summary"
-            onClick={() => this.setState({ profilePageClicked: true })}
+            onClick={this.handleProfileLinkClick}
           >
             <div className="content">
               <div className="account-group">
@@ -59,7 +64,7 @@ class AuthenticatedMenu extends React.Component {
             </div>
           </MenuItem>
           <MenuItem divider />
-          <MenuItem eventKey={1.1} onClick={logout}>Log out</MenuItem>
+          <MenuItem eventKey={1.2} onClick={logout}>Log out</MenuItem>
         </NavDropdown>
       </Nav>
     );

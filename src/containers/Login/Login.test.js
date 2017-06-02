@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Alert } from 'react-bootstrap';
 import { MemoryRouter } from 'react-router-dom';
 
-import { Authentication, LoginForm, Spinner } from '../../components';
+import { LoginForm, Spinner } from '../../components';
 
 import { Login } from './Login';
 

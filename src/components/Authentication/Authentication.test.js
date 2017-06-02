@@ -1,10 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { MemoryRouter } from 'react-router-dom';
 
-import { shakeButton } from '../../utils/';
-
-import { Authentication } from './Authentication';
+import Authentication from './Authentication';
 
 
 describe('Authentication Component Test Suite', () => {
@@ -12,12 +9,8 @@ describe('Authentication Component Test Suite', () => {
 
   beforeEach(() => {
     props = {
-      history: {
-        push: jest.fn(() => 'changed location'),
-      },
       loading: false,
       loginUser: jest.fn(() => 'login user'),
-      isAuthenticated: false,
     };
   });
 
@@ -135,12 +128,5 @@ describe('Authentication Component Test Suite', () => {
       submitButton.simulate('click');
       expect(props.loginUser).toHaveBeenCalledWith(wrapper.state('credential'));
     });
-  });
-
-  it('changes the location of the page when isAuthenticated is updated', () => {
-    const wrapper = mount(<Authentication {...props} />);
-    expect(wrapper.props().history.push).not.toHaveBeenCalled();
-    wrapper.setProps({ isAuthenticated: true });
-    expect(wrapper.props().history.push).toHaveBeenCalled();
   });
 });

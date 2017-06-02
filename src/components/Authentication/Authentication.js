@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
 // local components
 import { LoginForm } from '../../components/';
@@ -22,13 +21,6 @@ class Authentication extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.focusOnFirstInputWithError = this.focusOnFirstInputWithError.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isAuthenticated) {
-      console.log(nextProps)
-      this.props.history.push('/');
-    }
   }
 
   getFieldLengthValidationState(fieldName, minLength = 1) {
@@ -86,13 +78,8 @@ class Authentication extends React.Component {
 }
 
 Authentication.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
   loading: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
 };
 
-export { Authentication };
-export default withRouter(Authentication);
+export default Authentication;
