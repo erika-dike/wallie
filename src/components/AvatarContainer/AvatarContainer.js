@@ -44,7 +44,7 @@ const AvatarContainer = ({ img, uploadImage }) =>
           Upload Photo
         </MenuItem>
         <MenuItem divider />
-        <MenuItem eventKey="4">Cancel</MenuItem>
+        <MenuItem eventKey="2">Cancel</MenuItem>
       </DropdownButton>
     </div>
   </div>;

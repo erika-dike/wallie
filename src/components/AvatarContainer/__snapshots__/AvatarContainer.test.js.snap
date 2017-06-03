@@ -1,0 +1,71 @@
+exports[`AvatarContainer Component Test Suite renders correctly 1`] = `
+<div
+  className="ProfileCard-avatar-container">
+  <div
+    className="contols avatar-settings inline-upload-avatar dropdown center"
+    id="choose-photo">
+    <div
+      className="dropdown btn-group btn-group-link">
+      <button
+        aria-expanded={false}
+        aria-haspopup={true}
+        className="dropdown-toggle btn btn-link"
+        disabled={false}
+        id="dropdown-test"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        type="button">
+        <a
+          aria-hidden="true"
+          className="ProfileCard-avatar-link ProfileAvatar-placeholder u-inline-block profile-picture"
+          href="edit-image"
+          onClick={[Function]}
+          role="button"
+          tabIndex="-1">
+          <img
+            alt="Avatar"
+            className="ProfileCard-avatar-image js-action-profile-avatar"
+            src="http://fake-pics.jpg" />
+        </a>
+      </button>
+      <ul
+        aria-labelledby="dropdown-test"
+        className="dropdown-menu"
+        role="menu">
+        <li
+          className=""
+          role="presentation"
+          style={undefined}>
+          <a
+            href="#"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="menuitem"
+            tabIndex="-1">
+            Upload Photo
+          </a>
+        </li>
+        <li
+          className="divider"
+          onKeyDown={[Function]}
+          role="separator"
+          style={undefined} />
+        <li
+          className=""
+          role="presentation"
+          style={undefined}>
+          <a
+            href="#"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="menuitem"
+            tabIndex="-1">
+            Cancel
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
