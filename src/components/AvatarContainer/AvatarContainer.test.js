@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { MenuItem } from 'react-bootstrap';
 import renderer from 'react-test-renderer';
 
 import { DEFAULT_PROFILE_PIC } from '../../constants/';

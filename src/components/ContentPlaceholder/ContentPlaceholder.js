@@ -13,13 +13,12 @@ class ContentPlaceholder extends React.Component {
 
   componentDidMount() {
     const { addNotification } = this.props;
-    this.timer = setTimeout(
-      () => addNotification(
+    this.timer = setTimeout(() => {
+      addNotification(
         'Network Error',
         'The page is taking too long to respond. Consider refreshing the page.',
-      ),
-      8000,
-    );
+      );
+    }, 8000);
   }
 
   componentWillUnmount() {
@@ -29,23 +28,21 @@ class ContentPlaceholder extends React.Component {
   renderPlaceholderStream() {
     const { number } = this.props;
     return Array(number).fill(number).map(() =>
-      <div className="timeline-wrapper" key={uuid()}>
-        <div className="timeline-item">
-          <div className="animated-background">
-            <div className="background-masker header-top" />
-            <div className="background-masker header-left" />
-            <div className="background-masker header-right" />
-            <div className="background-masker header-bottom" />
-            <div className="background-masker subheader-left" />
-            <div className="background-masker subheader-right" />
-            <div className="background-masker subheader-bottom" />
-            <div className="background-masker content-top" />
-            <div className="background-masker content-first-end" />
-            <div className="background-masker content-second-line" />
-            <div className="background-masker content-second-end" />
-            <div className="background-masker content-third-line" />
-            <div className="background-masker content-third-end" />
-          </div>
+      <div className="timeline-item">
+        <div className="animated-background">
+          <div className="background-masker header-top" />
+          <div className="background-masker header-left" />
+          <div className="background-masker header-right" />
+          <div className="background-masker header-bottom" />
+          <div className="background-masker subheader-left" />
+          <div className="background-masker subheader-right" />
+          <div className="background-masker subheader-bottom" />
+          <div className="background-masker content-top" />
+          <div className="background-masker content-first-end" />
+          <div className="background-masker content-second-line" />
+          <div className="background-masker content-second-end" />
+          <div className="background-masker content-third-line" />
+          <div className="background-masker content-third-end" />
         </div>
       </div>,
     );
@@ -53,7 +50,7 @@ class ContentPlaceholder extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="timeline-wrapper" key={uuid()}>
         {this.renderPlaceholderStream()}
       </div>
     );
