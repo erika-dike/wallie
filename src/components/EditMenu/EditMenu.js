@@ -3,26 +3,21 @@ import PropType from 'prop-types';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 
 
-class EditMenu extends React.Component {
-  render() {
-    return (
-      <div className="Profile-edit-profile-btn">
-        {
-          this.props.showEditView
-            ?
-              (
-                <ButtonToolbar>
-                  <Button onClick={this.props.toggleVisibility}>Cancel</Button>
-                  <Button onClick={this.props.handleSubmit} bsStyle="info">Save changes</Button>
-                </ButtonToolbar>
-              )
-            :
-                <Button onClick={this.props.toggleVisibility}>Edit Profile</Button>
-        }
-      </div>
-    );
-  }
-}
+const EditMenu = ({ handleSubmit, showEditView, toggleVisibility }) =>
+  <div className="Profile-edit-profile-btn">
+    {
+      showEditView
+        ?
+          (
+            <ButtonToolbar>
+              <Button onClick={toggleVisibility}>Cancel</Button>
+              <Button onClick={handleSubmit} bsStyle="info">Save changes</Button>
+            </ButtonToolbar>
+          )
+        :
+            <Button onClick={toggleVisibility}>Edit Profile</Button>
+    }
+  </div>;
 
 EditMenu.propTypes = {
   handleSubmit: PropType.func.isRequired,
