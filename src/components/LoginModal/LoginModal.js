@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { Authentication } from '../../components';
 
@@ -52,17 +52,11 @@ class LoginModal extends React.Component {
   render() {
     const { errors } = this.props;
     let mappedErrors = null;
-
     if (errors.length) {
       mappedErrors = errors.map((error, index) =>
         <li className="text-danger list-unstyled" key={index}>{error}</li>,
       );
     }
-
-    // if (this.props.isAuthenticated) {
-    //   debugger;
-    //   return (<Redirect push to="/" />);
-    // }
 
     return (
       <Modal
@@ -94,7 +88,6 @@ LoginModal.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
-  refreshAuthState: PropTypes.func.isRequired,
   showLoginModal: PropTypes.bool.isRequired,
   toggleLoginModal: PropTypes.func.isRequired,
 };

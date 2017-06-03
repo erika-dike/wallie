@@ -71,18 +71,15 @@ describe('AuthenticatedMenu Component Test Suite', () => {
     beforeEach(() => {
       originalFunction = Nav.handleSelectNavItem;
       Nav.handleSelectNavItem = jest.fn();
-    });
-
-    afterEach(() => {
-      Nav.handleSelectNavItem = originalFunction;
-    });
-
-    beforeEach(() => {
       wrapper = mount(
         <MemoryRouter>
           <Nav {...props} />
         </MemoryRouter>,
       );
+    });
+
+    afterEach(() => {
+      Nav.handleSelectNavItem = originalFunction;
     });
 
     it('fully renders without crashing', () => {
