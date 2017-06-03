@@ -3,7 +3,7 @@ export { default as Authentication } from './Authentication/Authentication';
 export { default as AvatarContainer } from './AvatarContainer/AvatarContainer';
 export { default as ContentPlaceholder } from './ContentPlaceholder/ContentPlaceholder';
 export { default as EditMenu } from './EditMenu/EditMenu';
-export { default as EditProfile } from './EditProfile/EditProfile';
+export { default as EditProfileForm } from './EditProfileForm/EditProfileForm';
 export { default as FieldGroup } from './FieldGroup/FieldGroup';
 export { default as LoginForm } from './LoginForm/LoginForm';
 export { default as LoginModal } from './LoginModal/LoginModal';

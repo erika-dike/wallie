@@ -15,7 +15,7 @@ import {
   AboutUs,
   AvatarContainer,
   EditMenu,
-  EditProfile,
+  EditProfileForm,
   Posts,
   TopPosts,
   ProfileUserFields,
@@ -289,7 +289,7 @@ class Profile extends React.Component {
               <div id="profile-user-field" className="Profile-user-fields">
                 {this.state.showEditView
                   ?
-                    <EditProfile
+                    <EditProfileForm
                       handleChangeInEditProfileForm={this.handleChangeInEditProfileForm}
                       profile={this.state.profile}
                     />
