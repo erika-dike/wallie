@@ -1,0 +1,25 @@
+exports[`StreamItemHeaderTimeDisplay component test suite Base test renders correct snapshot 1`] = `
+<small
+  className="time">
+  <a
+    className="post-timestamp"
+    onBlur={[Function]}
+    onClick={null}
+    onFocus={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}>
+    <span
+      className="timestamp">
+      a few seconds
+    </span>
+    <span
+      style={
+        Object {
+          "display": "none",
+        }
+      }>
+      a few seconds ago
+    </span>
+  </a>
+</small>
+`;

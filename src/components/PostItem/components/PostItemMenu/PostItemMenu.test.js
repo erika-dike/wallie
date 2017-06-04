@@ -43,7 +43,7 @@ describe('PostItemMenu component test suite', () => {
     });
 
     it('has 3 props', () => {
-      expect(Object.keys(wrapper.instance().props)).toHaveLength(3);
+      expect(Object.keys(wrapper.props())).toHaveLength(3);
     });
 
     it('has state showDeleteModal set to false', () => {
