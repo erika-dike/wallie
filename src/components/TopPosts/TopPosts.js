@@ -23,7 +23,7 @@ class TopPosts extends React.Component {
 
   open(event) {
     event.preventDefault();
-    const postId = Number(event.currentTarget.dataset.id);
+    const postId = Number(event.target.dataset.id);
     const selectedPost = this.props.posts.filter(each => each.id === postId).pop();
     this.setState({ showMessageModal: true, selectedPost });
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Modal } from 'react-bootstrap';
-import renderer from 'react-test-renderer';
 
 import { PostItem } from '../../../../components';
 
@@ -23,7 +22,7 @@ describe('ProfileUserFields Component Test Suite', () => {
           first_name: 'test',
           last_name: 'testing',
           about: 'robo soldier',
-          profile_pic: 'https://res.cloudinary.com/andela-troupon/image/upload/v1495184471/wall_app/wut4gfvg5ly7strddmna.png',
+          profile_pic: 'https://robo-dp.png',
           num_posts: 19,
         },
         num_loves: 1,
