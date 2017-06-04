@@ -13,7 +13,7 @@ class ProfileCardConsole extends React.Component {
     super(props);
     this.redirectToProfilePage = this.redirectToProfilePage.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
-    this.profilePageUrl = `/${this.props.profile.user.username}`;
+    this.profilePageUrl = `/${props.profile.user.username}`;
   }
 
   redirectToProfilePage(event) {
@@ -27,7 +27,7 @@ class ProfileCardConsole extends React.Component {
   **/
   uploadImage() {
     openCloudinaryUploadWidget()
-      .then(async (result) => {
+      .then((result) => {
         const { profile } = this.props;
         const oldProfilePicUrl = profile.profile_pic;
         profile.profile_pic = result;
@@ -75,4 +75,5 @@ ProfileCardConsole.propTypes = {
   updateProfile: PropTypes.func,
 };
 
+export { ProfileCardConsole };
 export default withRouter(ProfileCardConsole);
