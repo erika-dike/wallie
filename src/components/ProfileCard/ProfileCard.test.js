@@ -6,12 +6,6 @@ import { AvatarContainer, UserFields } from '../../components';
 import ProfileCard from './ProfileCard';
 
 
-jest.mock('../../utils/', () => ({
-  openCloudinaryUploadWidget: () =>
-    new Promise((resolve, reject) => resolve('http://success.jpg')),
-}));
-
-
 describe('ProfileCardConsole Component Test Suite', () => {
   let props;
 
