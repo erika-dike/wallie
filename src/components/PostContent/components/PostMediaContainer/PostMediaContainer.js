@@ -13,7 +13,7 @@ class PostMediaContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.SHOW_MORE_CONTENT_TEXT,
+      actionText: this.SHOW_MORE_CONTENT_TEXT,
     };
     this.embedContainerId = `media-${uuid()}`;
     this.getIframelyHtml = this.getIframelyHtml.bind(this);
@@ -48,12 +48,12 @@ class PostMediaContainer extends React.Component {
 
   toggleContentVisisbility() {
     const element = document.getElementById(this.embedContainerId);
-    if (this.state.text.includes(this.SHOW_MORE_CONTENT_TEXT)) {
+    if (this.state.actionText.includes(this.SHOW_MORE_CONTENT_TEXT)) {
       element.classList.remove('media-container-default-size');
-      this.setState({ text: this.SHOW_LESS_CONTENT_TEXT });
+      this.setState({ actionText: this.SHOW_LESS_CONTENT_TEXT });
     } else {
       element.classList.add('media-container-default-size');
-      this.setState({ text: this.SHOW_MORE_CONTENT_TEXT });
+      this.setState({ actionText: this.SHOW_MORE_CONTENT_TEXT });
     }
   }
 
@@ -70,7 +70,7 @@ class PostMediaContainer extends React.Component {
           bsClass="btn btn-link show-more-hidden"
           onClick={this.toggleContentVisisbility}
         >
-          {this.state.text}
+          {this.state.actionText}
         </Button>
       </div>
     );

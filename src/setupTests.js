@@ -19,3 +19,7 @@ global.localStorage = {
     return name;
   },
 };
+
+global.iframely = {
+  load: () => true,
+};
