@@ -50,7 +50,6 @@ const ProfileCard = ({
 ProfileCard.defaultProps = {
   profilePageUrl: null,
   redirectToProfilePage: null,
-  updateProfile: null,
   uploadImage: null,
 };
 
