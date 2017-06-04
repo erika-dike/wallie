@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { UserFields } from '../';
+import { UserFields } from '../../components';
 
 import './ProfileUserFields.css';
 

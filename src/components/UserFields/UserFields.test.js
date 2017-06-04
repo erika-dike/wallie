@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import UserFields from './UserFields';
 
 
-describe('ProfileCardConsole Component Test Suite', () => {
+describe('UserFields Component Test Suite', () => {
   let props;
 
   beforeEach(() => {
