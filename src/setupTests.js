@@ -23,3 +23,5 @@ global.localStorage = {
 global.iframely = {
   load: () => true,
 };
+
+global.window.innerHeight = 1000;

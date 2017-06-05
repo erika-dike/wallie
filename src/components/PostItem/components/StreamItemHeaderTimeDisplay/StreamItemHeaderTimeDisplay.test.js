@@ -1,9 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { MenuItem, Modal } from 'react-bootstrap';
 import renderer from 'react-test-renderer';
-
-import DeletePostModal from '../../components/DeletePostModal/DeletePostModal';
 
 import StreamItemHeaderTimeDisplay from './StreamItemHeaderTimeDisplay';
 
