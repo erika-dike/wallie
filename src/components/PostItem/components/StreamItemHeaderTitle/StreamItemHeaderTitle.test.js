@@ -1,11 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { MenuItem, Modal, OverlayTrigger } from 'react-bootstrap';
-import renderer from 'react-test-renderer';
-
-import {
-  ProfileCard,
-} from '../../../../components';
+import { shallow } from 'enzyme';
 
 // constants
 import { DEFAULT_PROFILE_PIC } from '../../../../constants/';
@@ -111,19 +105,30 @@ describe('StreamItemHeaderTitle component test suite', () => {
     let originalHandleHover;
 
     beforeEach(() => {
-      originalAdaptProfileForProfileCard = StreamItemHeaderTitle.prototype.adaptProfileForProfileCard;
-      StreamItemHeaderTitle.prototype.adaptProfileForProfileCard = jest.fn(() => {
-        'originalAdaptProfileForProfileCard'
-      });
+      const { author } = props.post;
+      const profile = {
+        user: {
+          username: author.username,
+          first_name: author.first_name,
+          last_name: author.last_name,
+          num_posts: author.num_posts,
+        },
+        about: author.about,
+        profile_pic: author.profile_pic,
+      };
+      originalAdaptProfileForProfileCard = (
+        StreamItemHeaderTitle.prototype.adaptProfileForProfileCard);
+      StreamItemHeaderTitle.prototype.adaptProfileForProfileCard = jest.fn(() => profile);
       originalHandleHover = StreamItemHeaderTitle.prototype.handleHover;
-      StreamItemHeaderTitle.prototype.handleHover = jest.fn(() => {
-        'originalHandleHover'
-      });
+      StreamItemHeaderTitle.prototype.handleHover = jest.fn(() =>
+        'originalHandleHover',
+      );
       wrapper = shallow(<StreamItemHeaderTitle {...props} />);
     });
 
     afterEach(() => {
-      StreamItemHeaderTitle.prototype.adaptProfileForProfileCard = originalAdaptProfileForProfileCard;
+      StreamItemHeaderTitle.prototype.adaptProfileForProfileCard = (
+        originalAdaptProfileForProfileCard);
       StreamItemHeaderTitle.prototype.handleHover = originalHandleHover;
     });
 

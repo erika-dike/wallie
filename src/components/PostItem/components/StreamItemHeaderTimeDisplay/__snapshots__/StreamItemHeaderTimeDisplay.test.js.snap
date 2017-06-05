@@ -10,7 +10,7 @@ exports[`StreamItemHeaderTimeDisplay component test suite Base test renders corr
     onMouseOver={[Function]}>
     <span
       className="timestamp">
-      a few seconds
+      a month
     </span>
     <span
       style={
@@ -18,7 +18,7 @@ exports[`StreamItemHeaderTimeDisplay component test suite Base test renders corr
           "display": "none",
         }
       }>
-      a few seconds ago
+      a month ago
     </span>
   </a>
 </small>

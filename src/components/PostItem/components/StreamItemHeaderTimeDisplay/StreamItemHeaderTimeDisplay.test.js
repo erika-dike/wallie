@@ -29,7 +29,7 @@ describe('StreamItemHeaderTimeDisplay component test suite', () => {
     });
 
     it('renders correct snapshot', () => {
-      const tree = renderer.create(<StreamItemHeaderTimeDisplay />).toJSON();
+      const tree = renderer.create(<StreamItemHeaderTimeDisplay {...props} />).toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
