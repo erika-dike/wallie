@@ -20,11 +20,10 @@ class PostsCreate extends React.Component {
     this.defaultMessage = "What's happening?";
     this.state = {
       isActive: false,
-      numRows: 3,
+      numRows: this.MIN_ROWS,
       post: {
         id: null,
         content: '',
-        type: 'text',
       },
     };
     this.createImagePost = this.createImagePost.bind(this);
@@ -83,7 +82,7 @@ class PostsCreate extends React.Component {
   }
 
   handleChange(event) {
-    const element = event.currentTarget;
+    const element = event.target;
     const { post } = this.state;
     post.content = element.value;
     this.setState({ post });
@@ -95,12 +94,12 @@ class PostsCreate extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { id, content, type } = this.state.post;
+    const { id, content } = this.state.post;
     if (content.length) {
       if (id) {
         this.props.editPost(id, content);
       } else {
-        this.props.createPost(content, type);
+        this.props.createPost(content);
       }
     } else {
       // add shake animation to post button
@@ -118,7 +117,7 @@ class PostsCreate extends React.Component {
     const submitButtonText = this.state.post.id ? 'Edit' : 'Post';
 
     const activeFormInput = (
-      <FormGroup controlId="formControlsTextarea">
+      <FormGroup controlId="activeFormInput">
         <FormControl
           componentClass="textarea"
           placeholder={this.defaultMessage}
@@ -131,7 +130,7 @@ class PostsCreate extends React.Component {
     );
 
     const inActiveFormInput = (
-      <FormGroup controlId="formBasicText" onFocus={this.handleFocusOnInactiveFormInput}>
+      <FormGroup controlId="inActiveFormInput" onFocus={this.handleFocusOnInactiveFormInput}>
         <FormControl type="text" value={this.defaultMessage} readOnly />
       </FormGroup>
     );
@@ -142,7 +141,7 @@ class PostsCreate extends React.Component {
           <span className="post-create-box-extras-item post-create-box-media-picker">
             <div className="photo-selector">
               <OverlayTrigger placement="top" overlay={tooltip}>
-                <Button bsClass="btn icon-btn" onClick={this.createImagePost}>
+                <Button bsClass="btn icon-btn" id="camera-upload-btn" onClick={this.createImagePost}>
                   <span className="post-create-camera Icon Icon--extra-large">
                     <i className="fa fa-camera" aria-hidden="true" />
                   </span>

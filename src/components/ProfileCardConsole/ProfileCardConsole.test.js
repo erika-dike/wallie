@@ -58,8 +58,8 @@ describe('ProfileCardConsole Component Test Suite', () => {
       const profileCard = wrapper.find(ProfileCard);
       expect(profileCard.prop('profilePageUrl')).toBeDefined();
       expect(profileCard.prop('redirectToProfilePage')).toBeDefined();
-      expect(profileCard.prop('updateProfile')).toBeDefined();
       expect(profileCard.prop('uploadImage')).toBeDefined();
+      expect(profileCard.prop('profile')).toBeDefined();
     });
 
     test('clicking on first link redirects to profile page', () => {
