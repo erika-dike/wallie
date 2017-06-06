@@ -1,19 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
 import {
-  Button,
   FormControl,
   FormGroup,
   OverlayTrigger,
-  Tooltip,
 } from 'react-bootstrap';
 
 import { shakeButton } from '../../../../utils/';
 
 import PostsCreate from './PostsCreate';
-
-
 
 jest.mock('../../../../utils/', () => ({
   openCloudinaryUploadWidget: () =>

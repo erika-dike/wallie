@@ -27,8 +27,8 @@ class ContentPlaceholder extends React.Component {
 
   renderPlaceholderStream() {
     const { number } = this.props;
-    return Array(number).fill(number).map(() =>
-      <div className="timeline-item">
+    return Array(number).fill(number).map((_, i) =>
+      <div key={`timeline-item-${i}`} className="timeline-item">
         <div className="animated-background">
           <div className="background-masker header-top" />
           <div className="background-masker header-left" />

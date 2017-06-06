@@ -109,6 +109,7 @@ PostsList.defaultProps = {
 };
 
 PostsList.propTypes = {
+  addNotification: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   insertPostIntoCreateBox: PropTypes.func.isRequired,
