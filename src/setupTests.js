@@ -21,6 +21,7 @@ global.localStorage = {
     }
     return name;
   },
+  setItem: jest.fn(() => 'setItem'),
 };
 
 global.iframely = {
