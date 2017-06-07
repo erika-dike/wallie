@@ -47,7 +47,7 @@ class PostItemMenu extends React.Component {
       <ButtonToolbar>
         <DropdownButton
           bsStyle="link"
-          id="dropdown-size-medium"
+          id="post-item-dropdown-menu"
           title=""
           onSelect={this.handleSelect}
         >

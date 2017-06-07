@@ -5,7 +5,6 @@ import { PostsCreate, PostsList } from './components';
 
 import './Posts.css';
 
-// const Posts = ({ posts, lovePost, unlovePost, profile, createPost }) => {
 class Posts extends React.Component {
   constructor(props) {
     super(props);
@@ -72,8 +71,8 @@ Posts.defaultProps = {
 Posts.propTypes = {
   addNotification: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired,
-  editPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
   fetched: PropTypes.bool.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
