@@ -48,7 +48,7 @@ class Profile extends React.Component {
     this.state = {
       showEditView: false,
       showFieldErrors: false,
-      profile: this.constructProfileForState,
+      profile: this.constructProfileForState(),
     };
     this.addNotification = this.addNotification.bind(this);
     this.constructProfileForState = this.constructProfileForState.bind(this);
@@ -74,7 +74,7 @@ class Profile extends React.Component {
 
       // fetch posts with the new profile changes reflected
       this.props.fetchTopPosts('private=True');
-      this.props.fetchPosts('private=True');
+      this.props.fetchPosts('?private=True&page_size=6');
     } else if (nextProps.userReducerErrors.length) {
       nextProps.userReducerErrors.forEach(error =>
         this.addNotification('Update Profile Error!', error),
@@ -138,7 +138,7 @@ class Profile extends React.Component {
   handleChangeInEditProfileForm(event) {
     const { name, value } = event.target;
     const { profile } = this.state;
-    if (name === 'profile') {
+    if (name === 'about') {
       profile[name] = value;
     } else {
       profile.user[name] = value;
@@ -162,7 +162,7 @@ class Profile extends React.Component {
       first_name: 1,
       last_name: 1,
       username: 5,
-      about: 5,
+      about: 3,
     };
 
     let errors = false;
@@ -317,7 +317,17 @@ class Profile extends React.Component {
 
 Profile.defaultProps = {
   next: null,
-  profile: null,
+  profile: {
+    user: {
+      username: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      num_posts: 0,
+    },
+    about: '',
+    profile_pic: '',
+  },
   posts: [],
   topPosts: [],
 };
@@ -326,7 +336,6 @@ Profile.propTypes = {
   createPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
-  userReducerErrors: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetched: PropTypes.bool.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   fetchTopPosts: PropTypes.func.isRequired,
@@ -379,6 +388,7 @@ Profile.propTypes = {
   ),
   unlovePost: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
+  userReducerErrors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 function mapStateToProps(state) {
