@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 import { Modal } from 'react-bootstrap';
 
 import { PostItem } from '../../../../components';
+import posts from '../../../../fixtures/topPosts.json';
+
 
 import MessageModal from './MessageModal';
 
@@ -13,21 +15,7 @@ describe('ProfileUserFields Component Test Suite', () => {
   beforeEach(() => {
     props = {
       close: jest.fn(() => 'close'),
-      post: {
-        id: 9,
-        date_created: '2017-05-10T11:41:08.735591Z',
-        content: 'My first post ever. Hii haa',
-        author: {
-          username: 'test_user',
-          first_name: 'test',
-          last_name: 'testing',
-          about: 'robo soldier',
-          profile_pic: 'https://robo-dp.png',
-          num_posts: 19,
-        },
-        num_loves: 1,
-        in_love: false,
-      },
+      post: posts[0],
       showModal: false,
     };
   });

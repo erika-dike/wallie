@@ -6,6 +6,7 @@ import {
   OverlayTrigger,
 } from 'react-bootstrap';
 
+import profile from '../../../../fixtures/profile.json';
 import { shakeButton } from '../../../../utils/';
 
 import PostsCreate from './PostsCreate';
@@ -31,17 +32,7 @@ describe('PostItem component test suite', () => {
       fetched: false,
       pending: false,
       postToEdit: null,
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_pictur.jpg',
-      },
+      profile,
       removePostFromCreateBox: jest.fn(() => 'removePostFromCreateBox'),
     };
   });
@@ -248,7 +239,7 @@ describe('PostItem component test suite', () => {
     });
 
     it('renders submit text as `Post`', () => {
-      expect(submitButton.text()).toBe('Post')
+      expect(submitButton.text()).toBe('Post');
     });
 
     it('calls createPost with content', () => {

@@ -31,7 +31,7 @@ describe('ContentPlaceholder Component Test Suite', () => {
       number: 4,
       addNotification: jest.fn((title, message) => `${title}\n${message}`),
     };
-    const wrapper = mount(<ContentPlaceholder {...props} />);
+    mount(<ContentPlaceholder {...props} />);
     expect(props.addNotification).not.toHaveBeenCalled();
     jest.runAllTimers();
     expect(props.addNotification).toHaveBeenCalled();

@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import profile from '../../fixtures/profile.json';
+
 import EditProfileForm from './EditProfileForm';
 
 describe('EditProfileForm component test suite', () => {
@@ -9,17 +11,7 @@ describe('EditProfileForm component test suite', () => {
   beforeEach(() => {
     props = {
       handleChangeInEditProfileForm: jest.fn(),
-      profile: {
-        user: {
-          username: '',
-          first_name: '',
-          last_name: '',
-          email: '',
-          num_posts: '',
-        },
-        about: '',
-        profile_pic: '',
-      },
+      profile,
     };
   });
 

@@ -6,6 +6,7 @@ import PostTextContainer from './PostTextContainer';
 
 it('renders correctly', () => {
   const tree = renderer.create(
-    <PostTextContainer text="There are always biger fishes to fry" />).toJSON();
+    <PostTextContainer text="There are always biger fishes to fry" />,
+  ).toJSON();
   expect(tree).toMatchSnapshot();
 });

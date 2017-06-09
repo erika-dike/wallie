@@ -100,5 +100,3 @@ describe('PostMediaContainer component test suite', () => {
     });
   });
 });
-
-

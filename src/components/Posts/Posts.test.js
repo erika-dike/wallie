@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import { MenuItem } from 'react-bootstrap';
 
 import { PostsCreate, PostsList } from './components';
+import posts from '../../fixtures/posts.json';
+import profile from '../../fixtures/profile.json';
 
 import Posts from './Posts';
 
@@ -22,49 +24,8 @@ describe('Posts component test suite', () => {
       lovePost: jest.fn(() => 'lovePost'),
       next: null,
       pending: false,
-      posts: [
-        {
-          id: 9,
-          date_created: '2017-05-10T11:41:08.735591Z',
-          content: 'My first post ever. Hii haa',
-          author: {
-            username: 'test_user',
-            first_name: 'test',
-            last_name: 'testing',
-            about: 'robo soldier',
-            profile_pic: 'https://robo-dp.png',
-            num_posts: 19,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-        {
-          id: 8,
-          date_created: '2017-04-10T01:28:07.751578Z',
-          content: 'Test',
-          author: {
-            username: 'admin',
-            first_name: 'Admin',
-            last_name: 'Django',
-            about: 'engineer @ TSL',
-            profile_pic: 'https://admin-dp.png',
-            num_posts: 19,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-      ],
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_picture.jpg',
-      },
+      posts: posts.slice(0, 2),
+      profile,
       unlovePost: jest.fn(() => 'unlovePost'),
     };
   });
@@ -107,21 +68,7 @@ describe('Posts component test suite', () => {
     let postsList;
 
     beforeEach(() => {
-      newPost = {
-        id: 10,
-        date_created: '2017-05-10T01:28:07.751578Z',
-        content: 'My post',
-        author: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          about: 'engineer @ wallie',
-          profile_pic: 'http://no_picture.jpg',
-          num_posts: 10,
-        },
-        num_loves: 1,
-        in_love: true,
-      };
+      newPost = posts[2];
       wrapper = mount(<Posts {...props} />);
       postsList = wrapper.find(PostsList);
     });

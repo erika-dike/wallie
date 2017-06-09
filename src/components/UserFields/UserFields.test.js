@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import profile from '../../fixtures/profile.json';
+
 import UserFields from './UserFields';
 
 
@@ -9,13 +11,7 @@ describe('UserFields Component Test Suite', () => {
 
   beforeEach(() => {
     props = {
-      user: {
-        username: 'john_doe',
-        first_name: 'john',
-        last_name: 'doe',
-        email: 'john_doe@wallie.com',
-        num_posts: 12,
-      },
+      user: profile.user,
       profilePageUrl: '/john_doe',
       redirectToProfilePage: jest.fn(() => 'redirectToProfilePage'),
     };

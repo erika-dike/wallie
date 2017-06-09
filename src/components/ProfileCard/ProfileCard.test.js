@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { AvatarContainer, UserFields } from '../../components';
+import profile from '../../fixtures/profile.json';
 
 import ProfileCard from './ProfileCard';
 
@@ -11,17 +12,7 @@ describe('ProfileCardConsole Component Test Suite', () => {
 
   beforeEach(() => {
     props = {
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'john',
-          last_name: 'doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 12,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://fake-pic.jpg',
-      },
+      profile,
       profilePageUrl: '/john_doe',
       redirectToProfilePage: jest.fn(() => 'redirectToProfilePage'),
       uploadImage: jest.fn(() => 'uploadImage'),

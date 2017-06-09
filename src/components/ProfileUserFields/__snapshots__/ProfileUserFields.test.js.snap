@@ -10,7 +10,7 @@ exports[`ProfileUserFields Component Test Suite Snapshot testing renders correct
         href={null}
         onClick={null}
         rel="noopener">
-        john doe
+        John Doe
       </a>
       <span
         className="user-badges" />
@@ -46,7 +46,7 @@ exports[`ProfileUserFields Component Test Suite Snapshot testing renders correct
     <span
       className="Profile-join-date-text u-dir">
       Joined 
-      3rd May 2017
+      9th June 2017
     </span>
   </div>
 </div>

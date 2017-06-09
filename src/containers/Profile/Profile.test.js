@@ -11,9 +11,9 @@ import {
   TopPosts,
   ProfileUserFields,
 } from '../../components/';
-import posts from '../../fixtures/posts.json';
-import profile from '../../fixtures/profile.json';
-import topPosts from '../../fixtures/topPosts.json';
+import postsFixture from '../../fixtures/posts.json';
+import profileFixture from '../../fixtures/profile.json';
+import topPostsFixture from '../../fixtures/topPosts.json';
 
 
 import { deleteImageFromCloudinary } from '../../utils';
@@ -43,12 +43,12 @@ describe('Profile Component test', () => {
       isAuthenticated: false,
       lovePost: jest.fn(() => 'lovePost'),
       next: null,
-      posts: posts.posts,
+      posts: postsFixture,
       postsErrors: [],
       postsFetched: false,
       postsPending: false,
-      profile,
-      topPosts: topPosts.topPosts,
+      profile: profileFixture,
+      topPosts: topPostsFixture,
       unlovePost: jest.fn(() => 'unlovePost'),
       updateProfile: jest.fn(() => 'updateProfile'),
       userReducerErrors: [],

@@ -4,6 +4,7 @@ import { MenuItem } from 'react-bootstrap';
 import { MemoryRouter } from 'react-router-dom';
 
 import { ProfileCard } from '../../components';
+import profile from '../../fixtures/profile.json';
 
 import ProfileCardConsoleWithRouter, { ProfileCardConsole } from './ProfileCardConsole';
 
@@ -20,17 +21,7 @@ describe('ProfileCardConsole Component Test Suite', () => {
   beforeEach(() => {
     props = {
       addNotification: jest.fn(() => 'addNotification'),
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'john',
-          last_name: 'doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 12,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://fake-pic.jpg',
-      },
+      profile,
       updateProfile: jest.fn(() => 'updateProfile'),
     };
   });

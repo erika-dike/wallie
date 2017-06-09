@@ -2,6 +2,9 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { MenuItem } from 'react-bootstrap';
 
+import profile from '../../../../fixtures/profile.json';
+
+
 import AuthenticatedMenu from './AuthenticatedMenu';
 
 jest.mock('react-router-dom/Redirect', () => 'Redirect');
@@ -13,17 +16,7 @@ describe('AuthenticatedMenu Component Test Suite', () => {
   beforeEach(() => {
     props = {
       logout: jest.fn(),
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_pictur.jpg',
-      },
+      profile,
     };
   });
 

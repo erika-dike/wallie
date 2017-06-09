@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import profile from '../../../../fixtures/profile.json';
+
 import PostsCreate from './PostsCreate';
 
 jest.mock('../../../../utils/', () => ({
@@ -22,17 +24,7 @@ describe('PostItem component test suite', () => {
       fetched: false,
       pending: false,
       postToEdit: null,
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_pictur.jpg',
-      },
+      profile,
       removePostFromCreateBox: jest.fn(() => 'removePostFromCreateBox'),
     };
     wrapper = mount(<PostsCreate {...props} />);

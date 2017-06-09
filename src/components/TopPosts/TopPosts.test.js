@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import { Modal } from 'react-bootstrap';
 
 import MessageModal from './components/MessageModal/MessageModal';
+import posts from '../../fixtures/topPosts.json';
+
 
 import TopPosts from './TopPosts';
 
@@ -13,38 +15,7 @@ describe('TopPosts component test suite', () => {
 
   beforeEach(() => {
     props = {
-      posts: [
-        {
-          id: 9,
-          date_created: '2017-05-10T11:41:08.735591Z',
-          content: 'My first post ever. Hii haa',
-          author: {
-            username: 'test_user',
-            first_name: 'test',
-            last_name: 'testing',
-            about: 'robo soldier',
-            profile_pic: 'https://robo-dp.png',
-            num_posts: 19,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-        {
-          id: 8,
-          date_created: '2017-04-10T01:28:07.751578Z',
-          content: 'Test',
-          author: {
-            username: 'admin`',
-            first_name: 'Admin',
-            last_name: 'Django',
-            about: 'engineer @ TSL',
-            profile_pic: 'https://admin-dp.png',
-            num_posts: 19,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-      ],
+      posts,
     };
     wrapper = mount(<TopPosts {...props} />);
   });

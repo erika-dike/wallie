@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import { MenuItem } from 'react-bootstrap';
 import { MemoryRouter } from 'react-router-dom';
 
+import profile from '../../../../fixtures/profile.json';
+
 import AuthenticatedMenu from './AuthenticatedMenu';
 
 
@@ -12,17 +14,7 @@ describe('AuthenticatedMenu Component Integration Test Suite', () => {
   beforeEach(() => {
     props = {
       logout: jest.fn(),
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_pictur.jpg',
-      },
+      profile,
     };
   });
 

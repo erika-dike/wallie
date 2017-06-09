@@ -1,8 +1,9 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import { UserFields } from '../../components';
+import profile from '../../fixtures/profile.json';
 
 import ProfileUserFields from './ProfileUserFields';
 
@@ -12,18 +13,7 @@ describe('ProfileUserFields Component Test Suite', () => {
 
   beforeEach(() => {
     props = {
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'john',
-          last_name: 'doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 12,
-          date_created: '2017-05-03T11:12:12.348206Z',
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://fake-pic.jpg',
-      },
+      profile,
     };
   });
 

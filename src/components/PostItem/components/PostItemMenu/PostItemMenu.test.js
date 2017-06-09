@@ -2,6 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MenuItem, Modal } from 'react-bootstrap';
 
+import posts from '../../../../fixtures/posts.json';
+
 import DeletePostModal from '../../components/DeletePostModal/DeletePostModal';
 
 import PostItemMenu from './PostItemMenu';
@@ -15,21 +17,7 @@ describe('PostItemMenu component test suite', () => {
     props = {
       deletePost: jest.fn(() => 'deletePost'),
       insertPostIntoCreateBox: jest.fn(() => 'insertPostIntoCreateBox'),
-      post: {
-        id: 9,
-        date_created: '2017-05-10T11:41:08.735591Z',
-        content: 'My first post ever. Hii haa',
-        author: {
-          username: 'test_user',
-          first_name: 'test',
-          last_name: 'testing',
-          about: 'robo soldier',
-          profile_pic: 'https://robo-dp.png',
-          num_posts: 19,
-        },
-        num_loves: 1,
-        in_love: false,
-      },
+      post: posts[2],
     };
   });
 

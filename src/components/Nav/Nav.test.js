@@ -8,6 +8,8 @@ import {
   LinkWithNavItem,
   UnAuthenticatedMenu,
 } from './components';
+import profile from '../../fixtures/profile.json';
+
 
 import Nav from './Nav';
 
@@ -19,17 +21,7 @@ describe('AuthenticatedMenu Component Test Suite', () => {
     props = {
       isAuthenticated: false,
       logout: jest.fn(() => 'logout'),
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_pictur.jpg',
-      },
+      profile,
     };
   });
 

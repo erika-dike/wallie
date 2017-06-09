@@ -1,34 +1,32 @@
-{
-    "topPosts": [
-        {
-          "id": 9,
-          "date_created": "2017-05-10T11:41:08.735591Z",
-          "content": "My first post ever. Hii haa",
-          "author": {
-            "username": "john_doe",
-            "first_name": "John",
-            "last_name": "Doe",
-            "about": "engineer @ wallie",
-            "profile_pic": "https://no_picture.jpg",
-            "num_posts": 10
-          },
-          "num_loves": 4,
-          "in_love": false
-        },
-        {
-          "id": 8,
-          "date_created": "2017-04-10T01:28:07.751578Z",
-          "content": "Test",
-          "author": {
-            "username": "john_doe",
-            "first_name": "John",
-            "last_name": "Doe",
-            "about": "engineer @ wallie",
-            "profile_pic": "https://no_picture.jpg",
-            "num_posts": 10
-          },
-          "num_loves": 1,
-          "in_love": false
-        }
-    ]
-}
+[
+    {
+      "id": 9,
+      "date_created": "2017-05-10T11:41:08.735591Z",
+      "content": "My first post ever. Hii haa",
+      "author": {
+        "username": "john_doe",
+        "first_name": "John",
+        "last_name": "Doe",
+        "about": "engineer @ wallie",
+        "profile_pic": "https://no_picture.jpg",
+        "num_posts": 10
+      },
+      "num_loves": 4,
+      "in_love": false
+    },
+    {
+      "id": 8,
+      "date_created": "2017-04-10T01:28:07.751578Z",
+      "content": "Test",
+      "author": {
+        "username": "john_doe",
+        "first_name": "John",
+        "last_name": "Doe",
+        "about": "engineer @ wallie",
+        "profile_pic": "https://no_picture.jpg",
+        "num_posts": 10
+      },
+      "num_loves": 1,
+      "in_love": false
+    }
+]

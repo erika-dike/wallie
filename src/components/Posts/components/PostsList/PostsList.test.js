@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import WayPoint from 'react-waypoint';
 
 import { ContentPlaceholder, PostItem } from '../../../../components/';
+import posts from '../../../../fixtures/posts.json';
+import profile from '../../../../fixtures/profile.json';
 
 import PostsList from './PostsList';
 
@@ -19,49 +21,8 @@ describe('PostsList component test suite', () => {
       insertPostIntoCreateBox: jest.fn(() => 'insertPostIntoCreateBox'),
       lovePost: jest.fn(() => 'lovePost'),
       next: null,
-      posts: [
-        {
-          id: 9,
-          date_created: '2017-05-10T11:41:08.735591Z',
-          content: 'My first post ever. Hii haa',
-          author: {
-            username: 'test_user',
-            first_name: 'test',
-            last_name: 'testing',
-            about: 'robo soldier',
-            profile_pic: 'https://robo-dp.png',
-            num_posts: 19,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-        {
-          id: 8,
-          date_created: '2017-04-10T01:28:07.751578Z',
-          content: 'Test',
-          author: {
-            username: 'admin`',
-            first_name: 'Admin',
-            last_name: 'Django',
-            about: 'engineer @ TSL',
-            profile_pic: 'https://admin-dp.png',
-            num_posts: 19,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-      ],
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_pictur.jpg',
-      },
+      posts,
+      profile,
       unlovePost: jest.fn(() => 'unlovePost'),
     };
   });
@@ -112,7 +73,6 @@ describe('PostsList component test suite', () => {
     });
 
     it('renders the PostItem with the proper props', () => {
-      const firstPost = props.posts[0];
       const postItem = wrapper.find(PostItem).first();
       expect(postItem.prop('deletePost')).toBe(props.deletePost);
       expect(postItem.prop('insertPostIntoCreateBox')).toBe(props.insertPostIntoCreateBox);

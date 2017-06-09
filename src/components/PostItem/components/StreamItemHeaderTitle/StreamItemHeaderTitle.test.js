@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-// constants
 import { DEFAULT_PROFILE_PIC } from '../../../../constants/';
+import posts from '../../../../fixtures/posts.json';
 
 import StreamItemHeaderTitle from './StreamItemHeaderTitle';
 
@@ -13,21 +13,7 @@ describe('StreamItemHeaderTitle component test suite', () => {
 
   beforeEach(() => {
     props = {
-      post: {
-        id: 9,
-        date_created: '2017-05-10T11:41:08.735591Z',
-        content: 'My first post ever. Hii haa',
-        author: {
-          username: 'test_user',
-          first_name: 'test',
-          last_name: 'testing',
-          about: 'robo soldier',
-          profile_pic: 'https://robo-dp.png',
-          num_posts: 19,
-        },
-        num_loves: 1,
-        in_love: false,
-      },
+      post: posts[2],
     };
   });
 
