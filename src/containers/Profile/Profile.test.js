@@ -1,16 +1,6 @@
 import React from 'react';
-import pluralize from 'pluralize';
-import { mount, shallow } from 'enzyme';
-import NotificationSystem from 'react-notification-system';
-import {
-  Button,
-  Col,
-  Grid,
-  MenuItem,
-  Nav,
-  NavItem,
-  Row,
-} from 'react-bootstrap';
+import { mount } from 'enzyme';
+import { Button, MenuItem } from 'react-bootstrap';
 
 import {
   AboutUs,
@@ -21,13 +11,12 @@ import {
   TopPosts,
   ProfileUserFields,
 } from '../../components/';
+import posts from '../../fixtures/posts.json';
+import profile from '../../fixtures/profile.json';
+import topPosts from '../../fixtures/topPosts.json';
 
 
-import {
-  deleteImageFromCloudinary,
-  getValidationState,
-  openCloudinaryUploadWidget,
-} from '../../utils';
+import { deleteImageFromCloudinary } from '../../utils';
 
 import { Profile } from './Profile';
 
@@ -54,84 +43,12 @@ describe('Profile Component test', () => {
       isAuthenticated: false,
       lovePost: jest.fn(() => 'lovePost'),
       next: null,
-      posts: [
-        {
-          id: 9,
-          date_created: '2017-05-10T11:41:08.735591Z',
-          content: 'My first post ever. Hii haa',
-          author: {
-            username: 'john_doe',
-            first_name: 'John',
-            last_name: 'Doe',
-            about: 'engineer @ wallie',
-            profile_pic: 'https://no_picture.jpg',
-            num_posts: 10,
-          },
-          num_loves: 4,
-          in_love: false,
-        },
-        {
-          id: 8,
-          date_created: '2017-04-10T01:28:07.751578Z',
-          content: 'Test',
-          author: {
-            username: 'john_doe',
-            first_name: 'John',
-            last_name: 'Doe',
-            about: 'engineer @ wallie',
-            profile_pic: 'https://no_picture.jpg',
-            num_posts: 10,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-      ],
+      posts: posts.posts,
       postsErrors: [],
       postsFetched: false,
       postsPending: false,
-      profile: {
-        user: {
-          username: 'john_doe',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john_doe@wallie.com',
-          num_posts: 10,
-        },
-        about: 'engineer @ wallie',
-        profile_pic: 'http://no_picture.jpg',
-      },
-      topPosts: [
-        {
-          id: 9,
-          date_created: '2017-05-10T11:41:08.735591Z',
-          content: 'My first post ever. Hii haa',
-          author: {
-            username: 'john_doe',
-            first_name: 'John',
-            last_name: 'Doe',
-            about: 'engineer @ wallie',
-            profile_pic: 'https://no_picture.jpg',
-            num_posts: 10,
-          },
-          num_loves: 4,
-          in_love: false,
-        },
-        {
-          id: 8,
-          date_created: '2017-04-10T01:28:07.751578Z',
-          content: 'Test',
-          author: {
-            username: 'john_doe',
-            first_name: 'John',
-            last_name: 'Doe',
-            about: 'engineer @ wallie',
-            profile_pic: 'https://no_picture.jpg',
-            num_posts: 10,
-          },
-          num_loves: 1,
-          in_love: false,
-        },
-      ],
+      profile,
+      topPosts: topPosts.topPosts,
       unlovePost: jest.fn(() => 'unlovePost'),
       updateProfile: jest.fn(() => 'updateProfile'),
       userReducerErrors: [],
@@ -457,7 +374,7 @@ describe('Profile Component test', () => {
     });
   });
 
-  describe.only('upload image test', () => {
+  describe('upload image test', () => {
     beforeEach(() => {
       wrapper = mount(<Profile {...props} />);
     });

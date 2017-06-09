@@ -1,0 +1,11 @@
+{
+    "user": {
+        "username": "john_doe",
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john_doe@wallie.com",
+        "num_posts": 10
+    },
+    "about": "engineer @ wallie",
+    "profile_pic": "http://no_picture.jpg"
+}
