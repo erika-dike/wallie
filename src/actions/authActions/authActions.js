@@ -28,7 +28,7 @@ export function loginUserSuccess() {
   return { type: LOGIN_USER_SUCCESS };
 }
 
-function updateUserOnLogin(profile) {
+export function updateUserOnLogin(profile) {
   return { type: FETCH_USER_SUCCESS, payload: profile };
 }
 
@@ -49,20 +49,16 @@ export function loginUser(credential) {
   };
 }
 
-export function refreshAuthState() {
-  return { type: REFRESH_AUTH_STATE };
-}
-
-function refreshTokenRequest() {
+export function refreshTokenRequest() {
   return { type: REFRESH_TOKEN_REQUEST };
 }
 
-function refreshTokenFailure(response) {
+export function refreshTokenFailure(response) {
   const errors = handleErrors(response);
   return { type: REFRESH_TOKEN_FAILURE, payload: errors };
 }
 
-function refreshTokenSuccess() {
+export function refreshTokenSuccess() {
   return { type: REFRESH_TOKEN_SUCCESS };
 }
 
@@ -89,11 +85,11 @@ export function toggleLoginModal(showLoginModal, errors) {
   };
 }
 
-function logoutUserRequest() {
+export function logoutUserRequest() {
   return { type: LOGOUT_USER_REQUEST };
 }
 
-function logoutUserSuccess() {
+export function logoutUserSuccess() {
   return { type: LOGOUT_USER_SUCCESS };
 }
 
@@ -103,6 +99,5 @@ export function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
     dispatch(logoutUserSuccess());
-    // window.location.reload();
   };
 }

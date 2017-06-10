@@ -1,19 +1,27 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import api from '../config';
+import profile from '../../fixtures/profile.json';
 
-import {
-  registerUser,
-  registerUserPending,
-  registerUserFailed,
-  registerUserSuccess,
-} from './userActions';
 import {
   REGISTER_USER_FAILED,
   REGISTER_USER_PENDING,
   REGISTER_USER_SUCCESS,
 } from '../actionTypes';
+import api from '../config';
+
+import {
+  fetchUser,
+  registerUser,
+  registerUserPending,
+  registerUserFailed,
+  registerUserSuccess,
+  updateProfile,
+} from './userActions';
+
+jest.mock('../../middlewares/api', () => ({
+  CALL_API: 'CALL_API',
+}));
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -83,7 +91,6 @@ describe('register actions', () => {
       ];
       // mock the axios.post method. so it will just resolve the promise
       api.post = jest.fn(() => Promise.resolve(response));
-
 
       const store = mockStore({ user: {} });
       await store.dispatch(registerUser(userData));
@@ -156,5 +163,30 @@ describe('register actions', () => {
       await store.dispatch(registerUser(userData));
       expect(store.getActions()).toEqual(expectedActions);
     });
+  });
+});
+
+
+describe('fetchUser actions', () => {
+  test('fetchUser calls CALL_API with the right props', () => {
+    const result = fetchUser();
+    expect(result.CALL_API).toBeDefined();
+    expect(result.CALL_API.authenticated).toBe(true);
+    expect(result.CALL_API.endpoint).toBeDefined();
+    expect(result.CALL_API.httpMethod).toBe('get');
+    expect(result.CALL_API.types).toHaveLength(3);
+  });
+});
+
+
+describe('updateProfile actions', () => {
+  test('updateProfile calls CALL_API with the right props', () => {
+    const result = updateProfile(profile);
+    expect(result.CALL_API).toBeDefined();
+    expect(result.CALL_API.authenticated).toBe(true);
+    expect(result.CALL_API.endpoint).toBeDefined();
+    expect(result.CALL_API.httpMethod).toBe('put');
+    expect(result.CALL_API.types).toHaveLength(3);
+    expect(result.CALL_API.data).toBe(profile);
   });
 });

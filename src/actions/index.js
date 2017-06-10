@@ -1,7 +1,6 @@
 export {
   loginUser,
   logout,
-  refreshAuthState,
   refreshToken,
   toggleLoginModal,
 } from './authActions/authActions';

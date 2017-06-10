@@ -7,11 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { Authentication } from '../../components';
 
 // actions
-import {
-  loginUser,
-  refreshAuthState,
-  toggleLoginModal,
-} from '../../actions/';
+import { loginUser, toggleLoginModal } from '../../actions/';
 
 
 import './LoginModal.css';
@@ -106,7 +102,6 @@ function mapDispatchToProps(dispatch) {
     loginUser: (credential) => {
       dispatch(loginUser(credential));
     },
-    refreshAuthState: () => dispatch(refreshAuthState()),
     toggleLoginModal: (showLoginModal, errors) => {
       dispatch(toggleLoginModal(showLoginModal, errors));
     },
