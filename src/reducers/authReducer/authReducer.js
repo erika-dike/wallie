@@ -5,7 +5,6 @@ import {
   LOGIN_USER_SUCCESS,
   LOGOUT_USER_REQUEST,
   LOGOUT_USER_SUCCESS,
-  REFRESH_AUTH_STATE,
   REFRESH_TOKEN_FAILURE,
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
@@ -37,13 +36,6 @@ export default function auth(state = INITIAL_STATE, action) {
         errors: action.payload,
       };
     }
-    case REFRESH_AUTH_STATE:
-      return {
-        ...state,
-        errors: [],
-        loading: false,
-        isAuthenticated: false,
-      };
     case REFRESH_TOKEN_REQUEST:
       return { ...state, loading: true };
     case REFRESH_TOKEN_SUCCESS:

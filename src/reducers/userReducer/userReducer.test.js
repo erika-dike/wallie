@@ -1,4 +1,3 @@
-import userReducer from './userReducer';
 import {
   FETCH_USER_FAILURE,
   FETCH_USER_REQUEST,
@@ -11,6 +10,8 @@ import {
   UPDATE_PROFILE_SUCCESS,
 } from '../../actions/actionTypes';
 import profile from '../../fixtures/profile.json';
+
+import userReducer from './userReducer';
 
 
 describe('User Reducer test suite', () => {
