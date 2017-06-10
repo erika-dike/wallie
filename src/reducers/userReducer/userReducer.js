@@ -44,7 +44,7 @@ export default function user(state = INITIAL_STATE, action) {
     case FETCH_USER_SUCCESS:
       return { ...state, pending: false, fetched: true, profile: action.payload };
     case FETCH_USER_FAILURE:
-      return { ...state, pending: false, error: action.payload };
+      return { ...state, pending: false, errors: action.payload };
     case UPDATE_PROFILE_REQUEST:
       return { ...state, pending: true, fetched: false };
     case UPDATE_PROFILE_SUCCESS:

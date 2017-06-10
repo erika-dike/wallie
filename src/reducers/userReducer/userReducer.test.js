@@ -1,14 +1,24 @@
 import userReducer from './userReducer';
 import {
+  FETCH_USER_FAILURE,
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
   REGISTER_USER_FAILED,
   REGISTER_USER_PENDING,
   REGISTER_USER_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
 } from '../../actions/actionTypes';
+import profile from '../../fixtures/profile.json';
 
-describe('User Reducer', () => {
+
+describe('User Reducer test suite', () => {
+  let errors;
   let state;
 
   beforeEach(() => {
+    errors = ['There are many errors'];
     state = {
       errors: [],
       fetched: false,
@@ -47,9 +57,44 @@ describe('User Reducer', () => {
   });
 
   it('should handle REGISTER_USER_FAILED', () => {
-    const errors = ['There are many errors'];
     const expectedState = { ...state, errors };
     const action = { type: REGISTER_USER_FAILED, payload: errors };
+    expect(userReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  it('should handle FETCH_USER_REQUEST', () => {
+    const expectedState = { ...state, pending: true, fetched: false };
+    const action = { type: FETCH_USER_REQUEST };
+    expect(userReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  it('should handle FETCH_USER_SUCCESS', () => {
+    const expectedState = { ...state, pending: false, fetched: true, profile };
+    const action = { type: FETCH_USER_SUCCESS, payload: profile };
+    expect(userReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  it('should handle FETCH_USER_FAILURE', () => {
+    const expectedState = { ...state, pending: false, errors };
+    const action = { type: FETCH_USER_FAILURE, payload: errors };
+    expect(userReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  it('should handle UPDATE_PROFILE_REQUEST', () => {
+    const expectedState = { ...state, pending: true, fetched: false };
+    const action = { type: UPDATE_PROFILE_REQUEST };
+    expect(userReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  it('should handle UPDATE_PROFILE_SUCCESS', () => {
+    const expectedState = { ...state, pending: false, fetched: true, profile };
+    const action = { type: UPDATE_PROFILE_SUCCESS, payload: profile };
+    expect(userReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  it('should handle UPDATE_PROFILE_FAILURE', () => {
+    const expectedState = { ...state, pending: false, errors };
+    const action = { type: UPDATE_PROFILE_FAILURE, payload: errors };
     expect(userReducer(undefined, action)).toEqual(expectedState);
   });
 });
