@@ -1,9 +1,9 @@
-export { default as isValidEmail } from './isValidEmail/isValidEmail';
 export {
   default as deleteImageFromCloudinary,
 } from './deleteImageFromCloudinary/deleteImageFromCloudinary';
 export {
   getValidationState,
+  validateEmail as isValidEmail,
 } from './validators/validators';
 export {
   default as openCloudinaryUploadWidget,
