@@ -7,7 +7,6 @@ cloudinary.config({
   api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET,
 });
 
-
 export default function deleteImageFromCloudinary(url) {
   const publicIdWithExtension = url.split('/').slice(-2).join('/');
   const publicId = publicIdWithExtension.substring(
@@ -19,6 +18,7 @@ export default function deleteImageFromCloudinary(url) {
     (error, result) => {
       if (error) {
         // TODO: LOG ERRORS REMOTELY;
+        console.log(error);
       } else if (result) {
         // TODO: LOG SUCCESSFUL DELETES
         console.log(result);

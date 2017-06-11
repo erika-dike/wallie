@@ -1,6 +1,7 @@
 import moment from 'moment';
 
-export const getFullTime = time => (moment(time).format('h:mm a - D MMM YYYY'));
+export const getFullTime = time => (moment(time)
+  .format('h:mm a - D MMM YYYY'));
 
 export const shakeButton = (buttonId) => {
   const elem = document.getElementById(buttonId);

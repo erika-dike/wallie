@@ -1,6 +1,3 @@
-// import openCloudinaryUploadWidget from './openCloudinaryUploadWidget';
-
-
 describe('openCloudinaryUploadWidget test suite', () => {
   beforeEach(() => {
     jest.resetModules();
