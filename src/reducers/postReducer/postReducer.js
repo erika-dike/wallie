@@ -47,8 +47,8 @@ export default function post(state = INITIAL_STATE, action) {
 
       return {
         ...state,
-        pending: false,
         fetched: true,
+        pending: false,
         posts: newPosts,
         next: action.payload.next,
       };
