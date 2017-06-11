@@ -1,13 +1,13 @@
 import jwtDecode from 'jwt-decode';
 
 
-const REFRESH_THRESHOLD = 120;
+export const REFRESH_THRESHOLD = 120;
 
 
 /**
   returns the time left till token expires
 **/
-function getTimeLeftForTokenExpire() {
+export function getTimeLeftForTokenExpire() {
   const token = localStorage.getItem('token');
   if (token) {
     const expiryTime = jwtDecode(token).exp;
