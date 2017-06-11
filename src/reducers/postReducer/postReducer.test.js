@@ -11,7 +11,6 @@ import {
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
-  FETCH_TOP_POSTS_FAILURE,
   FETCH_TOP_POSTS_REQUEST,
   FETCH_TOP_POSTS_SUCCESS,
   LOVE_POST_FAILURE,
@@ -22,7 +21,6 @@ import {
   UNLOVE_POST_SUCCESS,
 } from '../../actions/actionTypes';
 import posts from '../../fixtures/posts.json';
-import profile from '../../fixtures/profile.json';
 import topPosts from '../../fixtures/topPosts.json';
 
 import postReducer from './postReducer';

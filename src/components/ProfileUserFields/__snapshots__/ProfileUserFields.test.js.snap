@@ -46,7 +46,7 @@ exports[`ProfileUserFields Component Test Suite Snapshot testing renders correct
     <span
       className="Profile-join-date-text u-dir">
       Joined 
-      10th June 2017
+      10th May 2017
     </span>
   </div>
 </div>
