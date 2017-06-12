@@ -15,7 +15,7 @@ function callApi(endpoint, httpMethod, authenticated, data) {
         headers: { Authorization: `JWT ${token}` },
       };
     } else {
-      throw new Error(UNAUTHORIZED);
+      return Promise.reject(new Error(UNAUTHORIZED));
     }
   }
 
@@ -37,7 +37,7 @@ function callApi(endpoint, httpMethod, authenticated, data) {
       },
       (error) => {
         if (error.response && error.response.status === 401) {
-          throw new Error(UNAUTHORIZED);
+          return Promise.reject(new Error(UNAUTHORIZED));
         }
         return Promise.reject(error);
       },
