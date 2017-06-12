@@ -34,7 +34,7 @@
     "react-router-dom": "^4.1.1",
     "react-test-renderer": "^15.5.4",
     "react-waypoint": "^7.0.3",
-    "reconnecting-websocket": "^3.0.3",
+    "reconnecting-websocket": "^3.0.5",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",

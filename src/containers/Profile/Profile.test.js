@@ -15,8 +15,8 @@ import postsFixture from '../../fixtures/posts.json';
 import profileFixture from '../../fixtures/profile.json';
 import topPostsFixture from '../../fixtures/topPosts.json';
 
-
 import { deleteImageFromCloudinary } from '../../utils';
+import { openWebSocket } from '../../services';
 
 import { Profile } from './Profile';
 
@@ -25,6 +25,12 @@ jest.mock('../../utils/', () => ({
   openCloudinaryUploadWidget: () =>
     new Promise((resolve, reject) => resolve('http://success.jpg')),
   deleteImageFromCloudinary: jest.fn(() => 'deleteImageFromCloudinary'),
+}));
+
+jest.mock('../../services', () => ({
+  openWebSocket: jest.fn(() => ({
+    close: jest.fn(() => 'closeWebSocket'),
+  })),
 }));
 
 
@@ -99,6 +105,16 @@ describe('Profile Component test', () => {
     it('calls fetchPosts and fetchTopPosts after mounting', () => {
       expect(props.fetchTopPosts).toHaveBeenCalledWith('private=True');
       expect(props.fetchPosts).toHaveBeenCalledWith('?private=True&page_size=6');
+    });
+
+    it('initializes web socket on mounting', () => {
+      expect(openWebSocket).toHaveBeenCalled();
+    });
+
+    it('calls socket close on unmount', () => {
+      const socketProperty = wrapper.instance().socket.close;
+      wrapper.unmount();
+      expect(socketProperty).toHaveBeenCalled();
     });
 
     it('renders AvatarContainer with right props', () => {

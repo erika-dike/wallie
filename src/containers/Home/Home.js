@@ -68,6 +68,7 @@ class Home extends React.Component {
       return 3;
     }
     return null;
+  }
 
   addNotification(title, message) {
     this.notificationSystem.addNotification({

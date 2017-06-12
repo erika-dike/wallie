@@ -15,12 +15,19 @@ import profileFixture from '../../fixtures/profile.json';
 import topPostsFixture from '../../fixtures/topPosts.json';
 
 import { deleteImageFromCloudinary } from '../../utils';
+import { openWebSocket } from '../../services';
 
 import { Home } from './Home';
 
 jest.mock('../../utils/', () => ({
   ...require.requireActual('../../utils/'),
   deleteImageFromCloudinary: jest.fn(() => 'deleteImageFromCloudinary'),
+}));
+
+jest.mock('../../services', () => ({
+  openWebSocket: jest.fn(() => ({
+    close: jest.fn(() => 'closeWebSocket'),
+  })),
 }));
 
 
@@ -65,6 +72,16 @@ describe('Home component test suite', () => {
     it('calls fetchPosts and fetchTopPosts after component mounts', () => {
       expect(props.fetchPosts).toHaveBeenCalled();
       expect(props.fetchTopPosts).toHaveBeenCalled();
+    });
+
+    it('initializes web socket on mounting', () => {
+      expect(openWebSocket).toHaveBeenCalled();
+    });
+
+    it('calls socket close on unmount', () => {
+      const socketProperty = wrapper.instance().socket.close;
+      wrapper.unmount();
+      expect(socketProperty).toHaveBeenCalled();
     });
 
     it('renders Posts with the right props', () => {
