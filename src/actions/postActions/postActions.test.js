@@ -6,7 +6,17 @@ import {
   fetchTopPosts,
   lovePost,
   unlovePost,
+  receiveWebSocketLoveUpdate,
+  receiveWebSocketPostDelete,
+  receiveWebSocketPostUpdate,
 } from './postActions';
+import {
+  RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+  RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+  RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
+} from '../actionTypes';
+
+import posts from '../../fixtures/posts.json';
 
 jest.mock('../../middlewares/api', () => ({
   CALL_API: 'CALL_API',
@@ -134,5 +144,29 @@ describe('posts actions test suite when not authenticated', () => {
     expect(result.CALL_API.endpoint).toBeDefined();
     expect(result.CALL_API.httpMethod).toBe('get');
     expect(result.CALL_API.types).toHaveLength(3);
+  });
+});
+
+describe('recieveWebSocket actions', () => {
+  it('creates RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET', () => {
+    const data = { post_id: 1, num_loves: 2 };
+    expect(receiveWebSocketLoveUpdate(data)).toEqual({
+      type: RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+      payload: data,
+    });
+  });
+
+  it('creates RECEIVED_POST_DELETE_VIA_WEBSOCKET', () => {
+    expect(receiveWebSocketPostDelete(posts[2].id)).toEqual({
+      type: RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+      payload: posts[2].id,
+    });
+  });
+
+  it('creates RECEIVED_POST_UPDATE_VIA_WEBSOCKET', () => {
+    expect(receiveWebSocketPostUpdate(posts[2])).toEqual({
+      type: RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
+      payload: posts[2],
+    });
   });
 });

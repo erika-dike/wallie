@@ -16,6 +16,9 @@ import {
   LOVE_POST_FAILURE,
   LOVE_POST_REQUEST,
   LOVE_POST_SUCCESS,
+  RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+  RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+  RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
   UNLOVE_POST_FAILURE,
   UNLOVE_POST_REQUEST,
   UNLOVE_POST_SUCCESS,
@@ -272,5 +275,65 @@ describe('User Reducer test suite', () => {
     const expectedState = { ...state, pending: false, errors };
     const action = { type: UNLOVE_POST_FAILURE, payload: errors };
     expect(postReducer(undefined, action)).toEqual(expectedState);
+  });
+
+  describe('websocket reducers', () => {
+    it('returns state for RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET when post to update in state',
+    () => {
+      state = { ...state, posts };
+      const action = {
+        type: RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+        payload: { post_id: posts[2].id, num_loves: 2000 },
+      };
+      posts[2].num_loves = 2000;
+      const expectedState = { ...state, pending: false, fetched: true, posts };
+      expect(postReducer(state, action)).toEqual(expectedState);
+    });
+
+    it('returns state for RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET when post to update not in state',
+    () => {
+      state = { ...state, posts };
+      const action = {
+        type: RECEIVED_LOVE_UPDATE_VIA_WEBSOCKET,
+        payload: { post_id: 5000, num_loves: 2000 },
+      };
+      const expectedState = { ...state, pending: false, fetched: true, posts };
+      expect(postReducer(state, action)).toEqual(expectedState);
+    });
+
+    it('returns state for RECEIVED_POST_UPDATE_VIA_WEBSOCKET for new post',
+    () => {
+      state = { ...state, posts: posts.slice(0, 2) };
+      const expectedState = { ...state, posts: [posts[2], ...posts.slice(0, 2)] };
+      const action = {
+        type: RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
+        payload: posts[2],
+      };
+      expect(postReducer(state, action)).toEqual(expectedState);
+    });
+
+    it('returns state for RECEIVED_POST_UPDATE_VIA_WEBSOCKET for edited post',
+    () => {
+      state = { ...state, posts };
+      const postToUpdate = { ...posts[2] };
+      postToUpdate.content = 'I am updating this post';
+      const expectedState = { ...state, posts: [postToUpdate, ...posts.slice(0, 2)] };
+      const action = {
+        type: RECEIVED_POST_UPDATE_VIA_WEBSOCKET,
+        payload: postToUpdate,
+      };
+      expect(postReducer(state, action)).toEqual(expectedState);
+    });
+
+    it('returns state for RECEIVED_POST_DELETE_VIA_WEBSOCKET',
+    () => {
+      state = { ...state, posts };
+      const expectedState = { ...state, posts: posts.slice(0, 2) };
+      const action = {
+        type: RECEIVED_POST_DELETE_VIA_WEBSOCKET,
+        payload: posts[2].id,
+      };
+      expect(postReducer(state, action)).toEqual(expectedState);
+    });
   });
 });

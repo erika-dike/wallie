@@ -31,7 +31,6 @@ export default function openWebSocket(mode = 'public') {
       store.dispatch(receiveWebSocketPostDelete(payload.data));
     }
   };
-
   socket.onerror = err => console.log('Error: ', err);
 
   socket.close = () => console.log(`Disconnected from ${mode} post socket`);
