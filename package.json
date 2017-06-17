@@ -20,7 +20,7 @@
     "bootstrap": "^3.3.7",
     "cloudinary": "^1.9.0",
     "enzyme": "^2.8.2",
-    "get-urls": "^7.0.0",
+    "get-urls": "https://github.com/andela-cdike/get-urls/tarball/b421dc8a4dfa6520f801097e0ac040313b5cbaf3",
     "jwt-decode": "^2.2.0",
     "linkifyjs": "^2.1.4",
     "moment": "^2.18.1",
