@@ -11,7 +11,7 @@ const AboutUs = () =>
       </h3>
       <p>
         Wallie is a platform that allows users share short posts with the world.
-        It accepts text, links, videos and images.
+        It accepts text, links, and images.
       </p>
     </div>
   </div>;

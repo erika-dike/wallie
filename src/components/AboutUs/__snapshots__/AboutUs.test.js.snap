@@ -10,7 +10,7 @@ exports[`test renders correctly 1`] = `
       </span>
     </h3>
     <p>
-      Wallie is a platform that allows users share short posts with the world. It accepts text, links, videos and images.
+      Wallie is a platform that allows users share short posts with the world. It accepts text, links, and images.
     </p>
   </div>
 </div>
