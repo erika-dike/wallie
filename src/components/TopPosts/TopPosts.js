@@ -23,7 +23,7 @@ class TopPosts extends React.Component {
 
   open(event) {
     event.preventDefault();
-    const postId = Number(event.target.dataset.id);
+    const postId = Number(event.currentTarget.getAttribute('data-id'));
     const selectedPost = this.props.posts.filter(each => each.id === postId).pop();
     this.setState({ showMessageModal: true, selectedPost });
   }
@@ -38,7 +38,7 @@ class TopPosts extends React.Component {
           onClick={this.open}
         >
           <span className="u-link-complex-target TopPosts-name" dir="ltr">
-            {post.content}
+            <div className="block-with-text">{post.content}</div>
           </span>
           <div className="TopPosts-item-context">
             @{post.author.username}

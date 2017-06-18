@@ -38,24 +38,24 @@ describe('TopPosts component test suite', () => {
   });
 
   it('selects the right post when clicked', () => {
-    let postLink = wrapper.find('a').at(1);
-    postLink.simulate('click', { target: { dataset: { id: props.posts[1].id } } });
+    let postLink = wrapper.find('a').at(1).find('span');
+    postLink.simulate('click');
     expect(wrapper.state('selectedPost')).toEqual(props.posts[1]);
 
-    postLink = wrapper.find('a').first();
-    postLink.simulate('click', { target: { dataset: { id: props.posts[0].id } } });
+    postLink = wrapper.find('a').first().find('span');
+    postLink.simulate('click');
     expect(wrapper.state('selectedPost')).toEqual(props.posts[0]);
   });
 
   it('changes showMessageModal state when post is selected', () => {
-    const postLink = wrapper.find('a').at(1);
-    postLink.simulate('click', { target: { dataset: { id: props.posts[1].id } } });
+    const postLink = wrapper.find('a').at(1).find('span');
+    postLink.simulate('click');
     expect(wrapper.state('showMessageModal')).toBeTruthy();
   });
 
   it('renders MessageModal with the expected props', () => {
-    const postLink = wrapper.find('a').at(1);
-    postLink.simulate('click', { target: { dataset: { id: props.posts[1].id } } });
+    const postLink = wrapper.find('a').at(1).find('span');
+    postLink.simulate('click');
     const messageModal = wrapper.find(MessageModal);
     expect(messageModal.prop('post')).toEqual(props.posts[1]);
     expect(messageModal.prop('close')).toBeDefined();
@@ -64,8 +64,8 @@ describe('TopPosts component test suite', () => {
 
   it('renders renders bootstrap modal when showMessageModal is true', () => {
     expect(wrapper.find(Modal).prop('show')).toBeFalsy();
-    const postLink = wrapper.find('a').at(1);
-    postLink.simulate('click', { target: { dataset: { id: props.posts[1].id } } });
+    const postLink = wrapper.find('a').at(1).find('span');
+    postLink.simulate('click');
     expect(wrapper.find(Modal).prop('show')).toBeTruthy();
   });
 });

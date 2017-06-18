@@ -1,5 +1,7 @@
 @import '../../shared.scss';
 
+$postItemFontSize: 13px;
+
 .TopPosts {
     background-color: #fff;
     background-clip: inherit;
@@ -26,7 +28,7 @@
     }
 
     .TopPosts-item {
-        font-size: 13px;
+        font-size: $postItemFontSize;
         line-height: 13px;
         margin-bottom: 7px;
         word-wrap: break-word;
@@ -76,4 +78,8 @@
 
 .TopPosts-list {
     margin-top: -4px;
+}
+
+.block-with-text {
+  @include multiLineEllipsis($lineHeight: 1.2, $lineCount: 2, $bgColor: white, $fontSize: $postItemFontSize);
 }
