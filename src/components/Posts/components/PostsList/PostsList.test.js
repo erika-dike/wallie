@@ -17,10 +17,12 @@ describe('PostsList component test suite', () => {
     props = {
       addNotification: jest.fn(() => 'addNotification'),
       deletePost: jest.fn(() => 'deletePost'),
+      fetched: false,
       fetchPosts: jest.fn(() => 'fetchPosts'),
       insertPostIntoCreateBox: jest.fn(() => 'insertPostIntoCreateBox'),
       lovePost: jest.fn(() => 'lovePost'),
       next: null,
+      pending: false,
       posts,
       profile,
       unlovePost: jest.fn(() => 'unlovePost'),
@@ -103,6 +105,7 @@ describe('PostsList component test suite', () => {
     beforeEach(() => {
       props = {
         ...props,
+        pending: true,
         posts: [],
       };
       wrapper = mount(<PostsList {...props} />);
@@ -117,6 +120,30 @@ describe('PostsList component test suite', () => {
 
     it('does not render PostItem', () => {
       expect(wrapper.find(PostItem)).toHaveLength(0);
+    });
+  });
+
+  describe('Renders emptyPostsMessage', () => {
+    beforeEach(() => {
+      props = {
+        ...props,
+        pending: false,
+        posts: [],
+      };
+      wrapper = mount(<PostsList {...props} />);
+    });
+
+    it('renders ContentPlaceholder with right props', () => {
+      const contentPlaceholder = wrapper.find('#empty-posts-list-message');
+      expect(contentPlaceholder).toHaveLength(1);
+    });
+
+    it('does not render PostItem', () => {
+      expect(wrapper.find(PostItem)).toHaveLength(0);
+    });
+
+    it('does not render ContentPlaceholder', () => {
+      expect(wrapper.find(ContentPlaceholder)).toHaveLength(0);
     });
   });
 

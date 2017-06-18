@@ -30,11 +30,17 @@ describe('TopPosts component test suite', () => {
 
   it('does not render list when there are no posts', () => {
     wrapper.setProps({ posts: [] });
-    expect(wrapper.find('li')).toHaveLength(0);
+    expect(wrapper.find('li a')).toHaveLength(0);
+  });
+
+  it('renders emptyPostsMessage when there are no posts', () => {
+    wrapper.setProps({ posts: [] });
+    expect(wrapper.find('li').text().toLowerCase()).toContain(
+      'you have not created any posts yet');
   });
 
   it('renders a list for each post passed in', () => {
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li a')).toHaveLength(2);
   });
 
   it('selects the right post when clicked', () => {

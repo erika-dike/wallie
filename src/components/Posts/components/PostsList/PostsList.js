@@ -64,8 +64,10 @@ class PostsList extends React.Component {
   render() {
     const {
       deletePost,
+      fetched,
       insertPostIntoCreateBox,
       lovePost,
+      pending,
       posts,
       profile,
       unlovePost,
@@ -86,6 +88,12 @@ class PostsList extends React.Component {
       );
     }
 
+    const emptyPostsMessage = (
+      <div id="empty-posts-list-message" className="text-center">
+        You have not created any posts yet.
+      </div>
+    );
+
     return (
       <div className="stream-container conversations-enabled">
         <div className="stream">
@@ -93,7 +101,11 @@ class PostsList extends React.Component {
             className="stream-items"
             id="stream-items-id"
           >
-            {posts.length ? mappedPostItems : this.renderContentPlaceholder()}
+            {!posts.length && pending ? this.renderContentPlaceholder() : null}
+
+            {!posts.length && !pending ? emptyPostsMessage : null}
+
+            {posts.length ? mappedPostItems : null}
           </ol>
         </div>
         {this.renderWayPoint()}
@@ -111,10 +123,12 @@ PostsList.defaultProps = {
 PostsList.propTypes = {
   addNotification: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  fetched: PropTypes.bool.isRequired,
   fetchPosts: PropTypes.func.isRequired,
   insertPostIntoCreateBox: PropTypes.func.isRequired,
   lovePost: PropTypes.func.isRequired,
   next: PropTypes.string,
+  pending: PropTypes.bool.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       date_created: PropTypes.string,

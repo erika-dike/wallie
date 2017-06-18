@@ -50,6 +50,12 @@ class TopPosts extends React.Component {
       </li>,
     );
 
+    const emptyPostsMessage = (
+      <li className="TopPosts-item context-TopPosts-container">
+        You have not created any posts yet.
+      </li>
+    );
+
     return (
       <div className="TopPosts">
         <div className="TopPosts-inner">
@@ -59,7 +65,7 @@ class TopPosts extends React.Component {
             </div>
             <div className="flex-module-inner">
               <ul className="TopPosts-items">
-                {this.props.posts ? mappedPosts : null}
+                {this.props.posts.length ? mappedPosts : emptyPostsMessage}
               </ul>
             </div>
           </div>
