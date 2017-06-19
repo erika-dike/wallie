@@ -1,0 +1,24 @@
+@import '../../../../shared.scss';
+
+.stream {
+    position: relative;
+    margin-left: 0;
+    list-style: none;
+
+    ol {
+        padding: 0;
+    }
+}
+
+.stream-container {
+    @extend .stream
+}
+
+.stream-items {
+    @extend .stream;
+    text-align: left;
+}
+
+.post-loader {
+    color: #1b95e0;
+}

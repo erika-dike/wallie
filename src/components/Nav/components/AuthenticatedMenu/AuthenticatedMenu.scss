@@ -1,0 +1,64 @@
+@import '../../../../shared.scss';
+
+
+.right-actions {
+    margin-right: 15px;
+
+    .caret {
+        display: none;
+    }
+
+    .dropdown-toggle {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        padding: 0;
+        margin-top: 8px;
+    }
+}
+
+
+.account-group,
+.account-summary {
+    display: block;
+    line-height: 16px;
+}
+
+.Avatar {
+    display: block;
+    border-radius: 3px;
+}
+
+.Avatar--circle {
+    border-radius: 50%;
+}
+
+.Avatar--size32 {
+    @include square(32px);
+}
+
+img {
+    border: 0;
+}
+
+.account-summary {
+    min-height: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+
+    .content {
+        padding-right: 15px;
+        margin-top: 1px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+.metadata {
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

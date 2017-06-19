@@ -1,0 +1,15 @@
+exports[`test renders correctly 1`] = `
+<div>
+  <div
+    className="overlay" />
+  <span
+    className="spotlight spinner">
+    <i
+      className="fa fa-spinner fa-pulse fa-2x fa-fw" />
+    <span
+      className="sr-only">
+      Loading...
+    </span>
+  </span>
+</div>
+`;

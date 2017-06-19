@@ -3,17 +3,53 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "jest-enzyme": "2.x",
+    "node-sass": "^4.5.2",
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "0.9.5",
+    "redux-devtools": "^3.3.2",
+    "redux-mock-store": "^1.2.3"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "bootstrap": "^3.3.7",
+    "cloudinary": "^1.9.0",
+    "enzyme": "^2.8.2",
+    "get-urls": "https://github.com/andela-cdike/get-urls/tarball/b421dc8a4dfa6520f801097e0ac040313b5cbaf3",
+    "jwt-decode": "^2.2.0",
+    "linkifyjs": "^2.1.4",
+    "moment": "^2.18.1",
+    "pluralize": "^4.0.0",
+    "prop-types": "^15.5.7",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-bootstrap": "^0.30.8",
+    "react-dom": "^15.5.4",
+    "react-notification-system": "0.2.x",
+    "react-redux": "^5.0.4",
+    "react-router-dom": "^4.1.1",
+    "react-test-renderer": "^15.5.4",
+    "react-waypoint": "^7.0.3",
+    "reconnecting-websocket": "^3.0.5",
+    "redux": "^3.6.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm rebuild node-sass && npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint src --cache",
+    "lint:watch": "watch 'npm run lint'"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,0 +1,53 @@
+exports[`ProfileUserFields Component Test Suite Snapshot testing renders correctly 1`] = `
+<div
+  className="Profile-user-fields">
+  <div
+    className="user-fields account-group">
+    <div
+      className="name u-text-truncate text-capitalize">
+      <a
+        className="u-text-inherit-color"
+        href={null}
+        onClick={null}
+        rel="noopener">
+        John Doe
+      </a>
+      <span
+        className="user-badges" />
+    </div>
+    <span
+      className="screenname u-inline-block u-dir"
+      dir="ltr">
+      <a
+        className="screename-link u-link-complex u-link-clean"
+        href={null}
+        onClick={null}
+        rel="noopener">
+        <span
+          className="username u-dir"
+          dir="ltr">
+          @
+          <b
+            className="u-link-complex-target">
+            john_doe
+          </b>
+        </span>
+      </a>
+    </span>
+  </div>
+  <div
+    className="Profile-join-date">
+    <span
+      className="Icon">
+      <i
+        aria-hidden="true"
+        className="fa fa-calendar" />
+    </span>
+    <span
+      className="Profile-join-date-text u-dir">
+      Joined 
+      10th May 2017
+    </span>
+  </div>
+</div>
+`;

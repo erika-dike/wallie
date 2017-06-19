@@ -1,0 +1,23 @@
+.user-fields {
+    position: absolute;
+    top: 103px;
+    left: 79px;
+    width: 129px;
+
+    .name {
+        font-weight: 700;
+        font-size: 1.3em;
+        line-height: 25px;
+        margin: -1px 0 -2px 0;
+    }
+
+    .screenname-link {
+        font-size: 12px;
+        padding-right: 5px;
+        color: #66757f;
+    }
+
+    a {
+        cursor: pointer;
+    }
+}

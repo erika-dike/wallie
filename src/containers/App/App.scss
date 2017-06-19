@@ -1,0 +1,111 @@
+@import '../../shared.scss';
+
+.App {
+    text-align: center;
+}
+
+.overlay-container {
+  position: relative;
+  min-height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  @include square(100%);
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5); /*dim the background*/
+}
+
+.spotlight {
+    position: absolute;
+    z-index: 20;
+}
+
+.fullname {
+    color: #14171a;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+form {
+    .btn {
+        background-image: none;
+    }
+}
+
+.u-captalize {
+  text-transform: capitalize;
+}
+
+li {
+    &:focus {
+        outline: none;
+    }
+
+    * {
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+a {
+    &:focus {
+        outline: none;
+    }
+
+    * {
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.notification-title {
+  text-transform: capitalize;
+}
+
+.fullscreen_errors {
+  background-color: #3a92c8;
+  background: radial-gradient(circle, #6bb1db, #3a92c8);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  .body-content {
+    font: 14px/18px sans-serif;
+    color: #fff;
+    background-color: transparent;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  }
+
+  @mixin fullscreen-errors-shared() {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1 {
+    @include fullscreen-errors-shared();
+    font-size: 40px;
+    font-weight: 200;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+  }
+
+  p {
+    @include fullscreen-errors-shared();
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 25px;
+    color: #e0eff6;
+  }
+
+  a {
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+  }
+}

@@ -1,0 +1,41 @@
+$primary-color: #1b95e0;
+$lighter-primary-color: #1DA1F2;
+
+$primary-border-radius: 6px;
+
+
+@mixin section-title() {
+    color: #66757f;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+@mixin square($size) {
+    height: $size;
+    width: $size;
+}
+
+.selected {
+    color: #1b95e0;
+    border-bottom: 3px solid #1b95e0;
+    transition: border-bottom 0.1s;
+}
+
+.u-box-shadow {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+}
+
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2, $lineCount: 1, $bgColor: white, $fontSize: 13px) {
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-width: 400px;
+  // height: $fontSize * $lineHeight * $lineCount; /* Fallback for non-webkit */
+  margin: 0 auto;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  -webkit-line-clamp: $lineCount;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
